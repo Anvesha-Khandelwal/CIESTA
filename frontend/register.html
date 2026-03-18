@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register — CIESTA 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#faf9f6;--ink:#1a1a1a;--accent:#2563eb;--accent-light:#eff6ff;
+  --muted:#6b7280;--border:#e5e7eb;--card:#ffffff;
+  --ff-display:'Playfair Display',Georgia,serif;
+  --ff-body:'DM Sans','Segoe UI',Helvetica,Arial,sans-serif;
+}
+body{font-family:var(--ff-body);background:var(--cream);color:var(--ink);font-size:15px;line-height:1.7;min-height:100vh;display:flex;flex-direction:column}
+
+/* NAV-STYLE (SIMPLE) */
+.reg-nav{background:var(--card);border-bottom:1px solid var(--border);padding:1rem 2rem}
+.nav-inner{max-width:800px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:var(--ff-display);font-size:20px;font-weight:700;color:var(--ink);text-decoration:none}
+.nav-logo span{color:var(--accent)}
+.back-btn{text-decoration:none;font-size:13px;font-weight:500;color:var(--muted);display:flex;align-items:center;gap:5px}
+.back-btn:hover{color:var(--ink)}
+
+/* FORM CONTAINER */
+.reg-container{max-width:800px;margin:3rem auto;padding:0 2rem;width:100%}
+.reg-header{text-align:center;margin-bottom:3rem}
+.reg-header h1{font-family:var(--ff-display);font-size:36px;font-weight:700;margin-bottom:0.5rem}
+.reg-header p{color:var(--muted);font-size:15px}
+
+.fcard-form{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:2.5rem;box-shadow:0 10px 30px rgba(0,0,0,0.03)}
+.frow{margin-bottom:1.5rem}
+.frow label{display:block;font-size:12px;font-weight:600;color:var(--ink);margin-bottom:8px;letter-spacing:.2px;text-transform:uppercase}
+.frow input,.frow select{width:100%;background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:12px 16px;font-size:14px;font-family:var(--ff-body);color:var(--ink);outline:none;transition:all 0.2s}
+.frow input:focus,.frow select:focus{border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px var(--accent-light)}
+.frow select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
+.frow2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.sbtn{width:100%;background:var(--ink);color:#fff;border:none;padding:16px;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;font-family:var(--ff-body);margin-top:0.5rem;transition:background 0.2s}
+.sbtn:hover{background:#333}
+.sbtn:disabled{background:#9ca3af;cursor:not-allowed}
+.fok{display:none;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:1.25rem;text-align:center;font-size:15px;color:#15803d;margin-top:1.5rem;font-weight:500}
+.ferr{display:none;background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:1rem;text-align:center;font-size:14px;color:#dc2626;margin-top:1rem}
+
+@media(max-width:600px){
+  .frow2{grid-template-columns:1fr}
+  .reg-container{margin:1.5rem auto}
+  .fcard-form{padding:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<nav class="reg-nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">CIESTA <span>4.0</span></a>
+    <a href="index.html" class="back-btn">← Back to Home</a>
+  </div>
+</nav>
+
+<div class="reg-container">
+  <div class="reg-header">
+    <h1>Event Registration</h1>
+    <p>Join the 17th edition of North Karnataka's biggest tech fest.</p>
+  </div>
+
+  <div class="fcard-form">
+    <div class="frow2">
+      <div class="frow"><label>First Name *</label><input type="text" id="f-fname" placeholder="Arjun"></div>
+      <div class="frow"><label>Last Name *</label><input type="text" id="f-lname" placeholder="Sharma"></div>
+    </div>
+    <div class="frow"><label>USN / Roll Number *</label><input type="text" id="f-usn" placeholder="1DS21CS001"></div>
+    <div class="frow"><label>College / Institution *</label><input type="text" id="f-college" placeholder="Dayananda Sagar College of Engineering"></div>
+    <div class="frow"><label>Email Address *</label><input type="email" id="f-email" placeholder="arjun@example.com"></div>
+    <div class="frow2">
+      <div class="frow"><label>Phone *</label><input type="tel" id="f-phone" placeholder="9XXXXXXXXX" maxlength="10"></div>
+      <div class="frow"><label>Year of Study *</label>
+        <select id="f-year"><option value="">Select year</option><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option></select>
+      </div>
+    </div>
+    <div class="frow"><label>Event *</label>
+      <select id="f-event">
+        <option value="">Choose an event</option>
+        <option>Hackathon</option>
+        <option>Code Sprint</option>
+        <option>AI Challenge</option>
+        <option>Tech Quiz</option>
+        <option>Paper Presentation</option>
+        <option>Debugging Wars</option>
+        <option>Web Design Blitz</option>
+        <option>Jamming</option>
+        <option>Fashion Walk for Faculty</option>
+        <option>Treasure Hunt</option>
+      </select>
+    </div>
+    <div class="frow"><label>Team Name (optional)</label><input type="text" id="f-team" placeholder="Leave blank for individual events"></div>
+    <button class="sbtn" id="sbtn" onclick="handleReg()">Confirm Registration</button>
+    <div class="fok" id="fok">✓ You're registered for CIESTA 2026! We've sent a confirmation to your email.</div>
+    <div class="ferr" id="ferr">Please fill in all required fields marked with *</div>
+  </div>
+</div>
+
+<script>
+// PRE-FILL EVENT FROM URL
+window.onload = function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const event = urlParams.get('event');
+  if (event) {
+    const select = document.getElementById('f-event');
+    select.value = event;
+  }
+};
+
+async function handleReg(){
+  var fname=document.getElementById("f-fname").value.trim();
+  var lname=document.getElementById("f-lname").value.trim();
+  var usn=document.getElementById("f-usn").value.trim();
+  var college=document.getElementById("f-college").value.trim();
+  var email=document.getElementById("f-email").value.trim();
+  var phone=document.getElementById("f-phone").value.trim();
+  var year=document.getElementById("f-year").value;
+  var event=document.getElementById("f-event").value;
+  var team=document.getElementById("f-team").value.trim();
+  var btn=document.getElementById("sbtn");
+  var fok=document.getElementById("fok");
+  var ferr=document.getElementById("ferr");
+
+  ferr.style.display="none";
+  fok.style.display="none";
+
+  if(!fname||!lname||!usn||!college||!email||!phone||!year||!event){
+    ferr.style.display="block";
+    ferr.textContent = "Please fill in all required fields marked with *";
+    return;
+  }
+
+  btn.textContent="Processing...";
+  btn.disabled=true;
+
+  var now=new Date();
+  var t=now.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"});
+  
+  try {
+    const response = await fetch('/api/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: fname + " " + lname,
+        usn: usn,
+        college: college,
+        email: email,
+        phone: phone,
+        year: year,
+        event: event,
+        team: team || "—",
+        time: t
+      })
+    });
+
+    if (response.ok) {
+      btn.textContent="✓ Registered!";
+      fok.style.display="block";
+      ["f-fname","f-lname","f-usn","f-college","f-email","f-phone","f-team"].forEach(function(id){document.getElementById(id).value="";});
+      document.getElementById("f-year").value="";
+      document.getElementById("f-event").value="";
+      setTimeout(() => {
+        window.location.href = "index.html#events";
+      }, 3000);
+    } else {
+      const errData = await response.json();
+      ferr.textContent = errData.error || "Registration failed.";
+      ferr.style.display = "block";
+      btn.textContent="Confirm Registration";
+      btn.disabled=false;
+    }
+  } catch (err) {
+    console.error(err);
+    ferr.textContent = "Server error. Please try again later.";
+    ferr.style.display = "block";
+    btn.textContent="Confirm Registration";
+    btn.disabled=false;
+  }
+}
+</script>
+</body>
+</html>

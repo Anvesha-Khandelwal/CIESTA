@@ -40,7 +40,7 @@ app.get('/api/participants', (req, res) => {
 });
 
 app.post('/api/register', (req, res) => {
-    const { name, usn, college, event, team, year, time } = req.body;
+    const { name, usn, college, event, team, year, time, email, phone } = req.body;
     
     if (!name || !usn || !college || !event || !year || !time) {
         res.status(400).json({ error: 'Missing required fields' });
@@ -55,6 +55,18 @@ app.post('/api/register', (req, res) => {
             res.status(500).json({ error: err.message });
             return;
         }
+
+        // Log to text file
+        const fs = require('fs');
+        const logPath = path.join(__dirname, 'registrations.txt');
+        const logEntry = `${new Date().toISOString()} | ${name} | ${usn} | ${college} | ${event} | ${team || 'N/A'} | ${year} | ${email || 'N/A'} | ${phone || 'N/A'}\n`;
+        
+        fs.appendFile(logPath, logEntry, (fsErr) => {
+            if (fsErr) {
+                console.error('Error writing to registrations.txt:', fsErr);
+            }
+        });
+
         res.status(201).json({ 
             id: this.lastID,
             name, usn, college, event, team, year, time 

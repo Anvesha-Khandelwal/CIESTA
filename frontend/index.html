@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CIESTA 2026 — Dayananda Sagar College of Engineering</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500;700&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --cream:#faf9f6;--ink:#1a1a1a;--accent:#2563eb;--accent-light:#eff6ff;
@@ -30,172 +30,126 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,249,246,0.97);border-b
 .hamburger span{display:block;width:22px;height:2px;background:var(--ink)}
 
 /* HERO */
-.hero{max-width:1100px;margin:0 auto;padding:7rem 2rem 5rem;display:grid;grid-template-columns:1.1fr 0.9fr;gap:5rem;align-items:center}
-.hero-eyebrow{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:1rem}
-.hero-title{font-family:var(--ff-display);font-size:clamp(42px,5vw,72px);line-height:1.05;font-weight:700;letter-spacing:-1.5px;margin-bottom:1.5rem}
+.hero{position:relative;max-width:1100px;margin:0 auto;padding:10rem 2rem 8rem;display:grid;grid-template-columns:1.1fr 0.9fr;gap:5rem;align-items:center;z-index:1;min-height:80vh}
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  background: var(--ink);
+}
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.6) 100%);
+  z-index: 1;
+}
+.hero-bg div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+  transform: scale(1.1);
+}
+.hero-bg div.active {
+  opacity: 0.8;
+  animation: kenburns 20s infinite alternate;
+}
+@keyframes kenburns {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.15); }
+}
+
+.hero-eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color: var(--accent); font-weight:700;margin-bottom:1.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.3);}
+.hero-title{font-family:var(--ff-display);font-size:clamp(48px,6vw,84px);line-height:1;font-weight:700;letter-spacing:-2px;margin-bottom:2rem; color: #fff; text-shadow: 0 10px 30px rgba(0,0,0,0.5);}
 .hero-title em{font-style:italic;color:var(--accent)}
-.hero-sub{font-size:16px;color:var(--muted);font-weight:300;line-height:1.85;margin-bottom:1.75rem;max-width:480px}
-.hero-date{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--ink);background:var(--card);border:1px solid var(--border);padding:9px 18px;border-radius:100px}
-.hero-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;flex-shrink:0}
-.hero-cta{margin-top:1.75rem;display:flex;gap:12px;flex-wrap:wrap}
-.btn-primary{background:var(--ink);color:#fff;border:none;padding:13px 28px;border-radius:7px;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--ff-body);text-decoration:none;display:inline-block}
-.btn-primary:hover{background:#333}
-.btn-outline{background:transparent;color:var(--ink);border:1px solid var(--border);padding:13px 28px;border-radius:7px;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--ff-body);text-decoration:none;display:inline-block}
-.btn-outline:hover{border-color:var(--ink)}
-.hero-badges{margin-top:1.5rem;display:flex;gap:.5rem;flex-wrap:wrap}
-.hbadge{font-size:11px;font-weight:500;padding:5px 12px;border-radius:100px;background:var(--accent-light);color:var(--accent)}
+.hero-sub{font-size:18px;color:rgba(255,255,255,0.9);font-weight:400;line-height:1.6;margin-bottom:2.5rem;max-width:520px; text-shadow: 0 2px 10px rgba(0,0,0,0.3);}
+.hero-date{display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color: #fff; background:rgba(255,255,255,0.1); backdrop-filter: blur(10px); border:1px solid rgba(255,255,255,0.2);padding:10px 22px;border-radius:100px}
+.hero-dot{width:10px;height:10px;border-radius:50%;background:#22c55e;box-shadow: 0 0 10px #22c55e}
+.hero-cta{margin-top:2.5rem;display:flex;gap:15px;flex-wrap:wrap}
+.btn-hero-primary{background:var(--accent);color:#fff;border:none;padding:16px 36px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--ff-body);text-decoration:none;display:inline-block; transition: transform 0.2s, background 0.2s}
+.btn-hero-primary:hover{background:#1d4ed8; transform: translateY(-2px)}
+.btn-hero-outline{background:rgba(255,255,255,0.1); color:#fff; border:1px solid rgba(255,255,255,0.3); backdrop-filter: blur(5px); padding:16px 36px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--ff-body);text-decoration:none;display:inline-block; transition: background 0.2s}
+.btn-hero-outline:hover{background:rgba(255,255,255,0.2); border-color: #fff}
+
+.hero-badges{margin-top:2rem;display:flex;gap:10px;flex-wrap:wrap}
+.hbadge{font-size:12px;font-weight:600;padding:6px 14px;border-radius:100px;background:rgba(37,99,235,0.2); color:#93c5fd; border: 1px solid rgba(37,99,235,0.3)}
 
 /* COUNTDOWN */
-.cd-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2.25rem;display:grid;grid-template-columns:repeat(4,1fr);gap:0;text-align:center}
-.cd-unit{display:flex;flex-direction:column;gap:6px;padding:0 .4rem;position:relative}
-.cd-unit:not(:last-child)::after{content:':';position:absolute;right:-4px;top:2px;font-size:28px;color:#d1d5db;font-family:var(--ff-display);line-height:1}
-.cd-num{font-family:var(--ff-display);font-size:42px;font-weight:700;line-height:1;color:var(--ink)}
-.cd-lbl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:500}
-.cd-cap{text-align:center;font-size:12px;color:var(--muted);margin-top:.9rem;letter-spacing:.5px}
+.cd-box{background:rgba(255,255,255,0.05); backdrop-filter: blur(15px); border:1px solid rgba(255,255,255,0.1); border-radius:24px;padding:3rem;display:grid;grid-template-columns:repeat(4,1fr);gap:0;text-align:center; color: #fff}
+.cd-unit{display:flex;flex-direction:column;gap:8px;padding:0 .5rem;position:relative}
+.cd-unit:not(:last-child)::after{content:':';position:absolute;right:-4px;top:2px;font-size:32px;color:rgba(255,255,255,0.3);font-family:var(--ff-display);line-height:1}
+.cd-num{font-family:var(--ff-display);font-size:48px;font-weight:700;line-height:1;color:#fff}
+.cd-lbl{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.6);font-weight:700}
+.cd-cap{text-align:center;font-size:13px;color:rgba(255,255,255,0.5);margin-top:1.2rem;letter-spacing:1px}
 
 /* DIVIDER */
 .hdivider{border:none;border-top:1px solid var(--border);max-width:1100px;margin:0 auto}
 
 /* SECTIONS */
-section{max-width:1100px;margin:0 auto;padding:5.5rem 2rem}
-.stag{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:.75rem}
-.stitle{font-family:var(--ff-display);font-size:clamp(28px,3.5vw,44px);font-weight:700;letter-spacing:-1px;line-height:1.08;margin-bottom:1rem}
-.sbody{font-size:15px;color:var(--muted);line-height:1.9;max-width:640px}
+section{max-width:1100px;margin:0 auto;padding:6rem 2rem}
+.stag{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:.75rem}
+.stitle{font-family:var(--ff-display);font-size:clamp(32px,4vw,48px);font-weight:700;letter-spacing:-1.5px;line-height:1.1;margin-bottom:1.25rem}
+.sbody{font-size:16px;color:var(--muted);line-height:1.8;max-width:680px}
 
 /* ABOUT */
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4.5rem;align-items:center;margin-top:3rem}
-.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
-.stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.25rem}
-.stat-num{font-family:var(--ff-display);font-size:34px;font-weight:700;color:var(--ink)}
-.stat-lbl{font-size:12px;color:var(--muted);margin-top:3px}
-.about-vis{background:#eff6ff;border-radius:16px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;border:1px solid #dbeafe}
-.about-vis-inner{text-align:center}
-.about-vis-inner .big{font-size:72px;line-height:1}
-.about-vis-inner p{font-size:12px;color:var(--accent);font-weight:500;margin-top:10px;letter-spacing:1.5px;text-transform:uppercase}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:4rem}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.5rem}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem}
+.stat-num{font-family:var(--ff-display);font-size:38px;font-weight:700;color:var(--ink)}
+.stat-lbl{font-size:12px;color:var(--muted);margin-top:4px; font-weight: 500}
 
 /* EVENTS */
-.evt-filters{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:2rem;margin-bottom:1.5rem}
-.fb{font-size:12px;font-weight:500;padding:7px 16px;border-radius:100px;border:1px solid var(--border);background:transparent;cursor:pointer;color:var(--muted);font-family:var(--ff-body)}
-.fb.active,.fb:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
-.evt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
-.ecard{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.6rem;position:relative;overflow:hidden;transition:transform .15s,border-color .2s}
-.ecard::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--ec-accent,#2563eb)}
-.ecard:hover{transform:translateY(-3px);border-color:rgba(37,99,235,.35)}
-.ebadge{display:inline-block;font-size:11px;font-weight:500;padding:4px 11px;border-radius:100px;margin-bottom:1rem}
-.ename{font-family:var(--ff-display);font-size:22px;font-weight:700;margin-bottom:.5rem;letter-spacing:-.3px}
-.edesc{font-size:13px;color:var(--muted);line-height:1.75;margin-bottom:1rem}
-.emeta{display:flex;gap:.9rem;flex-wrap:wrap}
-.emeta span{font-size:12px;color:var(--muted);font-weight:500}
-.eprize{font-size:13px;font-weight:500;color:var(--ink);margin-top:.9rem;padding-top:.9rem;border-top:1px solid var(--border)}
-
-/* SCHEDULE */
-.sch-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:3rem}
-.day-h{font-family:var(--ff-display);font-size:20px;font-weight:700;margin-bottom:1.5rem;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.dpill{font-size:11px;font-weight:500;padding:3px 12px;border-radius:100px;background:var(--accent-light);color:var(--accent);font-family:var(--ff-body)}
-.tline{display:flex;flex-direction:column}
-.ti{display:flex;gap:12px;padding-bottom:1.25rem;position:relative}
-.ti:not(:last-child)::after{content:'';position:absolute;left:17px;top:28px;bottom:0;width:1px;background:var(--border)}
-.tdot{width:10px;height:10px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:5px;border:2px solid #dbeafe;z-index:1;position:relative}
-.ttime{font-size:11px;font-weight:500;color:var(--accent);white-space:nowrap;min-width:64px;padding-top:3px}
-.ttitle{font-size:14px;font-weight:500;color:var(--ink)}
-.tsub{font-size:12px;color:var(--muted)}
-.tbadge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:100px;font-weight:500;margin-top:4px}
-
-/* FACULTY */
-.fac-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1.5rem;margin-top:3rem}
-.fcard{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-align:center;transition:transform .15s,border-color .2s}
-.fcard:hover{transform:translateY(-2px);border-color:rgba(37,99,235,.3)}
-.favatar{width:64px;height:64px;border-radius:50%;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-family:var(--ff-display);font-size:22px;font-weight:700}
-.fname{font-size:15px;font-weight:500;margin-bottom:3px}
-.frole{font-size:12px;color:var(--accent);font-weight:500;margin-bottom:3px}
-.fdept{font-size:12px;color:var(--muted)}
-
-/* SPONSORS */
-.sponsors-section{background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.sinner{max-width:1100px;margin:0 auto;padding:4.5rem 2rem}
-.stiers{display:flex;flex-direction:column;gap:2.5rem;margin-top:2.5rem}
-.stier-lbl{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:1rem}
-.srow{display:flex;flex-wrap:wrap;gap:1rem;align-items:center}
-.slogo{background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:.9rem 1.75rem;font-size:13px;font-weight:500;color:var(--ink);transition:border-color .2s;white-space:nowrap}
-.slogo:hover{border-color:var(--accent)}
-.slogo.gold{padding:1.1rem 2.25rem;font-size:15px;font-weight:700;border-color:#f59e0b;color:#92400e;background:#fffbeb}
-.slogo.silver{font-size:14px;font-weight:500}
-
-/* REGISTRATION */
-.reg-wrap{display:grid;grid-template-columns:1fr 1.25fr;gap:4.5rem;align-items:start;margin-top:3.5rem}
-.rsteps{display:flex;flex-direction:column;gap:1.25rem;margin-top:1.5rem}
-.rstep{display:flex;gap:12px;align-items:flex-start}
-.rsnum{width:30px;height:30px;border-radius:50%;background:var(--accent-light);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;color:var(--accent);font-weight:700}
-.rstext p:first-child{font-size:14px;font-weight:500}
-.rstext p:last-child{font-size:12px;color:var(--muted)}
-.fcard-form{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:2.25rem}
-.frow{margin-bottom:1.25rem}
-.frow label{display:block;font-size:12px;font-weight:500;color:var(--ink);margin-bottom:6px;letter-spacing:.2px}
-.frow input,.frow select{width:100%;background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:11px 14px;font-size:14px;font-family:var(--ff-body);color:var(--ink);outline:none;transition:border-color .2s}
-.frow input:focus,.frow select:focus{border-color:var(--accent);background:#fff}
-.frow select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
-.frow2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.sbtn{width:100%;background:var(--ink);color:#fff;border:none;padding:14px;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;font-family:var(--ff-body);margin-top:.25rem}
-.sbtn:hover{background:#333}
-.sbtn:disabled{background:#9ca3af;cursor:not-allowed}
-.fok{display:none;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:1rem;text-align:center;font-size:14px;color:#15803d;margin-top:1rem;font-weight:500}
-.ferr{display:none;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:.75rem 1rem;text-align:center;font-size:13px;color:#dc2626;margin-top:.75rem}
-.cinfo{margin-top:2rem;background:var(--accent-light);border-radius:12px;padding:1.25rem;border:1px solid #bfdbfe}
-.cinfo p{font-size:13px;color:var(--muted);margin-top:3px}
-
-/* TABLE */
-.tbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.75rem}
-.tsearch{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:9px 14px;font-size:13px;font-family:var(--ff-body);color:var(--ink);outline:none;width:240px}
-.tsearch:focus{border-color:var(--accent)}
-.tcnt{font-size:13px;color:var(--muted);background:var(--card);border:1px solid var(--border);padding:5px 14px;border-radius:100px}
-.twrap{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden}
-.tscroll{overflow-x:auto}
-table.ptbl{width:100%;border-collapse:collapse;font-size:13px}
-table.ptbl th{text-align:left;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-weight:500;padding:13px 14px;border-bottom:1px solid var(--border);background:var(--cream);white-space:nowrap}
-table.ptbl td{padding:13px 14px;border-bottom:1px solid var(--border);color:var(--ink);vertical-align:middle}
-table.ptbl tbody tr:last-child td{border-bottom:none}
-table.ptbl tbody tr:hover td{background:#f9fafb}
-.pill{display:inline-block;font-size:11px;padding:3px 10px;border-radius:100px;font-weight:500;white-space:nowrap}
-.pb{background:#dbeafe;color:#1e40af}
-.pg{background:#dcfce7;color:#15803d}
-.pa{background:#fef3c7;color:#92400e}
-.pp{background:#fce7f3;color:#9d174d}
-.pi{background:#e0e7ff;color:#3730a3}
-.pt{background:#d1fae5;color:#065f46}
-.empty{text-align:center;padding:3.5rem;color:var(--muted);font-size:14px}
+.evt-filters{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:2.5rem;margin-bottom:2rem}
+.fb{font-size:13px;font-weight:600;padding:8px 20px;border-radius:100px;border:1px solid var(--border);background:var(--card);cursor:pointer;color:var(--muted);font-family:var(--ff-body); transition: all 0.2s}
+.fb.active,.fb:hover{background:var(--ink);color:#fff;border-color:var(--ink); transform: translateY(-1px)}
+.evt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2rem}
+.ecard{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2rem;position:relative;overflow:hidden;transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1)}
+.ecard::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:var(--ec-accent,#2563eb)}
+.ecard:hover{transform:translateY(-8px);border-color:rgba(37,99,235,.4); box-shadow: 0 20px 40px rgba(0,0,0,0.05)}
+.ebadge{display:inline-block;font-size:11px;font-weight:700;padding:5px 12px;border-radius:100px;margin-bottom:1.25rem; text-transform: uppercase; letter-spacing: 0.5px}
+.ename{font-family:var(--ff-display);font-size:26px;font-weight:700;margin-bottom:.75rem;letter-spacing:-.5px}
+.edesc{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:1.5rem}
+.emeta{display:flex;gap:1.2rem;flex-wrap:wrap; margin-bottom: 1.25rem}
+.emeta span{font-size:13px;color:var(--muted);font-weight:600; display:flex; align-items:center; gap:6px}
+.eprize{font-size:14px;font-weight:600;color:var(--ink);margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center}
 
 /* FOOTER */
 footer{background:var(--ink);color:#fff}
-.ftop{max-width:1100px;margin:0 auto;padding:4rem 2rem;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:3rem}
-.flogo{font-family:var(--ff-display);font-size:22px;font-weight:700}
+.ftop{max-width:1100px;margin:0 auto;padding:5rem 2rem;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:4rem}
+.flogo{font-family:var(--ff-display);font-size:24px;font-weight:700}
 .flogo span{color:#93c5fd}
-.fcol h4{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#6b7280;font-weight:500;margin-bottom:1rem}
+.fcol h4{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#6b7280;font-weight:700;margin-bottom:1.5rem}
 .fcol ul{list-style:none}
-.fcol ul li{margin-bottom:.6rem;font-size:13px;color:#d1d5db}
-.fcol ul li a{color:#d1d5db;text-decoration:none}
+.fcol ul li{margin-bottom:.8rem;font-size:14px;color:#d1d5db}
+.fcol ul li a{color:#d1d5db;text-decoration:none; transition: color 0.2s}
 .fcol ul li a:hover{color:#fff}
-.fbot{border-top:1px solid #374151;padding:1.5rem 2rem;max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
-.fbot p{font-size:12px;color:#6b7280}
+.fbot{border-top:1px solid #374151;padding:2rem;max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.fbot p{font-size:13px;color:#6b7280}
 
 /* RESPONSIVE */
 @media(max-width:900px){
-  .hero,.about-grid,.reg-wrap{grid-template-columns:1fr;gap:2.5rem}
-  .sch-grid{grid-template-columns:1fr}
+  .hero{grid-template-columns:1fr; padding-top: 6rem; text-align:center; min-height: auto}
+  .hero-sub{margin-left:auto; margin-right:auto}
+  .hero-cta{justify-content:center}
+  .hero-badges{justify-content:center}
+  .about-grid{grid-template-columns:1fr;gap:3rem}
   .ftop{grid-template-columns:1fr 1fr}
-  .hero{padding:4rem 1.5rem 3rem}
 }
 @media(max-width:600px){
   .nav-links{display:none}
   .hamburger{display:flex}
-  .cd-box{grid-template-columns:repeat(2,1fr)}
-  .cd-unit:nth-child(2)::after{display:none}
-  section{padding:3.5rem 1.25rem}
-  .sinner{padding:3.5rem 1.25rem}
-  .frow2{grid-template-columns:1fr}
-  .stat-row{grid-template-columns:1fr 1fr}
-  .ftop{grid-template-columns:1fr}
-  .tsearch{width:100%}
-  .tbar{flex-direction:column;align-items:flex-start}
+  .cd-box{grid-template-columns:repeat(2,1fr); padding: 1.5rem}
+  .cd-num{font-size: 32px}
+  section{padding:4rem 1.5rem}
+  .पटॉप{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -211,50 +165,50 @@ footer{background:var(--ink);color:#fff}
       <li><a href="#schedule">Schedule</a></li>
       <li><a href="#faculty">Team</a></li>
       <li><a href="#sponsors">Sponsors</a></li>
-      <li><a href="#register" class="nav-cta">Register</a></li>
+      <li><a href="register.html" class="nav-cta">Register Now</a></li>
     </ul>
     <button class="hamburger" onclick="document.getElementById('mmenu').style.display=document.getElementById('mmenu').style.display==='none'?'block':'none'">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
-<div id="mmenu" style="display:none;background:var(--card);border-bottom:1px solid var(--border);padding:1rem 2rem">
-  <ul style="list-style:none;display:flex;flex-direction:column;gap:1rem">
-    <li><a href="#about" style="font-size:14px;font-weight:500;color:var(--muted);text-decoration:none" onclick="document.getElementById('mmenu').style.display='none'">About</a></li>
-    <li><a href="#events" style="font-size:14px;font-weight:500;color:var(--muted);text-decoration:none" onclick="document.getElementById('mmenu').style.display='none'">Events</a></li>
-    <li><a href="#schedule" style="font-size:14px;font-weight:500;color:var(--muted);text-decoration:none" onclick="document.getElementById('mmenu').style.display='none'">Schedule</a></li>
-    <li><a href="#faculty" style="font-size:14px;font-weight:500;color:var(--muted);text-decoration:none" onclick="document.getElementById('mmenu').style.display='none'">Team</a></li>
-    <li><a href="#sponsors" style="font-size:14px;font-weight:500;color:var(--muted);text-decoration:none" onclick="document.getElementById('mmenu').style.display='none'">Sponsors</a></li>
-    <li><a href="#register" style="font-size:14px;font-weight:500;color:var(--accent);text-decoration:none" onclick="document.getElementById('mmenu').style.display='none'">Register →</a></li>
+<div id="mmenu" style="display:none;background:var(--card);border-bottom:1px solid var(--border);padding:1.5rem 2rem">
+  <ul style="list-style:none;display:flex;flex-direction:column;gap:1.25rem">
+    <li><a href="#about" style="font-size:15px;font-weight:600;color:var(--muted);text-decoration:none" onclick="document.getElementById('mmenu').style.display='none'">About</a></li>
+    <li><a href="#events" style="font-size:15px;font-weight:600;color:var(--muted);text-decoration:none" onclick="document.getElementById('mmenu').style.display='none'">Events</a></li>
+    <li><a href="#schedule" style="font-size:15px;font-weight:600;color:var(--muted);text-decoration:none" onclick="document.getElementById('mmenu').style.display='none'">Schedule</a></li>
+    <li><a href="#faculty" style="font-size:15px;font-weight:600;color:var(--muted);text-decoration:none" onclick="document.getElementById('mmenu').style.display='none'">Team</a></li>
+    <li><a href="#sponsors" style="font-size:15px;font-weight:600;color:var(--muted);text-decoration:none" onclick="document.getElementById('mmenu').style.display='none'">Sponsors</a></li>
+    <li><a href="register.html" style="font-size:15px;font-weight:600;color:var(--accent);text-decoration:none" onclick="document.getElementById('mmenu').style.display='none'">Register Now →</a></li>
   </ul>
 </div>
 
 <!-- HERO -->
 <div class="hero">
-  <div>
-    <p class="hero-eyebrow">Dayananda Sagar College of Engineering &mdash; CS Department</p>
+  <div class="hero-bg" id="hero-bg"></div>
+  <div style="z-index: 2;">
+    <p class="hero-eyebrow">Dayananda Sagar College of Engineering</p>
     <h1 class="hero-title">Where code<br>meets <em>creativity.</em></h1>
-    <p class="hero-sub">CIESTA is DSCE's flagship annual computer science extravaganza — a celebration of technology, talent, and innovation that brings together the brightest engineering minds from across Karnataka.</p>
+    <p class="hero-sub">CIESTA is DSCE's flagship annual computer science extravaganza — a celebration of technology, talent, and innovation.</p>
     <div class="hero-date"><span class="hero-dot"></span>&nbsp; April 9–11, 2026 &nbsp;&middot;&nbsp; DSCE Campus, Bangalore</div>
     <div class="hero-cta">
-      <a href="#register" class="btn-primary">Register Now</a>
-      <a href="#events" class="btn-outline">Explore Events</a>
+      <a href="register.html" class="btn-hero-primary">Get Your Pass</a>
+      <a href="#events" class="btn-hero-outline">Explore Events</a>
     </div>
     <div class="hero-badges">
-      <span class="hbadge">7 Events</span>
-      <span class="hbadge">&#8377;55,000+ Prize Pool</span>
-      <span class="hbadge">2 Days</span>
-      <span class="hbadge">Open to All Colleges</span>
+      <span class="hbadge">10+ Events</span>
+      <span class="hbadge">&#8377;75K+ Rewards</span>
+      <span class="hbadge">Cultural Night</span>
     </div>
   </div>
-  <div>
+  <div style="z-index: 2;">
     <div class="cd-box">
       <div class="cd-unit"><span class="cd-num" id="cd-d">00</span><span class="cd-lbl">Days</span></div>
       <div class="cd-unit"><span class="cd-num" id="cd-h">00</span><span class="cd-lbl">Hours</span></div>
       <div class="cd-unit"><span class="cd-num" id="cd-m">00</span><span class="cd-lbl">Mins</span></div>
       <div class="cd-unit"><span class="cd-num" id="cd-s">00</span><span class="cd-lbl">Secs</span></div>
     </div>
-    <p class="cd-cap">Countdown to CIESTA 2026 &bull; Apr 9, 9:00 AM IST</p>
+    <p class="cd-cap">Countdown to CIESTA 2026</p>
   </div>
 </div>
 
@@ -262,43 +216,20 @@ footer{background:var(--ink);color:#fff}
 
 <!-- ABOUT -->
 <section id="about">
-  <p class="stag">Our Story</p>
-  <h2 class="stitle">A legacy of<br>innovation since 2008.</h2>
+  <p class="stag">Our Legacy</p>
+  <h2 class="stitle">Pioneering Tech Culture<br>Since 2008.</h2>
   <div class="about-grid">
     <div>
-      <p class="sbody">CIESTA — the <strong>Computer and Information Science Engineering Technical Association</strong> — was founded in 2008 by the Department of Computer Science at Dayananda Sagar College of Engineering, Bangalore. What began as a modest inter-department tech quiz has grown into one of Bangalore's most anticipated college tech fests.</p>
-      <p class="sbody" style="margin-top:1rem">Each year, CIESTA unites engineering students from across Karnataka to compete, collaborate, and celebrate the world of computing — from AI hackathons and algorithm sprints to paper presentations and creative coding challenges.</p>
-      <p class="sbody" style="margin-top:1rem">CIESTA 2026 marks the <strong>17th edition</strong> of this celebrated tradition — bigger, bolder, and more competitive than ever before.</p>
+      <p class="sbody">Founded by the Department of Computer Science & Engineering, CIESTA has evolved into one of Bangalore's most anticipated collegiate technical festivals. We bridge the gap between classroom theory and industry practice through competitive excellence.</p>
       <div class="stat-row">
-        <div class="stat-card"><div class="stat-num">17+</div><div class="stat-lbl">Years Running</div></div>
-        <div class="stat-card"><div class="stat-num">2K+</div><div class="stat-lbl">Participants</div></div>
-        <div class="stat-card"><div class="stat-num">30+</div><div class="stat-lbl">Colleges</div></div>
+        <div class="stat-card"><div class="stat-num">17+</div><div class="stat-lbl">Editions</div></div>
+        <div class="stat-card"><div class="stat-num">3K+</div><div class="stat-lbl">Footfall</div></div>
+        <div class="stat-card"><div class="stat-num">Award</div><div class="stat-lbl">Winning Org</div></div>
       </div>
     </div>
-    <div class="about-vis">
-      <div class="about-vis-inner">
-        <div class="big">&#128187;</div>
-        <p>Est. 2008</p>
-        <p style="font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:.5px;font-family:var(--ff-body)">DSCE &middot; Bangalore</p>
-      </div>
+    <div style="background:#eff6ff;border-radius:24px;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;border:1px solid #dbeafe; overflow:hidden">
+        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80" alt="Innovation" style="width:100%;height:100%;object-fit:cover;">
     </div>
-  </div>
-</section>
-
-<hr class="hdivider">
-
-
-
-<!-- PHOTO DUMP -->
-<section id="photodump">
-  <p class="stag">Memories</p>
-  <h2 class="stitle">Photo Dump from Last Event</h2>
-  <p class="sbody" style="margin-bottom: 2rem">A glimpse into the energy and excitement of CIESTA's previous edition.</p>
-  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1rem;">
-    <div style="background:#e5e7eb;border-radius:12px;overflow:hidden;aspect-ratio:4/3;"><img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80" alt="Audience" style="width:100%;height:100%;object-fit:cover;"></div>
-    <div style="background:#e5e7eb;border-radius:12px;overflow:hidden;aspect-ratio:4/3;"><img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=600&q=80" alt="Hackathon" style="width:100%;height:100%;object-fit:cover;"></div>
-    <div style="background:#e5e7eb;border-radius:12px;overflow:hidden;aspect-ratio:4/3;"><img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&q=80" alt="Tech Setup" style="width:100%;height:100%;object-fit:cover;"></div>
-    <div style="background:#e5e7eb;border-radius:12px;overflow:hidden;aspect-ratio:4/3;"><img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80" alt="Team" style="width:100%;height:100%;object-fit:cover;"></div>
   </div>
 </section>
 
@@ -306,240 +237,80 @@ footer{background:var(--ink);color:#fff}
 
 <!-- EVENTS -->
 <section id="events">
-  <p class="stag">What's Happening</p>
-  <h2 class="stitle">Compete. Create. Connect.</h2>
-  <p class="sbody">Seven curated events across two action-packed days. Something for every kind of thinker.</p>
+  <p class="stag">Competitions</p>
+  <h2 class="stitle">Battle of Minds & Talents.</h2>
+  <p class="sbody">From high-intensity hackathons to graceful fashion walks. Choose your arena.</p>
   <div class="evt-filters" id="evt-filters"></div>
   <div class="evt-grid" id="evt-grid"></div>
 </section>
 
-<hr class="hdivider">
-
-<!-- SCHEDULE -->
-<section id="schedule">
-  <p class="stag">Two Days. Full Throttle.</p>
-  <h2 class="stitle">Event Schedule</h2>
-  <p class="sbody">Mark your calendar and plan your participation. All events held at DSCE Main Campus.</p>
-  <div class="sch-grid">
-    <div>
-      <div class="day-h">Day 1 <span class="dpill">April 9, 2026</span></div>
-      <div class="tline">
-        <div class="ti"><div><div class="tdot"></div></div><div style="min-width:70px"><p class="ttime">8:30 AM</p></div><div><p class="ttitle">Registration &amp; Check-in</p><p class="tsub">Main Foyer, Block A</p></div></div>
-        <div class="ti"><div><div class="tdot"></div></div><div style="min-width:70px"><p class="ttime">9:00 AM</p></div><div><p class="ttitle">Inaugural Ceremony</p><p class="tsub">Main Auditorium &mdash; All participants</p><span class="tbadge pill pb">Mandatory</span></div></div>
-        <div class="ti"><div><div class="tdot"></div></div><div style="min-width:70px"><p class="ttime">10:00 AM</p></div><div><p class="ttitle">Code Sprint Begins</p><p class="tsub">CS Lab 1 &mdash; Individual event</p><span class="tbadge pill pg">5 hrs</span></div></div>
-        <div class="ti"><div><div class="tdot"></div></div><div style="min-width:70px"><p class="ttime">10:00 AM</p></div><div><p class="ttitle">Hackathon Kickoff</p><p class="tsub">Innovation Lab &mdash; 24hr challenge</p><span class="tbadge pill pi">24 hrs</span></div></div>
-        <div class="ti"><div><div class="tdot"></div></div><div style="min-width:70px"><p class="ttime">1:00 PM</p></div><div><p class="ttitle">Lunch Break</p><p class="tsub">College Canteen</p></div></div>
-        <div class="ti"><div><div class="tdot"></div></div><div style="min-width:70px"><p class="ttime">2:00 PM</p></div><div><p class="ttitle">AI Challenge</p><p class="tsub">CS Lab 2 &mdash; Team event</p><span class="tbadge pill pa">4 hrs</span></div></div>
-        <div class="ti"><div><div class="tdot"></div></div><div style="min-width:70px"><p class="ttime">6:00 PM</p></div><div><p class="ttitle">Cultural Night &amp; Networking</p><p class="tsub">Open Air Amphitheatre</p></div></div>
-      </div>
-    </div>
-    <div>
-      <div class="day-h">Day 2 <span class="dpill">April 9, 2026</span></div>
-      <div class="tline">
-        <div class="ti"><div><div class="tdot"></div></div><div style="min-width:70px"><p class="ttime">9:00 AM</p></div><div><p class="ttitle">Hackathon &mdash; Final Stretch</p><p class="tsub">Innovation Lab &mdash; Submission at 10 AM</p></div></div>
-        <div class="ti"><div><div class="tdot"></div></div><div style="min-width:70px"><p class="ttime">10:00 AM</p></div><div><p class="ttitle">Tech Quiz</p><p class="tsub">Seminar Hall &mdash; Team of 2</p><span class="tbadge pill pp">2 hrs</span></div></div>
-        <div class="ti"><div><div class="tdot"></div></div><div style="min-width:70px"><p class="ttime">11:00 AM</p></div><div><p class="ttitle">Paper Presentation</p><p class="tsub">Seminar Hall B &mdash; Research track</p><span class="tbadge pill pi">3 hrs</span></div></div>
-        <div class="ti"><div><div class="tdot"></div></div><div style="min-width:70px"><p class="ttime">1:00 PM</p></div><div><p class="ttitle">Lunch Break</p><p class="tsub">College Canteen</p></div></div>
-        <div class="ti"><div><div class="tdot"></div></div><div style="min-width:70px"><p class="ttime">2:00 PM</p></div><div><p class="ttitle">Debugging Wars</p><p class="tsub">CS Lab 1 &mdash; Individual sprint</p><span class="tbadge pill pt">90 min</span></div></div>
-        <div class="ti"><div><div class="tdot"></div></div><div style="min-width:70px"><p class="ttime">3:00 PM</p></div><div><p class="ttitle">Web Design Blitz</p><p class="tsub">CS Lab 2 &mdash; Team of 2</p><span class="tbadge pill pp">2 hrs</span></div></div>
-        <div class="ti"><div><div class="tdot"></div></div><div style="min-width:70px"><p class="ttime">5:30 PM</p></div><div><p class="ttitle">Valedictory &amp; Prize Distribution</p><p class="tsub">Main Auditorium &mdash; All participants</p><span class="tbadge pill pb">Mandatory</span></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<hr class="hdivider">
-
-<!-- FACULTY -->
-<section id="faculty">
-  <p class="stag">The Team Behind It</p>
-  <h2 class="stitle">Faculty Coordinators</h2>
-  <p class="sbody">CIESTA 2026 is organized under the guidance of our distinguished faculty from the Department of Computer Science &amp; Engineering.</p>
-  <div class="fac-grid" id="fac-grid"></div>
-</section>
-
-<hr class="hdivider">
-
 <!-- SPONSORS -->
-<div class="sponsors-section">
-  <div class="sinner">
-    <p class="stag">Proud Partners</p>
-    <h2 class="stitle">Our Sponsors</h2>
-    <p class="sbody">CIESTA 2026 is proudly supported by industry leaders who share our passion for nurturing technical talent. Interested in sponsoring? <a href="mailto:ciesta@dsce.edu.in" style="color:var(--accent)">Get in touch.</a></p>
-    <div class="stiers">
-      <div>
-        <p class="stier-lbl">&#11088; Title Sponsor</p>
-        <div class="srow"><div class="slogo gold">TechNova Solutions</div></div>
-      </div>
-      <div>
-        <p class="stier-lbl">&#129353; Gold Sponsors</p>
-        <div class="srow">
-          <div class="slogo silver">InfyBridge Technologies</div>
-          <div class="slogo silver">CloudEdge Systems</div>
-          <div class="slogo silver">DataPulse Analytics</div>
-        </div>
-      </div>
-      <div>
-        <p class="stier-lbl">&#129354; Silver Sponsors</p>
-        <div class="srow">
-          <div class="slogo">ByteForge Labs</div>
-          <div class="slogo">NeuroStack AI</div>
-          <div class="slogo">DevSprint Academy</div>
-          <div class="slogo">Codeverse India</div>
-          <div class="slogo">Stackify Ventures</div>
-        </div>
-      </div>
+<div style="background:var(--card); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:5rem 2rem">
+  <div style="max-width:1100px; margin:0 auto; text-align:center">
+    <p class="stag">Our Partners</p>
+    <h2 class="stitle">Fueling Innovation</h2>
+    <div style="display:flex; flex-wrap:wrap; gap:2rem; justify-content:center; align-items:center; margin-top:3rem">
+        <div style="opacity:0.6; font-size:24px; font-weight:700; font-family:var(--ff-display)">TECHNOVA</div>
+        <div style="opacity:0.6; font-size:24px; font-weight:700; font-family:var(--ff-display)">INFYBRIDGE</div>
+        <div style="opacity:0.6; font-size:24px; font-weight:700; font-family:var(--ff-display)">CLOUDEDGE</div>
+        <div style="opacity:0.6; font-size:24px; font-weight:700; font-family:var(--ff-display)">DATAPULSE</div>
     </div>
   </div>
 </div>
-
-<!-- REGISTRATION -->
-<section id="register">
-  <p class="stag">Join The Fest</p>
-  <h2 class="stitle">Register for CIESTA 2026</h2>
-  <div class="reg-wrap">
-    <div>
-      <p class="sbody">Secure your spot at CIESTA 2026. Registrations close on <strong style="color:var(--ink)">April 9, 2026</strong>. Free for DSCE students; &#8377;50 for outstation participants.</p>
-      <div class="rsteps">
-        <div class="rstep"><div class="rsnum">1</div><div class="rstext"><p>Fill the form</p><p>Enter your details and pick your event</p></div></div>
-        <div class="rstep"><div class="rsnum">2</div><div class="rstext"><p>Get confirmed instantly</p><p>Your name appears in the live participants table</p></div></div>
-        <div class="rstep"><div class="rsnum">3</div><div class="rstext"><p>Show up &amp; compete</p><p>Arrive at DSCE with your college ID on the event date</p></div></div>
-      </div>
-      <div class="cinfo">
-        <p style="font-size:13px;color:var(--accent);font-weight:500;margin-bottom:.4rem">&#128222; Contact the Organizers</p>
-        <p>ciesta@dsce.edu.in</p>
-        <p>+91 80 2674 2777</p>
-        <p>DSCE CS Dept, Block C, Room C-301</p>
-      </div>
-    </div>
-    <div class="fcard-form">
-      <div class="frow2">
-        <div class="frow"><label>First Name *</label><input type="text" id="f-fname" placeholder="Arjun"></div>
-        <div class="frow"><label>Last Name *</label><input type="text" id="f-lname" placeholder="Sharma"></div>
-      </div>
-      <div class="frow"><label>USN / Roll Number *</label><input type="text" id="f-usn" placeholder="1DS21CS001"></div>
-      <div class="frow"><label>College / Institution *</label><input type="text" id="f-college" placeholder="Dayananda Sagar College of Engineering"></div>
-      <div class="frow"><label>Email Address *</label><input type="email" id="f-email" placeholder="arjun@example.com"></div>
-      <div class="frow2">
-        <div class="frow"><label>Phone *</label><input type="tel" id="f-phone" placeholder="9XXXXXXXXX" maxlength="10"></div>
-        <div class="frow"><label>Year of Study *</label>
-          <select id="f-year"><option value="">Select year</option><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option></select>
-        </div>
-      </div>
-      <div class="frow"><label>Event *</label>
-        <select id="f-event">
-          <option value="">Choose an event</option>
-          <option>Hackathon</option>
-          <option>Code Sprint</option>
-          <option>AI Challenge</option>
-          <option>Tech Quiz</option>
-          <option>Paper Presentation</option>
-          <option>Debugging Wars</option>
-          <option>Web Design Blitz</option>
-        </select>
-      </div>
-      <div class="frow"><label>Team Name (optional)</label><input type="text" id="f-team" placeholder="Leave blank for individual events"></div>
-      <button class="sbtn" id="sbtn" onclick="handleReg()">Submit Registration</button>
-      <div class="fok" id="fok">&#10003;&nbsp; You're registered for CIESTA 2026! See you on April 18.</div>
-      <div class="ferr" id="ferr">Please fill in all required fields marked with *</div>
-    </div>
-  </div>
-</section>
-
-<hr class="hdivider">
-
-<!-- PARTICIPANTS -->
-<section id="participants">
-  <p class="stag">Live Database</p>
-  <h2 class="stitle">Registered Participants</h2>
-  <p class="sbody" style="margin-bottom:2rem">All registrations appear here instantly. Search by name, college, or event.</p>
-  <div class="tbar">
-    <input class="tsearch" type="text" id="tsearch" placeholder="Search by name, college or event..." oninput="filterTbl()">
-    <span class="tcnt" id="tcnt">0 registered</span>
-  </div>
-  <div class="twrap">
-    <div class="tscroll">
-      <table class="ptbl">
-        <thead>
-          <tr>
-            <th>#</th><th>Name</th><th>USN</th><th>College</th><th>Event</th><th>Team</th><th>Year</th><th>Time</th>
-          </tr>
-        </thead>
-        <tbody id="ptbody">
-          <tr><td colspan="8"><div class="empty">&#128203;&nbsp; No registrations yet — be the first to sign up!</div></td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
 
 <!-- FOOTER -->
 <footer>
   <div class="ftop">
     <div class="fcol">
       <div class="flogo">CIESTA <span>4.0</span></div>
-      <p style="font-size:13px;color:#9ca3af;margin-top:.75rem;line-height:1.8">Computer &amp; Information Science<br>Engineering Technical Association</p>
-      <p style="font-size:12px;color:#6b7280;margin-top:.5rem">Dayananda Sagar College of Engineering<br>Bangalore &mdash; 560078</p>
+      <p style="font-size:14px;color:#9ca3af;margin-top:1rem;line-height:1.8">Department of Computer Science & Engineering<br>Dayananda Sagar College of Engineering</p>
     </div>
     <div class="fcol">
-      <h4>Quick Links</h4>
+      <h4>Navigation</h4>
       <ul>
-        <li><a href="#about">About CIESTA</a></li>
+        <li><a href="#about">About Us</a></li>
         <li><a href="#events">Events</a></li>
         <li><a href="#schedule">Schedule</a></li>
-        <li><a href="#faculty">Faculty Team</a></li>
-        <li><a href="#sponsors">Sponsors</a></li>
-        <li><a href="#register">Register</a></li>
+        <li><a href="register.html">Registrations</a></li>
       </ul>
     </div>
     <div class="fcol">
       <h4>Contact</h4>
       <ul>
         <li>ciesta@dsce.edu.in</li>
-        <li>+91 80 2674 2777</li>
-        <li>DSCE CS Dept, Block C</li>
-        <li>3rd Floor, Room C-301</li>
+        <li>DSCE, Kumaraswamy Layout</li>
+        <li>Bangalore - 560078</li>
       </ul>
     </div>
     <div class="fcol">
-      <h4>Venue</h4>
+      <h4>Follow Us</h4>
       <ul>
-        <li>DSCE Main Campus</li>
-        <li>Shavige Malleshwara Hills</li>
-        <li>Kumaraswamy Layout</li>
-        <li>Bangalore, Karnataka 560078</li>
+        <li>Instagram</li>
+        <li>LinkedIn</li>
+        <li>Twitter</li>
       </ul>
     </div>
   </div>
   <div class="fbot">
-    <p>&copy; 2026 CIESTA &mdash; Dept. of CS&amp;E, Dayananda Sagar College of Engineering</p>
-    <p>All rights reserved</p>
+    <p>&copy; 2026 CIESTA DSCE. All rights reserved.</p>
+    <p>Crafted for Excellence</p>
   </div>
 </footer>
 
 <script>
 /* EVENTS DATA */
 const EVENTS=[
-  {name:"Hackathon",cat:"Technical",badge:"24 hrs",bs:"pi",date:"Apr 9, 10 AM",mode:"Team (3–4)",prize:"₹15,000",desc:"Build a working product in 24 hours. Open theme — web, AI, IoT, anything goes. Judged on innovation, usability, and demo quality.",accent:"#4f46e5"},
-  {name:"Code Sprint",cat:"Technical",badge:"Individual",bs:"pg",date:"Apr 9, 10 AM",mode:"Individual",prize:"₹8,000",desc:"Race against the clock solving 5 algorithmic problems. Fast fingers, faster minds. Competitive judging platform.",accent:"#16a34a"},
-  {name:"AI Challenge",cat:"Technical",badge:"AI / ML",bs:"pa",date:"Apr 9, 2 PM",mode:"Team (2–3)",prize:"₹12,000",desc:"Design and deploy a machine learning model on a real-world dataset. Evaluated on accuracy, approach, and demo quality.",accent:"#d97706"},
-  {name:"Tech Quiz",cat:"Quiz",badge:"All Years",bs:"pp",date:"Apr 10, 10 AM",mode:"Team (2)",prize:"₹5,000",desc:"30 rounds covering CS fundamentals, current tech trends, rapid fire, and buzzer rounds. Fast-paced and high-stakes.",accent:"#db2777"},
-  {name:"Paper Presentation",cat:"Research",badge:"Research",bs:"pb",date:"Apr 10, 11 AM",mode:"Team (1–2)",prize:"₹6,000",desc:"Present original research or a case study to a faculty panel. Best paper earns publication in DSCE's technical journal.",accent:"#2563eb"},
-  {name:"Debugging Wars",cat:"Technical",badge:"Fun",bs:"pt",date:"Apr 10, 2 PM",mode:"Individual",prize:"₹4,000",desc:"Fix 10 intentionally broken programs across languages in the shortest time. Subtler the bug, sweeter the win.",accent:"#0d9488"},
-  {name:"Web Design Blitz",cat:"Creative",badge:"Creative",bs:"pp",date:"Apr 10, 3 PM",mode:"Team (2)",prize:"₹5,000",desc:"2 hours to design and build a themed webpage from scratch. Judged on aesthetics, responsiveness, and creativity.",accent:"#e11d48"}
+  {name:"Hackathon",cat:"Technical",badge:"24 hrs",bs:"pi",date:"Apr 9, 10 AM",mode:"Team (3–4)",prize:"₹15,000",desc:"Build a working product in 24 hours. Open theme — web, AI, IoT, anything goes.",accent:"#4f46e5"},
+  {name:"Code Sprint",cat:"Technical",badge:"Individual",bs:"pg",date:"Apr 9, 10 AM",mode:"Individual",prize:"₹8,000",desc:"Race against the clock solving 5 algorithmic problems. Fast fingers, faster minds.",accent:"#16a34a"},
+  {name:"AI Challenge",cat:"Technical",badge:"AI / ML",bs:"pa",date:"Apr 9, 2 PM",mode:"Team (2–3)",prize:"₹12,000",desc:"Design and deploy an ML model. Evaluated on accuracy and innovation.",accent:"#d97706"},
+  {name:"Tech Quiz",cat:"Quiz",badge:"General",bs:"pp",date:"Apr 10, 10 AM",mode:"Team (2)",prize:"₹5,000",desc:"30 rounds covering CS fundamentals and current tech trends.",accent:"#db2777"},
+  {name:"Paper Presentation",cat:"Research",badge:"Research",bs:"pb",date:"Apr 10, 11 AM",mode:"Team (1–2)",prize:"₹6,000",desc:"Present original research to a faculty panel.",accent:"#2563eb"},
+  {name:"Debugging Wars",cat:"Technical",badge:"Fun",bs:"pt",date:"Apr 10, 2 PM",mode:"Individual",prize:"₹4,000",desc:"Fix 10 intentionally broken programs in the shortest time.",accent:"#0d9488"},
+  {name:"Web Design Blitz",cat:"Creative",badge:"UI/UX",bs:"pp",date:"Apr 10, 3 PM",mode:"Team (2)",prize:"₹5,000",desc:"2 hours to design and build a themed webpage from scratch.",accent:"#e11d48"},
+  {name:"Jamming",cat:"Cultural",badge:"Music",bs:"pi",date:"Apr 9, 5 PM",mode:"Individual/Band",prize:"₹7,000",desc:"Unleash your musical talent! From acoustic solos to high-energy bands.",accent:"#8b5cf6"},
+  {name:"Fashion Walk for Faculty",cat:"Cultural",badge:"Faculty",bs:"pa",date:"Apr 10, 5 PM",mode:"Faculty Only",prize:"Awards",desc:"A special event for our faculty to showcase style and grace.",accent:"#f43f5e"},
+  {name:"Treasure Hunt",cat:"Cultural",badge:"Fun",bs:"pg",date:"Apr 11, 10 AM",mode:"Team (3)",prize:"₹10,000",desc:"Solve riddles, complete challenges, and find the hidden treasure!",accent:"#f59e0b"}
 ];
-
-/* FACULTY DATA */
-const FACULTY=[
-  {name:"Dr. S. Meenakshi",role:"Faculty Convenor",dept:"Professor & HOD, CS&E",init:"SM",bg:"#dbeafe",tc:"#1e40af"},
-  {name:"Prof. R. Krishnamurthy",role:"Event Co-ordinator",dept:"Associate Professor, CS&E",init:"RK",bg:"#dcfce7",tc:"#15803d"},
-  {name:"Dr. Anitha Patil",role:"Technical Lead",dept:"Assistant Professor, CS&E",init:"AP",bg:"#fce7f3",tc:"#9d174d"},
-  {name:"Prof. Vinod Kumar",role:"Registration Head",dept:"Assistant Professor, CS&E",init:"VK",bg:"#e0e7ff",tc:"#3730a3"},
-  {name:"Dr. Kavitha Rao",role:"Research Track",dept:"Associate Professor, CS&E",init:"KR",bg:"#d1fae5",tc:"#065f46"},
-  {name:"Prof. Sanjay Nair",role:"Sponsorship Lead",dept:"Assistant Professor, CS&E",init:"SN",bg:"#fef3c7",tc:"#92400e"}
-];
-
-const EPILLS={Hackathon:"pi","Code Sprint":"pg","AI Challenge":"pa","Tech Quiz":"pp","Paper Presentation":"pb","Debugging Wars":"pt","Web Design Blitz":"pp"};
 
 /* RENDER EVENTS */
 let activecat="All";
@@ -565,98 +336,41 @@ function renderEvts(){
     const d=document.createElement("div");
     d.className="ecard";
     d.style.setProperty("--ec-accent",e.accent);
-    d.innerHTML='<span class="ebadge pill '+e.bs+'" style="background:transparent;border:1.5px solid currentColor">'+e.badge+'</span>'+
+    d.innerHTML='<span class="ebadge pill" style="background:rgba(37,99,235,0.1); color:var(--ec-accent)">'+e.cat+'</span>'+
       '<h3 class="ename">'+e.name+'</h3>'+
       '<p class="edesc">'+e.desc+'</p>'+
-      '<div class="emeta"><span>&#128197; '+e.date+'</span><span>&#128101; '+e.mode+'</span></div>'+
-      '<div class="eprize">&#127942; Prize Pool: <strong>'+e.prize+'</strong></div>';
+      '<div class="emeta"><span>📅 '+e.date+'</span><span>👥 '+e.mode+'</span></div>'+
+      '<div class="eprize"><span>🏆 Prize: '+e.prize+'</span><a href="register.html?event='+encodeURIComponent(e.name)+'" class="btn-primary" style="padding:8px 16px; font-size:12px; text-decoration:none">Register</a></div>';
     evtGrid.appendChild(d);
   });
 }
 renderEvts();
 
-/* RENDER FACULTY */
-const facGrid=document.getElementById("fac-grid");
-FACULTY.forEach(function(f){
-  const d=document.createElement("div");
-  d.className="fcard";
-  d.innerHTML='<div class="favatar" style="background:'+f.bg+';color:'+f.tc+'">'+f.init+'</div>'+
-    '<p class="fname">'+f.name+'</p>'+
-    '<p class="frole">'+f.role+'</p>'+
-    '<p class="fdept">'+f.dept+'</p>';
-  facGrid.appendChild(d);
+/* HERO BACKGROUND SLIDESHOW */
+const BG_IMAGES = [
+  "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80",
+  "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=1600&q=80",
+  "https://images.unsplash.com/photo-1511578314322-379afb476865?w=1600&q=80",
+  "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1600&q=80"
+];
+const heroBg = document.getElementById("hero-bg");
+BG_IMAGES.forEach((img, i) => {
+  const div = document.createElement("div");
+  div.style.backgroundImage = `url(${img})`;
+  if (i === 0) div.classList.add("active");
+  heroBg.appendChild(div);
 });
-
-/* REGISTRATION */
-var participants=[];
-function handleReg(){
-  var fname=document.getElementById("f-fname").value.trim();
-  var lname=document.getElementById("f-lname").value.trim();
-  var usn=document.getElementById("f-usn").value.trim();
-  var college=document.getElementById("f-college").value.trim();
-  var email=document.getElementById("f-email").value.trim();
-  var phone=document.getElementById("f-phone").value.trim();
-  var year=document.getElementById("f-year").value;
-  var event=document.getElementById("f-event").value;
-  var team=document.getElementById("f-team").value.trim();
-  document.getElementById("ferr").style.display="none";
-  document.getElementById("fok").style.display="none";
-  if(!fname||!lname||!usn||!college||!email||!phone||!year||!event){
-    document.getElementById("ferr").style.display="block";return;
-  }
-  var now=new Date();
-  var t=now.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"});
-  participants.push({name:fname+" "+lname,usn:usn,college:college,email:email,phone:phone,year:year,event:event,team:team||"—",time:t});
-  renderTbl("");
-  var btn=document.getElementById("sbtn");
-  btn.textContent="✓ Registered!";btn.disabled=true;
-  document.getElementById("fok").style.display="block";
-  ["f-fname","f-lname","f-usn","f-college","f-email","f-phone","f-team"].forEach(function(id){document.getElementById(id).value="";});
-  document.getElementById("f-year").value="";document.getElementById("f-event").value="";
-  setTimeout(function(){btn.textContent="Submit Registration";btn.disabled=false;},3000);
-  setTimeout(function(){document.getElementById("participants").scrollIntoView({behavior:"smooth"});},800);
-}
-
-function renderTbl(q){
-  var tbody=document.getElementById("ptbody");
-  document.getElementById("tcnt").textContent=participants.length+" registered";
-  if(!participants.length){
-    tbody.innerHTML='<tr><td colspan="8"><div class="empty">&#128203;&nbsp; No registrations yet — be the first to sign up!</div></td></tr>';return;
-  }
-  var filt=q?participants.filter(function(p){var s=(p.name+" "+p.college+" "+p.event).toLowerCase();return s.indexOf(q)>-1;}):participants;
-  if(!filt.length){tbody.innerHTML='<tr><td colspan="8"><div class="empty">No results match your search.</div></td></tr>';return;}
-  tbody.innerHTML=filt.map(function(p,i){
-    return '<tr>'+
-      '<td style="color:var(--muted);font-weight:500">'+(participants.indexOf(p)+1)+'</td>'+
-      '<td style="font-weight:500">'+p.name+'</td>'+
-      '<td style="font-family:monospace;font-size:12px;color:var(--muted)">'+p.usn+'</td>'+
-      '<td style="color:var(--muted);max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+p.college+'">'+p.college+'</td>'+
-      '<td><span class="pill '+(EPILLS[p.event]||"pb")+'">'+p.event+'</span></td>'+
-      '<td style="color:var(--muted);font-size:12px">'+p.team+'</td>'+
-      '<td style="color:var(--muted)">'+p.year+'</td>'+
-      '<td style="color:var(--muted)">'+p.time+'</td>'+
-    '</tr>';
-  }).join("");
-}
-
-function filterTbl(){renderTbl(document.getElementById("tsearch").value.toLowerCase());}
-
-async function fetchParticipants() {
-    try {
-        let res = await fetch('http://localhost:3000/api/participants');
-        let data = await res.json();
-        participants = data;
-        renderTbl("");
-    } catch(err) {
-        console.error("Error fetching participants:", err);
-    }
-}
-fetchParticipants(); // call on load
-
+let currentBg = 0;
+setInterval(() => {
+  const divs = heroBg.querySelectorAll("div");
+  divs[currentBg].classList.remove("active");
+  currentBg = (currentBg + 1) % divs.length;
+  divs[currentBg].classList.add("active");
+}, 6000);
 
 /* COUNTDOWN */
 function tick(){
-  var target=new Date("2026-04-18T09:00:00+05:30");
+  var target=new Date("2026-04-09T09:00:00+05:30");
   var now=new Date();
   var diff=Math.max(0,Math.floor((target-now)/1000));
   var d=Math.floor(diff/86400);diff=diff%86400;
