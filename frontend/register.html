@@ -3,44 +3,68 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Register — CIESTA 2026</title>
+<title>Register — CIESTA 4.0</title>
+<meta name="description" content="Register for CIESTA 4.0 events at DSCE, April 9–11, 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --cream:#faf9f6;--ink:#1a1a1a;--accent:#2563eb;--accent-light:#eff6ff;
-  --muted:#6b7280;--border:#e5e7eb;--card:#ffffff;
+  --bg:#07070f;
+  --surface:#0e0e1a;
+  --card:#141428;
+  --accent:#7c3aed;
+  --accent2:#06b6d4;
+  --accent-glow:rgba(124,58,237,0.35);
+  --text:#f0f0ff;
+  --muted:#8888aa;
+  --border:rgba(255,255,255,0.07);
+  --border-hover:rgba(124,58,237,0.5);
   --ff-display:'Playfair Display',Georgia,serif;
-  --ff-body:'DM Sans','Segoe UI',Helvetica,Arial,sans-serif;
+  --ff-body:'Space Grotesk','Segoe UI',Helvetica,Arial,sans-serif;
 }
-body{font-family:var(--ff-body);background:var(--cream);color:var(--ink);font-size:15px;line-height:1.7;min-height:100vh;display:flex;flex-direction:column}
+body{font-family:var(--ff-body);background:var(--bg);color:var(--text);font-size:15px;line-height:1.7;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
 
-/* NAV-STYLE (SIMPLE) */
-.reg-nav{background:var(--card);border-bottom:1px solid var(--border);padding:1rem 2rem}
+/* ─── BLOBS ─── */
+.bg-blobs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.15;animation:drift 20s ease-in-out infinite alternate}
+.blob-1{width:500px;height:500px;background:radial-gradient(circle,#7c3aed,transparent);top:-100px;left:-80px;animation-duration:22s}
+.blob-2{width:400px;height:400px;background:radial-gradient(circle,#06b6d4,transparent);bottom:-100px;right:-80px;animation-duration:18s;animation-delay:-6s}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(30px,20px) scale(1.08)}}
+
+/* ─── NAV ─── */
+.reg-nav{background:rgba(7,7,15,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:1rem 2rem;position:relative;z-index:10}
 .nav-inner{max-width:800px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{font-family:var(--ff-display);font-size:20px;font-weight:700;color:var(--ink);text-decoration:none}
+.nav-logo{font-family:var(--ff-display);font-size:19px;font-weight:700;color:var(--text);text-decoration:none}
 .nav-logo span{color:var(--accent)}
-.back-btn{text-decoration:none;font-size:13px;font-weight:500;color:var(--muted);display:flex;align-items:center;gap:5px}
-.back-btn:hover{color:var(--ink)}
+.back-btn{text-decoration:none;font-size:13px;font-weight:500;color:var(--muted);display:flex;align-items:center;gap:5px;transition:color 0.2s}
+.back-btn:hover{color:var(--text)}
 
-/* FORM CONTAINER */
-.reg-container{max-width:800px;margin:3rem auto;padding:0 2rem;width:100%}
-.reg-header{text-align:center;margin-bottom:3rem}
-.reg-header h1{font-family:var(--ff-display);font-size:36px;font-weight:700;margin-bottom:0.5rem}
+/* ─── CONTAINER ─── */
+.reg-container{max-width:800px;margin:3rem auto;padding:0 2rem;width:100%;position:relative;z-index:1;flex:1}
+.reg-header{text-align:center;margin-bottom:2.5rem}
+.reg-header h1{font-family:var(--ff-display);font-size:38px;font-weight:700;margin-bottom:0.5rem;background:linear-gradient(135deg,var(--text),#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .reg-header p{color:var(--muted);font-size:15px}
 
-.fcard-form{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:2.5rem;box-shadow:0 10px 30px rgba(0,0,0,0.03)}
+/* ─── FORM ─── */
+.fcard-form{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2.75rem;box-shadow:0 0 50px rgba(124,58,237,0.12)}
 .frow{margin-bottom:1.5rem}
-.frow label{display:block;font-size:12px;font-weight:600;color:var(--ink);margin-bottom:8px;letter-spacing:.2px;text-transform:uppercase}
-.frow input,.frow select{width:100%;background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:12px 16px;font-size:14px;font-family:var(--ff-body);color:var(--ink);outline:none;transition:all 0.2s}
-.frow input:focus,.frow select:focus{border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px var(--accent-light)}
-.frow select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
+.frow label{display:block;font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px;letter-spacing:1px;text-transform:uppercase}
+.frow input,.frow select{width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:14px;font-family:var(--ff-body);color:var(--text);outline:none;transition:all 0.2s}
+.frow input::placeholder{color:var(--muted)}
+.frow input:focus,.frow select:focus{border-color:var(--border-hover);background:rgba(124,58,237,0.08);box-shadow:0 0 0 3px rgba(124,58,237,0.15)}
+.frow select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238888aa' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;background-color:rgba(255,255,255,0.04);cursor:pointer}
+.frow select option{background:#141428;color:var(--text)}
 .frow2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-.sbtn{width:100%;background:var(--ink);color:#fff;border:none;padding:16px;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;font-family:var(--ff-body);margin-top:0.5rem;transition:background 0.2s}
-.sbtn:hover{background:#333}
-.sbtn:disabled{background:#9ca3af;cursor:not-allowed}
-.fok{display:none;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:1.25rem;text-align:center;font-size:15px;color:#15803d;margin-top:1.5rem;font-weight:500}
-.ferr{display:none;background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:1rem;text-align:center;font-size:14px;color:#dc2626;margin-top:1rem}
+.sbtn{width:100%;background:linear-gradient(135deg,var(--accent),#4f46e5);color:#fff;border:none;padding:16px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;font-family:var(--ff-body);margin-top:0.5rem;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 15px var(--accent-glow)}
+.sbtn:hover{transform:translateY(-2px);box-shadow:0 8px 25px var(--accent-glow)}
+.sbtn:disabled{background:#3a3a5c;cursor:not-allowed;box-shadow:none;transform:none}
+.fok{display:none;background:rgba(22,163,74,0.1);border:1px solid rgba(22,163,74,0.3);border-radius:12px;padding:1.25rem;text-align:center;font-size:15px;color:#86efac;margin-top:1.5rem;font-weight:500}
+.ferr{display:none;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.3);border-radius:12px;padding:1rem;text-align:center;font-size:14px;color:#fca5a5;margin-top:1rem}
+
+/* ─── FOOTER ─── */
+.reg-footer{background:var(--surface);border-top:1px solid var(--border);padding:1.5rem 2rem;text-align:center;position:relative;z-index:1}
+.reg-footer p{font-size:12px;color:var(--muted)}
 
 @media(max-width:600px){
   .frow2{grid-template-columns:1fr}
@@ -50,6 +74,11 @@ body{font-family:var(--ff-body);background:var(--cream);color:var(--ink);font-si
 </style>
 </head>
 <body>
+
+<div class="bg-blobs">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+</div>
 
 <nav class="reg-nav">
   <div class="nav-inner">
@@ -61,7 +90,7 @@ body{font-family:var(--ff-body);background:var(--cream);color:var(--ink);font-si
 <div class="reg-container">
   <div class="reg-header">
     <h1>Event Registration</h1>
-    <p>Join the 17th edition of North Karnataka's biggest tech fest.</p>
+    <p>Join CIESTA 4.0 — April 9–11, 2026 · DSCE Campus, Bangalore</p>
   </div>
 
   <div class="fcard-form">
@@ -95,10 +124,14 @@ body{font-family:var(--ff-body);background:var(--cream);color:var(--ink);font-si
     </div>
     <div class="frow"><label>Team Name (optional)</label><input type="text" id="f-team" placeholder="Leave blank for individual events"></div>
     <button class="sbtn" id="sbtn" onclick="handleReg()">Confirm Registration</button>
-    <div class="fok" id="fok">✓ You're registered for CIESTA 2026! We've sent a confirmation to your email.</div>
+    <div class="fok" id="fok">✓ You're registered for CIESTA 4.0! See you on April 9–11.</div>
     <div class="ferr" id="ferr">Please fill in all required fields marked with *</div>
   </div>
 </div>
+
+<footer class="reg-footer">
+  <p>&copy; 2026 CIESTA DSCE · Crafted by Akira — CSE Cultural Team</p>
+</footer>
 
 <script>
 // PRE-FILL EVENT FROM URL
@@ -107,7 +140,12 @@ window.onload = function() {
   const event = urlParams.get('event');
   if (event) {
     const select = document.getElementById('f-event');
-    select.value = event;
+    for (let i = 0; i < select.options.length; i++) {
+      if (select.options[i].value === event || select.options[i].text === event) {
+        select.selectedIndex = i;
+        break;
+      }
+    }
   }
 };
 
@@ -130,7 +168,7 @@ async function handleReg(){
 
   if(!fname||!lname||!usn||!college||!email||!phone||!year||!event){
     ferr.style.display="block";
-    ferr.textContent = "Please fill in all required fields marked with *";
+    ferr.textContent="Please fill in all required fields marked with *";
     return;
   }
 
@@ -139,7 +177,7 @@ async function handleReg(){
 
   var now=new Date();
   var t=now.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"});
-  
+
   try {
     const response = await fetch('/api/register', {
       method: 'POST',
@@ -168,14 +206,14 @@ async function handleReg(){
       }, 3000);
     } else {
       const errData = await response.json();
-      ferr.textContent = errData.error || "Registration failed.";
+      ferr.textContent = errData.error || "Registration failed. Please try again.";
       ferr.style.display = "block";
       btn.textContent="Confirm Registration";
       btn.disabled=false;
     }
   } catch (err) {
     console.error(err);
-    ferr.textContent = "Server error. Please try again later.";
+    ferr.textContent = "Cannot connect to server. Please make sure the server is running.";
     ferr.style.display = "block";
     btn.textContent="Confirm Registration";
     btn.disabled=false;

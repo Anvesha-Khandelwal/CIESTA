@@ -3,157 +3,202 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CIESTA 2026 — Dayananda Sagar College of Engineering</title>
+<title>CIESTA 4.0 — Dayananda Sagar College of Engineering</title>
+<meta name="description" content="CIESTA 4.0 — DSCE's flagship annual computer science extravaganza. April 9–11, 2026. Competitions, cultural events, and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500;700&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --cream:#faf9f6;--ink:#1a1a1a;--accent:#2563eb;--accent-light:#eff6ff;
-  --muted:#6b7280;--border:#e5e7eb;--card:#ffffff;
+  --bg:#07070f;
+  --surface:#0e0e1a;
+  --card:#141428;
+  --card-hover:#1c1c38;
+  --accent:#7c3aed;
+  --accent2:#06b6d4;
+  --accent-glow:rgba(124,58,237,0.35);
+  --text:#f0f0ff;
+  --muted:#8888aa;
+  --border:rgba(255,255,255,0.07);
+  --border-hover:rgba(124,58,237,0.5);
   --ff-display:'Playfair Display',Georgia,serif;
-  --ff-body:'DM Sans','Segoe UI',Helvetica,Arial,sans-serif;
+  --ff-body:'Space Grotesk','Segoe UI',Helvetica,Arial,sans-serif;
 }
 html{scroll-behavior:smooth}
-body{font-family:var(--ff-body);background:var(--cream);color:var(--ink);font-size:15px;line-height:1.7}
+body{font-family:var(--ff-body);background:var(--bg);color:var(--text);font-size:15px;line-height:1.7;overflow-x:hidden}
 
-/* NAV */
-nav{position:sticky;top:0;z-index:100;background:rgba(250,249,246,0.97);border-bottom:1px solid var(--border);padding:0 2rem}
-.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px}
-.nav-logo{font-family:var(--ff-display);font-size:20px;font-weight:700;color:var(--ink);text-decoration:none}
+/* ─── ANIMATED BG BLOBS ─── */
+.bg-blobs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.18;animation:drift 20s ease-in-out infinite alternate}
+.blob-1{width:600px;height:600px;background:radial-gradient(circle,#7c3aed,transparent);top:-150px;left:-100px;animation-duration:22s}
+.blob-2{width:500px;height:500px;background:radial-gradient(circle,#06b6d4,transparent);top:30%;right:-120px;animation-duration:18s;animation-delay:-8s}
+.blob-3{width:400px;height:400px;background:radial-gradient(circle,#db2777,transparent);bottom:10%;left:20%;animation-duration:25s;animation-delay:-4s}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(40px,30px) scale(1.1)}}
+
+/* ─── NAV ─── */
+nav{position:sticky;top:0;z-index:200;background:rgba(7,7,15,0.8);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 2rem}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:62px}
+.nav-logo{font-family:var(--ff-display);font-size:20px;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-0.5px}
 .nav-logo span{color:var(--accent)}
 .nav-links{display:flex;gap:1.75rem;list-style:none}
-.nav-links a{text-decoration:none;font-size:12px;font-weight:500;color:var(--muted);letter-spacing:0.5px;text-transform:uppercase}
-.nav-links a:hover{color:var(--ink)}
-.nav-cta{background:var(--ink);color:#fff !important;padding:8px 18px;border-radius:6px}
-.nav-cta:hover{background:#333 !important}
+.nav-links a{text-decoration:none;font-size:12px;font-weight:600;color:var(--muted);letter-spacing:0.8px;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{background:var(--accent)!important;color:#fff!important;padding:8px 18px;border-radius:8px;transition:background 0.2s,transform 0.2s!important}
+.nav-cta:hover{background:#6d28d9!important;transform:translateY(-1px)!important;color:#fff!important}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
-.hamburger span{display:block;width:22px;height:2px;background:var(--ink)}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);transition:0.3s}
 
-/* HERO */
-.hero{position:relative;max-width:1100px;margin:0 auto;padding:10rem 2rem 8rem;display:grid;grid-template-columns:1.1fr 0.9fr;gap:5rem;align-items:center;z-index:1;min-height:80vh}
-.hero-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  overflow: hidden;
-  background: var(--ink);
-}
-.hero-bg::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.6) 100%);
-  z-index: 1;
-}
-.hero-bg div {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  opacity: 0;
-  transition: opacity 2s ease-in-out;
-  transform: scale(1.1);
-}
-.hero-bg div.active {
-  opacity: 0.8;
-  animation: kenburns 20s infinite alternate;
-}
-@keyframes kenburns {
-  0% { transform: scale(1); }
-  100% { transform: scale(1.15); }
-}
+/* ─── HERO ─── */
+.hero-wrap{position:relative;min-height:100vh;display:grid;grid-template-columns:1.1fr 0.9fr;gap:5rem;align-items:center;max-width:1100px;margin:0 auto;padding:9rem 2rem 7rem;z-index:1}
+.hero-bg{position:fixed;inset:0;z-index:-1}
+.hero-bg-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 2s ease-in-out}
+.hero-bg-slide.active{opacity:0.12;animation:kenburns 22s infinite alternate}
+@keyframes kenburns{0%{transform:scale(1)}100%{transform:scale(1.12)}}
+.hero-eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent2);font-weight:600;margin-bottom:1.25rem}
+.hero-title{font-family:var(--ff-display);font-size:clamp(46px,6vw,84px);line-height:1;font-weight:700;letter-spacing:-2px;margin-bottom:1.75rem;color:var(--text)}
+.hero-title em{font-style:italic;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:17px;color:var(--muted);font-weight:400;line-height:1.7;margin-bottom:2rem;max-width:500px}
+.hero-date{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:var(--text);background:rgba(124,58,237,0.15);border:1px solid var(--border-hover);padding:9px 20px;border-radius:100px;backdrop-filter:blur(10px)}
+.hero-dot{width:8px;height:8px;border-radius:50%;background:#22d3ee;box-shadow:0 0 12px #22d3ee;animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 6px #22d3ee}50%{box-shadow:0 0 18px #22d3ee}}
+.hero-cta{margin-top:2.25rem;display:flex;gap:12px;flex-wrap:wrap}
+.btn-primary{background:linear-gradient(135deg,var(--accent),#4f46e5);color:#fff;border:none;padding:14px 32px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--ff-body);text-decoration:none;display:inline-block;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 15px var(--accent-glow)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 25px var(--accent-glow)}
+.btn-outline{background:rgba(255,255,255,0.04);color:var(--text);border:1px solid var(--border-hover);padding:14px 32px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--ff-body);text-decoration:none;display:inline-block;backdrop-filter:blur(8px);transition:background 0.2s,transform 0.2s}
+.btn-outline:hover{background:rgba(124,58,237,0.15);transform:translateY(-2px)}
+.hero-badges{margin-top:1.75rem;display:flex;gap:8px;flex-wrap:wrap}
+.hbadge{font-size:11px;font-weight:600;padding:5px 13px;border-radius:100px;background:rgba(6,182,212,0.1);color:#67e8f9;border:1px solid rgba(6,182,212,0.25)}
 
-.hero-eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color: var(--accent); font-weight:700;margin-bottom:1.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.3);}
-.hero-title{font-family:var(--ff-display);font-size:clamp(48px,6vw,84px);line-height:1;font-weight:700;letter-spacing:-2px;margin-bottom:2rem; color: #fff; text-shadow: 0 10px 30px rgba(0,0,0,0.5);}
-.hero-title em{font-style:italic;color:var(--accent)}
-.hero-sub{font-size:18px;color:rgba(255,255,255,0.9);font-weight:400;line-height:1.6;margin-bottom:2.5rem;max-width:520px; text-shadow: 0 2px 10px rgba(0,0,0,0.3);}
-.hero-date{display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color: #fff; background:rgba(255,255,255,0.1); backdrop-filter: blur(10px); border:1px solid rgba(255,255,255,0.2);padding:10px 22px;border-radius:100px}
-.hero-dot{width:10px;height:10px;border-radius:50%;background:#22c55e;box-shadow: 0 0 10px #22c55e}
-.hero-cta{margin-top:2.5rem;display:flex;gap:15px;flex-wrap:wrap}
-.btn-hero-primary{background:var(--accent);color:#fff;border:none;padding:16px 36px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--ff-body);text-decoration:none;display:inline-block; transition: transform 0.2s, background 0.2s}
-.btn-hero-primary:hover{background:#1d4ed8; transform: translateY(-2px)}
-.btn-hero-outline{background:rgba(255,255,255,0.1); color:#fff; border:1px solid rgba(255,255,255,0.3); backdrop-filter: blur(5px); padding:16px 36px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--ff-body);text-decoration:none;display:inline-block; transition: background 0.2s}
-.btn-hero-outline:hover{background:rgba(255,255,255,0.2); border-color: #fff}
-
-.hero-badges{margin-top:2rem;display:flex;gap:10px;flex-wrap:wrap}
-.hbadge{font-size:12px;font-weight:600;padding:6px 14px;border-radius:100px;background:rgba(37,99,235,0.2); color:#93c5fd; border: 1px solid rgba(37,99,235,0.3)}
-
-/* COUNTDOWN */
-.cd-box{background:rgba(255,255,255,0.05); backdrop-filter: blur(15px); border:1px solid rgba(255,255,255,0.1); border-radius:24px;padding:3rem;display:grid;grid-template-columns:repeat(4,1fr);gap:0;text-align:center; color: #fff}
+/* ─── COUNTDOWN ─── */
+.cd-box{background:rgba(14,14,26,0.7);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:24px;padding:2.75rem;display:grid;grid-template-columns:repeat(4,1fr);gap:0;text-align:center;box-shadow:0 0 40px var(--accent-glow)}
 .cd-unit{display:flex;flex-direction:column;gap:8px;padding:0 .5rem;position:relative}
-.cd-unit:not(:last-child)::after{content:':';position:absolute;right:-4px;top:2px;font-size:32px;color:rgba(255,255,255,0.3);font-family:var(--ff-display);line-height:1}
-.cd-num{font-family:var(--ff-display);font-size:48px;font-weight:700;line-height:1;color:#fff}
-.cd-lbl{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.6);font-weight:700}
-.cd-cap{text-align:center;font-size:13px;color:rgba(255,255,255,0.5);margin-top:1.2rem;letter-spacing:1px}
+.cd-unit:not(:last-child)::after{content:':';position:absolute;right:-4px;top:0;font-size:36px;color:rgba(255,255,255,0.2);font-family:var(--ff-display);line-height:1}
+.cd-num{font-family:var(--ff-display);font-size:52px;font-weight:700;line-height:1;background:linear-gradient(135deg,#fff,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cd-lbl{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);font-weight:600}
+.cd-cap{text-align:center;font-size:12px;color:var(--muted);margin-top:1.25rem;letter-spacing:1px}
 
-/* DIVIDER */
+/* ─── DIVIDER ─── */
 .hdivider{border:none;border-top:1px solid var(--border);max-width:1100px;margin:0 auto}
 
-/* SECTIONS */
-section{max-width:1100px;margin:0 auto;padding:6rem 2rem}
-.stag{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:.75rem}
-.stitle{font-family:var(--ff-display);font-size:clamp(32px,4vw,48px);font-weight:700;letter-spacing:-1.5px;line-height:1.1;margin-bottom:1.25rem}
+/* ─── SECTIONS ─── */
+section{max-width:1100px;margin:0 auto;padding:6rem 2rem;position:relative;z-index:1}
+.stag{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent2);font-weight:600;margin-bottom:.75rem}
+.stitle{font-family:var(--ff-display);font-size:clamp(30px,4vw,46px);font-weight:700;letter-spacing:-1.5px;line-height:1.1;margin-bottom:1.25rem;color:var(--text)}
 .sbody{font-size:16px;color:var(--muted);line-height:1.8;max-width:680px}
 
-/* ABOUT */
+/* ─── ABOUT ─── */
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:4rem}
 .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.5rem}
-.stat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem}
-.stat-num{font-family:var(--ff-display);font-size:38px;font-weight:700;color:var(--ink)}
-.stat-lbl{font-size:12px;color:var(--muted);margin-top:4px; font-weight: 500}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;transition:border-color 0.3s,transform 0.3s}
+.stat-card:hover{border-color:var(--border-hover);transform:translateY(-4px)}
+.stat-num{font-family:var(--ff-display);font-size:36px;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-lbl{font-size:12px;color:var(--muted);margin-top:4px;font-weight:500}
 
-/* EVENTS */
+/* ─── EVENTS ─── */
 .evt-filters{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:2.5rem;margin-bottom:2rem}
-.fb{font-size:13px;font-weight:600;padding:8px 20px;border-radius:100px;border:1px solid var(--border);background:var(--card);cursor:pointer;color:var(--muted);font-family:var(--ff-body); transition: all 0.2s}
-.fb.active,.fb:hover{background:var(--ink);color:#fff;border-color:var(--ink); transform: translateY(-1px)}
-.evt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2rem}
-.ecard{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2rem;position:relative;overflow:hidden;transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1)}
-.ecard::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:var(--ec-accent,#2563eb)}
-.ecard:hover{transform:translateY(-8px);border-color:rgba(37,99,235,.4); box-shadow: 0 20px 40px rgba(0,0,0,0.05)}
-.ebadge{display:inline-block;font-size:11px;font-weight:700;padding:5px 12px;border-radius:100px;margin-bottom:1.25rem; text-transform: uppercase; letter-spacing: 0.5px}
-.ename{font-family:var(--ff-display);font-size:26px;font-weight:700;margin-bottom:.75rem;letter-spacing:-.5px}
-.edesc{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:1.5rem}
-.emeta{display:flex;gap:1.2rem;flex-wrap:wrap; margin-bottom: 1.25rem}
-.emeta span{font-size:13px;color:var(--muted);font-weight:600; display:flex; align-items:center; gap:6px}
-.eprize{font-size:14px;font-weight:600;color:var(--ink);margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center}
+.fb{font-size:12px;font-weight:600;padding:7px 18px;border-radius:100px;border:1px solid var(--border);background:var(--card);cursor:pointer;color:var(--muted);font-family:var(--ff-body);transition:all 0.2s}
+.fb.active,.fb:hover{background:var(--accent);color:#fff;border-color:var(--accent);transform:translateY(-1px)}
+.evt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.75rem}
+.ecard{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:1.75rem;position:relative;overflow:hidden;transition:all 0.35s cubic-bezier(0.4,0,0.2,1)}
+.ecard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--ec-accent,var(--accent))}
+.ecard:hover{transform:translateY(-8px);border-color:var(--border-hover);box-shadow:0 20px 40px rgba(0,0,0,0.4)}
+.ebadge{display:inline-block;font-size:10px;font-weight:700;padding:4px 11px;border-radius:100px;margin-bottom:1rem;text-transform:uppercase;letter-spacing:0.5px}
+.ename{font-family:var(--ff-display);font-size:24px;font-weight:700;margin-bottom:.6rem;letter-spacing:-.5px;color:var(--text)}
+.edesc{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:1.25rem}
+.emeta{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
+.emeta span{font-size:12px;color:var(--muted);font-weight:500;display:flex;align-items:center;gap:5px}
+.eprize{font-size:13px;font-weight:600;color:var(--text);padding-top:1rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.ereg-btn{padding:7px 15px;font-size:11px;font-weight:700;background:var(--accent);color:#fff;border-radius:8px;text-decoration:none;transition:background 0.2s}
+.ereg-btn:hover{background:#6d28d9}
 
-/* FOOTER */
-footer{background:var(--ink);color:#fff}
+/* ─── SCHEDULE ─── */
+#schedule{background:none}
+.day-tabs{display:flex;gap:1rem;margin-top:2.5rem;margin-bottom:3rem;flex-wrap:wrap}
+.day-tab{padding:10px 28px;border-radius:12px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--ff-body);transition:all 0.2s}
+.day-tab.active{background:linear-gradient(135deg,var(--accent),#4f46e5);color:#fff;border-color:var(--accent);box-shadow:0 4px 15px var(--accent-glow)}
+.day-tab:hover:not(.active){border-color:var(--border-hover);color:var(--text)}
+.timeline{display:none;position:relative;padding-left:2.5rem}
+.timeline.active{display:block}
+.timeline::before{content:'';position:absolute;left:10px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--accent),var(--accent2));border-radius:2px}
+.tl-item{position:relative;margin-bottom:2.5rem}
+.tl-dot{position:absolute;left:-2.5rem;top:4px;width:20px;height:20px;border-radius:50%;background:var(--bg);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:8px}
+.tl-dot::after{content:'';width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));animation:dot-pulse 2s ease-in-out infinite}
+@keyframes dot-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.7)}}
+.tl-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.4rem 1.6rem;transition:border-color 0.3s,transform 0.3s}
+.tl-card:hover{border-color:var(--border-hover);transform:translateX(6px)}
+.tl-time{font-size:11px;font-weight:700;color:var(--accent2);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.tl-name{font-size:17px;font-weight:700;color:var(--text);margin-bottom:4px;font-family:var(--ff-display)}
+.tl-meta{display:flex;gap:1.25rem;flex-wrap:wrap}
+.tl-meta span{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:5px}
+.tl-badge{display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:0.5px}
+
+/* ─── GALLERY ─── */
+#gallery{background:none}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:1.25rem;margin-top:3rem}
+.gallery-grid .g-item:nth-child(1){grid-column:span 2;grid-row:span 2}
+.gallery-grid .g-item:nth-child(4){grid-column:span 2}
+.g-item{position:relative;border-radius:16px;overflow:hidden;cursor:pointer;border:1px solid var(--border)}
+.g-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s cubic-bezier(0.4,0,0.2,1),filter 0.4s}
+.g-item:hover img{transform:scale(1.08);filter:brightness(0.55)}
+.g-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem;background:linear-gradient(to top,rgba(7,7,15,0.9) 0%,transparent 60%);opacity:0;transition:opacity 0.35s}
+.g-item:hover .g-overlay{opacity:1}
+.g-caption{font-size:14px;font-weight:600;color:#fff;transform:translateY(8px);transition:transform 0.35s}
+.g-item:hover .g-caption{transform:translateY(0)}
+.g-sub{font-size:12px;color:rgba(255,255,255,0.65);margin-top:3px}
+
+/* ─── SPONSORS ─── */
+.sponsors-wrap{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:5rem 2rem;position:relative;z-index:1}
+.sponsors-inner{max-width:1100px;margin:0 auto;text-align:center}
+.sponsor-logos{display:flex;flex-wrap:wrap;gap:3rem;justify-content:center;align-items:center;margin-top:3rem}
+.s-logo{opacity:0.35;font-size:22px;font-weight:700;font-family:var(--ff-display);color:var(--text);letter-spacing:1px;transition:opacity 0.3s}
+.s-logo:hover{opacity:0.75}
+
+/* ─── FOOTER ─── */
+footer{background:var(--surface);border-top:1px solid var(--border);position:relative;z-index:1}
 .ftop{max-width:1100px;margin:0 auto;padding:5rem 2rem;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:4rem}
-.flogo{font-family:var(--ff-display);font-size:24px;font-weight:700}
-.flogo span{color:#93c5fd}
-.fcol h4{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#6b7280;font-weight:700;margin-bottom:1.5rem}
+.flogo{font-family:var(--ff-display);font-size:22px;font-weight:700;color:var(--text)}
+.flogo span{color:var(--accent)}
+.fcol h4{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:1.5rem}
 .fcol ul{list-style:none}
-.fcol ul li{margin-bottom:.8rem;font-size:14px;color:#d1d5db}
-.fcol ul li a{color:#d1d5db;text-decoration:none; transition: color 0.2s}
-.fcol ul li a:hover{color:#fff}
-.fbot{border-top:1px solid #374151;padding:2rem;max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
-.fbot p{font-size:13px;color:#6b7280}
+.fcol ul li{margin-bottom:.75rem;font-size:14px;color:rgba(255,255,255,0.4)}
+.fcol ul li a{color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.2s}
+.fcol ul li a:hover{color:var(--text)}
+.fbot{border-top:1px solid var(--border);padding:2rem;max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.fbot p{font-size:12px;color:var(--muted)}
 
-/* RESPONSIVE */
+/* ─── RESPONSIVE ─── */
 @media(max-width:900px){
-  .hero{grid-template-columns:1fr; padding-top: 6rem; text-align:center; min-height: auto}
-  .hero-sub{margin-left:auto; margin-right:auto}
+  .hero-wrap{grid-template-columns:1fr;padding-top:6rem;text-align:center;min-height:auto;gap:3rem}
+  .hero-sub{margin-left:auto;margin-right:auto}
   .hero-cta{justify-content:center}
   .hero-badges{justify-content:center}
   .about-grid{grid-template-columns:1fr;gap:3rem}
   .ftop{grid-template-columns:1fr 1fr}
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}
+  .gallery-grid .g-item:nth-child(1){grid-column:span 2}
+  .gallery-grid .g-item:nth-child(4){grid-column:span 1}
 }
 @media(max-width:600px){
   .nav-links{display:none}
   .hamburger{display:flex}
-  .cd-box{grid-template-columns:repeat(2,1fr); padding: 1.5rem}
-  .cd-num{font-size: 32px}
+  .cd-box{grid-template-columns:repeat(2,1fr);padding:1.5rem}
+  .cd-num{font-size:36px}
   section{padding:4rem 1.5rem}
-  .पटॉप{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:1fr;grid-auto-rows:220px}
+  .gallery-grid .g-item:nth-child(1){grid-column:span 1;grid-row:span 1}
+  .gallery-grid .g-item:nth-child(4){grid-column:span 1}
+  .ftop{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
+
+<!-- BG BLOBS -->
+<div class="bg-blobs">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -163,37 +208,37 @@ footer{background:var(--ink);color:#fff}
       <li><a href="#about">About</a></li>
       <li><a href="#events">Events</a></li>
       <li><a href="#schedule">Schedule</a></li>
-      <li><a href="#faculty">Team</a></li>
+      <li><a href="#gallery">Gallery</a></li>
       <li><a href="#sponsors">Sponsors</a></li>
       <li><a href="register.html" class="nav-cta">Register Now</a></li>
     </ul>
-    <button class="hamburger" onclick="document.getElementById('mmenu').style.display=document.getElementById('mmenu').style.display==='none'?'block':'none'">
+    <button class="hamburger" id="ham-btn" onclick="toggleMenu()">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
-<div id="mmenu" style="display:none;background:var(--card);border-bottom:1px solid var(--border);padding:1.5rem 2rem">
+<div id="mmenu" style="display:none;background:var(--surface);border-bottom:1px solid var(--border);padding:1.5rem 2rem;position:relative;z-index:199">
   <ul style="list-style:none;display:flex;flex-direction:column;gap:1.25rem">
-    <li><a href="#about" style="font-size:15px;font-weight:600;color:var(--muted);text-decoration:none" onclick="document.getElementById('mmenu').style.display='none'">About</a></li>
-    <li><a href="#events" style="font-size:15px;font-weight:600;color:var(--muted);text-decoration:none" onclick="document.getElementById('mmenu').style.display='none'">Events</a></li>
-    <li><a href="#schedule" style="font-size:15px;font-weight:600;color:var(--muted);text-decoration:none" onclick="document.getElementById('mmenu').style.display='none'">Schedule</a></li>
-    <li><a href="#faculty" style="font-size:15px;font-weight:600;color:var(--muted);text-decoration:none" onclick="document.getElementById('mmenu').style.display='none'">Team</a></li>
-    <li><a href="#sponsors" style="font-size:15px;font-weight:600;color:var(--muted);text-decoration:none" onclick="document.getElementById('mmenu').style.display='none'">Sponsors</a></li>
-    <li><a href="register.html" style="font-size:15px;font-weight:600;color:var(--accent);text-decoration:none" onclick="document.getElementById('mmenu').style.display='none'">Register Now →</a></li>
+    <li><a href="#about" style="font-size:15px;font-weight:600;color:var(--muted);text-decoration:none" onclick="closeMenu()">About</a></li>
+    <li><a href="#events" style="font-size:15px;font-weight:600;color:var(--muted);text-decoration:none" onclick="closeMenu()">Events</a></li>
+    <li><a href="#schedule" style="font-size:15px;font-weight:600;color:var(--muted);text-decoration:none" onclick="closeMenu()">Schedule</a></li>
+    <li><a href="#gallery" style="font-size:15px;font-weight:600;color:var(--muted);text-decoration:none" onclick="closeMenu()">Gallery</a></li>
+    <li><a href="#sponsors" style="font-size:15px;font-weight:600;color:var(--muted);text-decoration:none" onclick="closeMenu()">Sponsors</a></li>
+    <li><a href="register.html" style="font-size:15px;font-weight:600;color:var(--accent);text-decoration:none">Register Now →</a></li>
   </ul>
 </div>
 
 <!-- HERO -->
-<div class="hero">
-  <div class="hero-bg" id="hero-bg"></div>
-  <div style="z-index: 2;">
+<div class="hero-bg" id="hero-bg"></div>
+<div class="hero-wrap">
+  <div>
     <p class="hero-eyebrow">Dayananda Sagar College of Engineering</p>
     <h1 class="hero-title">Where code<br>meets <em>creativity.</em></h1>
     <p class="hero-sub">CIESTA is DSCE's flagship annual computer science extravaganza — a celebration of technology, talent, and innovation.</p>
-    <div class="hero-date"><span class="hero-dot"></span>&nbsp; April 9–11, 2026 &nbsp;&middot;&nbsp; DSCE Campus, Bangalore</div>
+    <div class="hero-date"><span class="hero-dot"></span>&nbsp; April 9–11, 2026 &nbsp;·&nbsp; DSCE Campus, Bangalore</div>
     <div class="hero-cta">
-      <a href="register.html" class="btn-hero-primary">Get Your Pass</a>
-      <a href="#events" class="btn-hero-outline">Explore Events</a>
+      <a href="register.html" class="btn-primary">Get Your Pass</a>
+      <a href="#events" class="btn-outline">Explore Events</a>
     </div>
     <div class="hero-badges">
       <span class="hbadge">10+ Events</span>
@@ -201,14 +246,14 @@ footer{background:var(--ink);color:#fff}
       <span class="hbadge">Cultural Night</span>
     </div>
   </div>
-  <div style="z-index: 2;">
+  <div>
     <div class="cd-box">
       <div class="cd-unit"><span class="cd-num" id="cd-d">00</span><span class="cd-lbl">Days</span></div>
       <div class="cd-unit"><span class="cd-num" id="cd-h">00</span><span class="cd-lbl">Hours</span></div>
       <div class="cd-unit"><span class="cd-num" id="cd-m">00</span><span class="cd-lbl">Mins</span></div>
       <div class="cd-unit"><span class="cd-num" id="cd-s">00</span><span class="cd-lbl">Secs</span></div>
     </div>
-    <p class="cd-cap">Countdown to CIESTA 2026</p>
+    <p class="cd-cap">Countdown to CIESTA 4.0</p>
   </div>
 </div>
 
@@ -220,15 +265,15 @@ footer{background:var(--ink);color:#fff}
   <h2 class="stitle">Pioneering Tech Culture<br>Since 2008.</h2>
   <div class="about-grid">
     <div>
-      <p class="sbody">Founded by the Department of Computer Science & Engineering, CIESTA has evolved into one of Bangalore's most anticipated collegiate technical festivals. We bridge the gap between classroom theory and industry practice through competitive excellence.</p>
+      <p class="sbody">Founded by the Department of Computer Science &amp; Engineering, CIESTA has evolved into one of Bangalore's most anticipated collegiate technical festivals. We bridge the gap between classroom theory and industry practice through competitive excellence.</p>
       <div class="stat-row">
         <div class="stat-card"><div class="stat-num">17+</div><div class="stat-lbl">Editions</div></div>
         <div class="stat-card"><div class="stat-num">3K+</div><div class="stat-lbl">Footfall</div></div>
-        <div class="stat-card"><div class="stat-num">Award</div><div class="stat-lbl">Winning Org</div></div>
+        <div class="stat-card"><div class="stat-num">75K+</div><div class="stat-lbl">Prize Pool</div></div>
       </div>
     </div>
-    <div style="background:#eff6ff;border-radius:24px;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;border:1px solid #dbeafe; overflow:hidden">
-        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80" alt="Innovation" style="width:100%;height:100%;object-fit:cover;">
+    <div style="border-radius:24px;overflow:hidden;aspect-ratio:16/10;border:1px solid var(--border)">
+      <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80" alt="Innovation" style="width:100%;height:100%;object-fit:cover;">
     </div>
   </div>
 </section>
@@ -238,22 +283,268 @@ footer{background:var(--ink);color:#fff}
 <!-- EVENTS -->
 <section id="events">
   <p class="stag">Competitions</p>
-  <h2 class="stitle">Battle of Minds & Talents.</h2>
+  <h2 class="stitle">Battle of Minds &amp; Talents.</h2>
   <p class="sbody">From high-intensity hackathons to graceful fashion walks. Choose your arena.</p>
   <div class="evt-filters" id="evt-filters"></div>
   <div class="evt-grid" id="evt-grid"></div>
 </section>
 
+<hr class="hdivider">
+
+<!-- SCHEDULE -->
+<section id="schedule">
+  <p class="stag">Event Timeline</p>
+  <h2 class="stitle">3 Days of Action.</h2>
+  <p class="sbody">Every minute counts. Here's what's happening across CIESTA 4.0.</p>
+
+  <div class="day-tabs">
+    <button class="day-tab active" onclick="switchDay(0,this)">📅 Day 1 — Apr 9</button>
+    <button class="day-tab" onclick="switchDay(1,this)">📅 Day 2 — Apr 10</button>
+    <button class="day-tab" onclick="switchDay(2,this)">📅 Day 3 — Apr 11</button>
+  </div>
+
+  <!-- DAY 1 -->
+  <div class="timeline active" id="day-0">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-time">09:00 AM</div>
+        <div class="tl-name">Opening Ceremony &amp; Inauguration</div>
+        <div class="tl-meta">
+          <span>🏛️ Main Auditorium</span>
+          <span><span class="tl-badge" style="background:rgba(124,58,237,0.2);color:#a78bfa">All</span></span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-time">10:00 AM</div>
+        <div class="tl-name">Hackathon Kickoff</div>
+        <div class="tl-meta">
+          <span>💻 CS Lab Block A</span>
+          <span><span class="tl-badge" style="background:rgba(79,70,229,0.2);color:#818cf8">Technical</span></span>
+          <span>Team (3–4)</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-time">10:00 AM</div>
+        <div class="tl-name">Code Sprint</div>
+        <div class="tl-meta">
+          <span>🖥️ CS Lab Block B</span>
+          <span><span class="tl-badge" style="background:rgba(22,163,74,0.2);color:#86efac">Technical</span></span>
+          <span>Individual</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-time">02:00 PM</div>
+        <div class="tl-name">AI Challenge</div>
+        <div class="tl-meta">
+          <span>🤖 CS Lab Block C</span>
+          <span><span class="tl-badge" style="background:rgba(217,119,6,0.2);color:#fcd34d">Technical</span></span>
+          <span>Team (2–3)</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-time">05:00 PM</div>
+        <div class="tl-name">Jamming</div>
+        <div class="tl-meta">
+          <span>🎵 Open Air Stage</span>
+          <span><span class="tl-badge" style="background:rgba(139,92,246,0.2);color:#c4b5fd">Cultural</span></span>
+          <span>Individual / Band</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 2 -->
+  <div class="timeline" id="day-1">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-time">10:00 AM</div>
+        <div class="tl-name">Tech Quiz</div>
+        <div class="tl-meta">
+          <span>🧠 Seminar Hall</span>
+          <span><span class="tl-badge" style="background:rgba(219,39,119,0.2);color:#f9a8d4">Quiz</span></span>
+          <span>Team (2)</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-time">11:00 AM</div>
+        <div class="tl-name">Paper Presentation</div>
+        <div class="tl-meta">
+          <span>📄 Conference Room 1</span>
+          <span><span class="tl-badge" style="background:rgba(37,99,235,0.2);color:#93c5fd">Research</span></span>
+          <span>Team (1–2)</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-time">02:00 PM</div>
+        <div class="tl-name">Debugging Wars</div>
+        <div class="tl-meta">
+          <span>🔧 CS Lab Block A</span>
+          <span><span class="tl-badge" style="background:rgba(13,148,136,0.2);color:#5eead4">Technical</span></span>
+          <span>Individual</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-time">03:00 PM</div>
+        <div class="tl-name">Web Design Blitz</div>
+        <div class="tl-meta">
+          <span>🎨 Design Lab</span>
+          <span><span class="tl-badge" style="background:rgba(225,29,72,0.2);color:#fda4af">Creative</span></span>
+          <span>Team (2)</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-time">05:00 PM</div>
+        <div class="tl-name">Fashion Walk for Faculty</div>
+        <div class="tl-meta">
+          <span>✨ Main Auditorium</span>
+          <span><span class="tl-badge" style="background:rgba(244,63,94,0.2);color:#fda4af">Cultural</span></span>
+          <span>Faculty Only</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 3 -->
+  <div class="timeline" id="day-2">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-time">10:00 AM</div>
+        <div class="tl-name">Treasure Hunt</div>
+        <div class="tl-meta">
+          <span>🗺️ Campus-wide</span>
+          <span><span class="tl-badge" style="background:rgba(245,158,11,0.2);color:#fcd34d">Cultural</span></span>
+          <span>Team (3)</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-time">12:00 PM</div>
+        <div class="tl-name">Hackathon Final Presentations</div>
+        <div class="tl-meta">
+          <span>🏛️ Main Auditorium</span>
+          <span><span class="tl-badge" style="background:rgba(79,70,229,0.2);color:#818cf8">Technical</span></span>
+          <span>Teams</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-time">03:00 PM</div>
+        <div class="tl-name">Awards &amp; Prize Distribution</div>
+        <div class="tl-meta">
+          <span>🏆 Main Auditorium</span>
+          <span><span class="tl-badge" style="background:rgba(124,58,237,0.2);color:#a78bfa">All</span></span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-time">05:00 PM</div>
+        <div class="tl-name">Cultural Night &amp; Closing Ceremony</div>
+        <div class="tl-meta">
+          <span>🎉 Open Air Stage</span>
+          <span><span class="tl-badge" style="background:rgba(6,182,212,0.2);color:#67e8f9">Cultural</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hdivider">
+
+<!-- GALLERY -->
+<section id="gallery">
+  <p class="stag">Memories</p>
+  <h2 class="stitle">Moments from CIESTA Past.</h2>
+  <p class="sbody">A glimpse into the energy and excitement of our previous editions.</p>
+
+  <div class="gallery-grid">
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=900&q=80" alt="Opening Ceremony">
+      <div class="g-overlay">
+        <div class="g-caption">Opening Ceremony</div>
+        <div class="g-sub">CIESTA 3.0 · 2025</div>
+      </div>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=600&q=80" alt="Hackathon Night">
+      <div class="g-overlay">
+        <div class="g-caption">Hackathon</div>
+        <div class="g-sub">Innovation at 2 AM</div>
+      </div>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&q=80" alt="Tech Expo">
+      <div class="g-overlay">
+        <div class="g-caption">Tech Expo</div>
+        <div class="g-sub">Project Showcase</div>
+      </div>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=900&q=80" alt="Cultural Night">
+      <div class="g-overlay">
+        <div class="g-caption">Cultural Night</div>
+        <div class="g-sub">Lights &amp; Energy</div>
+      </div>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80" alt="Team Awards">
+      <div class="g-overlay">
+        <div class="g-caption">Award Ceremony</div>
+        <div class="g-sub">Champions crowned</div>
+      </div>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&q=80" alt="Workshops">
+      <div class="g-overlay">
+        <div class="g-caption">Workshops</div>
+        <div class="g-sub">Learning in action</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- SPONSORS -->
-<div style="background:var(--card); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:5rem 2rem">
-  <div style="max-width:1100px; margin:0 auto; text-align:center">
+<div class="sponsors-wrap" id="sponsors">
+  <div class="sponsors-inner">
     <p class="stag">Our Partners</p>
     <h2 class="stitle">Fueling Innovation</h2>
-    <div style="display:flex; flex-wrap:wrap; gap:2rem; justify-content:center; align-items:center; margin-top:3rem">
-        <div style="opacity:0.6; font-size:24px; font-weight:700; font-family:var(--ff-display)">TECHNOVA</div>
-        <div style="opacity:0.6; font-size:24px; font-weight:700; font-family:var(--ff-display)">INFYBRIDGE</div>
-        <div style="opacity:0.6; font-size:24px; font-weight:700; font-family:var(--ff-display)">CLOUDEDGE</div>
-        <div style="opacity:0.6; font-size:24px; font-weight:700; font-family:var(--ff-display)">DATAPULSE</div>
+    <div class="sponsor-logos">
+      <div class="s-logo">TECHNOVA</div>
+      <div class="s-logo">INFYBRIDGE</div>
+      <div class="s-logo">CLOUDEDGE</div>
+      <div class="s-logo">DATAPULSE</div>
     </div>
   </div>
 </div>
@@ -263,7 +554,7 @@ footer{background:var(--ink);color:#fff}
   <div class="ftop">
     <div class="fcol">
       <div class="flogo">CIESTA <span>4.0</span></div>
-      <p style="font-size:14px;color:#9ca3af;margin-top:1rem;line-height:1.8">Department of Computer Science & Engineering<br>Dayananda Sagar College of Engineering</p>
+      <p style="font-size:13px;color:var(--muted);margin-top:1rem;line-height:1.8">Department of Computer Science &amp; Engineering<br>Dayananda Sagar College of Engineering</p>
     </div>
     <div class="fcol">
       <h4>Navigation</h4>
@@ -271,6 +562,7 @@ footer{background:var(--ink);color:#fff}
         <li><a href="#about">About Us</a></li>
         <li><a href="#events">Events</a></li>
         <li><a href="#schedule">Schedule</a></li>
+        <li><a href="#gallery">Gallery</a></li>
         <li><a href="register.html">Registrations</a></li>
       </ul>
     </div>
@@ -293,26 +585,26 @@ footer{background:var(--ink);color:#fff}
   </div>
   <div class="fbot">
     <p>&copy; 2026 CIESTA DSCE. All rights reserved.</p>
-    <p>Crafted for Excellence</p>
+    <p>Crafted by Akira — CSE Cultural Team</p>
   </div>
 </footer>
 
 <script>
-/* EVENTS DATA */
+/* ── EVENTS DATA ── */
 const EVENTS=[
-  {name:"Hackathon",cat:"Technical",badge:"24 hrs",bs:"pi",date:"Apr 9, 10 AM",mode:"Team (3–4)",prize:"₹15,000",desc:"Build a working product in 24 hours. Open theme — web, AI, IoT, anything goes.",accent:"#4f46e5"},
-  {name:"Code Sprint",cat:"Technical",badge:"Individual",bs:"pg",date:"Apr 9, 10 AM",mode:"Individual",prize:"₹8,000",desc:"Race against the clock solving 5 algorithmic problems. Fast fingers, faster minds.",accent:"#16a34a"},
-  {name:"AI Challenge",cat:"Technical",badge:"AI / ML",bs:"pa",date:"Apr 9, 2 PM",mode:"Team (2–3)",prize:"₹12,000",desc:"Design and deploy an ML model. Evaluated on accuracy and innovation.",accent:"#d97706"},
-  {name:"Tech Quiz",cat:"Quiz",badge:"General",bs:"pp",date:"Apr 10, 10 AM",mode:"Team (2)",prize:"₹5,000",desc:"30 rounds covering CS fundamentals and current tech trends.",accent:"#db2777"},
-  {name:"Paper Presentation",cat:"Research",badge:"Research",bs:"pb",date:"Apr 10, 11 AM",mode:"Team (1–2)",prize:"₹6,000",desc:"Present original research to a faculty panel.",accent:"#2563eb"},
-  {name:"Debugging Wars",cat:"Technical",badge:"Fun",bs:"pt",date:"Apr 10, 2 PM",mode:"Individual",prize:"₹4,000",desc:"Fix 10 intentionally broken programs in the shortest time.",accent:"#0d9488"},
-  {name:"Web Design Blitz",cat:"Creative",badge:"UI/UX",bs:"pp",date:"Apr 10, 3 PM",mode:"Team (2)",prize:"₹5,000",desc:"2 hours to design and build a themed webpage from scratch.",accent:"#e11d48"},
-  {name:"Jamming",cat:"Cultural",badge:"Music",bs:"pi",date:"Apr 9, 5 PM",mode:"Individual/Band",prize:"₹7,000",desc:"Unleash your musical talent! From acoustic solos to high-energy bands.",accent:"#8b5cf6"},
-  {name:"Fashion Walk for Faculty",cat:"Cultural",badge:"Faculty",bs:"pa",date:"Apr 10, 5 PM",mode:"Faculty Only",prize:"Awards",desc:"A special event for our faculty to showcase style and grace.",accent:"#f43f5e"},
-  {name:"Treasure Hunt",cat:"Cultural",badge:"Fun",bs:"pg",date:"Apr 11, 10 AM",mode:"Team (3)",prize:"₹10,000",desc:"Solve riddles, complete challenges, and find the hidden treasure!",accent:"#f59e0b"}
+  {name:"Hackathon",cat:"Technical",badge:"24 hrs",date:"Apr 9, 10 AM",mode:"Team (3–4)",prize:"₹15,000",desc:"Build a working product in 24 hours. Open theme — web, AI, IoT, anything goes.",accent:"#7c3aed"},
+  {name:"Code Sprint",cat:"Technical",badge:"Individual",date:"Apr 9, 10 AM",mode:"Individual",prize:"₹8,000",desc:"Race against the clock solving 5 algorithmic problems. Fast fingers, faster minds.",accent:"#16a34a"},
+  {name:"AI Challenge",cat:"Technical",badge:"AI / ML",date:"Apr 9, 2 PM",mode:"Team (2–3)",prize:"₹12,000",desc:"Design and deploy an ML model. Evaluated on accuracy and innovation.",accent:"#d97706"},
+  {name:"Tech Quiz",cat:"Quiz",badge:"General",date:"Apr 10, 10 AM",mode:"Team (2)",prize:"₹5,000",desc:"30 rounds covering CS fundamentals and current tech trends.",accent:"#db2777"},
+  {name:"Paper Presentation",cat:"Research",badge:"Research",date:"Apr 10, 11 AM",mode:"Team (1–2)",prize:"₹6,000",desc:"Present original research to a faculty panel.",accent:"#2563eb"},
+  {name:"Debugging Wars",cat:"Technical",badge:"Fun",date:"Apr 10, 2 PM",mode:"Individual",prize:"₹4,000",desc:"Fix 10 intentionally broken programs in the shortest time.",accent:"#0d9488"},
+  {name:"Web Design Blitz",cat:"Creative",badge:"UI/UX",date:"Apr 10, 3 PM",mode:"Team (2)",prize:"₹5,000",desc:"2 hours to design and build a themed webpage from scratch.",accent:"#e11d48"},
+  {name:"Jamming",cat:"Cultural",badge:"Music",date:"Apr 9, 5 PM",mode:"Individual/Band",prize:"₹7,000",desc:"Unleash your musical talent! From acoustic solos to high-energy bands.",accent:"#8b5cf6"},
+  {name:"Fashion Walk for Faculty",cat:"Cultural",badge:"Faculty",date:"Apr 10, 5 PM",mode:"Faculty Only",prize:"Awards",desc:"A special event for our faculty to showcase style and grace.",accent:"#f43f5e"},
+  {name:"Treasure Hunt",cat:"Cultural",badge:"Fun",date:"Apr 11, 10 AM",mode:"Team (3)",prize:"₹10,000",desc:"Solve riddles, complete challenges, and find the hidden treasure!",accent:"#f59e0b"}
 ];
 
-/* RENDER EVENTS */
+/* ── RENDER EVENTS ── */
 let activecat="All";
 const evtGrid=document.getElementById("evt-grid");
 const evtFilters=document.getElementById("evt-filters");
@@ -336,39 +628,48 @@ function renderEvts(){
     const d=document.createElement("div");
     d.className="ecard";
     d.style.setProperty("--ec-accent",e.accent);
-    d.innerHTML='<span class="ebadge pill" style="background:rgba(37,99,235,0.1); color:var(--ec-accent)">'+e.cat+'</span>'+
-      '<h3 class="ename">'+e.name+'</h3>'+
-      '<p class="edesc">'+e.desc+'</p>'+
-      '<div class="emeta"><span>📅 '+e.date+'</span><span>👥 '+e.mode+'</span></div>'+
-      '<div class="eprize"><span>🏆 Prize: '+e.prize+'</span><a href="register.html?event='+encodeURIComponent(e.name)+'" class="btn-primary" style="padding:8px 16px; font-size:12px; text-decoration:none">Register</a></div>';
+    d.innerHTML=`<span class="ebadge" style="background:rgba(255,255,255,0.08);color:${e.accent}">${e.cat}</span>`+
+      `<h3 class="ename">${e.name}</h3>`+
+      `<p class="edesc">${e.desc}</p>`+
+      `<div class="emeta"><span>📅 ${e.date}</span><span>👥 ${e.mode}</span></div>`+
+      `<div class="eprize"><span>🏆 ${e.prize}</span><a href="register.html?event=${encodeURIComponent(e.name)}" class="ereg-btn">Register</a></div>`;
     evtGrid.appendChild(d);
   });
 }
 renderEvts();
 
-/* HERO BACKGROUND SLIDESHOW */
-const BG_IMAGES = [
+/* ── SCHEDULE TABS ── */
+function switchDay(idx, btn) {
+  document.querySelectorAll('.timeline').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('day-' + idx).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ── HERO SLIDESHOW ── */
+const BG_IMAGES=[
   "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80",
   "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=1600&q=80",
   "https://images.unsplash.com/photo-1511578314322-379afb476865?w=1600&q=80",
   "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1600&q=80"
 ];
-const heroBg = document.getElementById("hero-bg");
-BG_IMAGES.forEach((img, i) => {
-  const div = document.createElement("div");
-  div.style.backgroundImage = `url(${img})`;
-  if (i === 0) div.classList.add("active");
+const heroBg=document.getElementById("hero-bg");
+BG_IMAGES.forEach((img,i)=>{
+  const div=document.createElement("div");
+  div.className="hero-bg-slide";
+  div.style.backgroundImage=`url(${img})`;
+  if(i===0) div.classList.add("active");
   heroBg.appendChild(div);
 });
-let currentBg = 0;
-setInterval(() => {
-  const divs = heroBg.querySelectorAll("div");
+let currentBg=0;
+setInterval(()=>{
+  const divs=heroBg.querySelectorAll(".hero-bg-slide");
   divs[currentBg].classList.remove("active");
-  currentBg = (currentBg + 1) % divs.length;
+  currentBg=(currentBg+1)%divs.length;
   divs[currentBg].classList.add("active");
-}, 6000);
+},6000);
 
-/* COUNTDOWN */
+/* ── COUNTDOWN ── */
 function tick(){
   var target=new Date("2026-04-09T09:00:00+05:30");
   var now=new Date();
@@ -382,6 +683,31 @@ function tick(){
   document.getElementById("cd-s").textContent=String(s).padStart(2,"0");
 }
 tick();setInterval(tick,1000);
+
+/* ── MOBILE MENU ── */
+function toggleMenu(){
+  const m=document.getElementById("mmenu");
+  m.style.display=m.style.display==="none"?"block":"none";
+}
+function closeMenu(){
+  document.getElementById("mmenu").style.display="none";
+}
+
+/* ── SCROLL REVEAL ── */
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.opacity="1";
+      e.target.style.transform="translateY(0)";
+    }
+  });
+},{threshold:0.1});
+document.querySelectorAll('.ecard,.tl-card,.g-item,.stat-card').forEach(el=>{
+  el.style.opacity="0";
+  el.style.transform="translateY(20px)";
+  el.style.transition="opacity 0.5s ease, transform 0.5s ease";
+  observer.observe(el);
+});
 </script>
 </body>
 </html>
