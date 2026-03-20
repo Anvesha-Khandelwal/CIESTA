@@ -10,17 +10,17 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#07070f;
-  --surface:#0e0e1a;
-  --card:#141428;
-  --card-hover:#1c1c38;
-  --accent:#7c3aed;
-  --accent2:#06b6d4;
-  --accent-glow:rgba(124,58,237,0.35);
-  --text:#f0f0ff;
-  --muted:#8888aa;
-  --border:rgba(255,255,255,0.07);
-  --border-hover:rgba(124,58,237,0.5);
+  --bg:#040d14;
+  --surface:#071525;
+  --card:#0b1f34;
+  --card-hover:#102742;
+  --accent:#0ea5e9;
+  --accent2:#14b8a6;
+  --accent-glow:rgba(14,165,233,0.3);
+  --text:#e8f4fd;
+  --muted:#7a9bb5;
+  --border:rgba(14,165,233,0.12);
+  --border-hover:rgba(14,165,233,0.45);
   --ff-display:'Playfair Display',Georgia,serif;
   --ff-body:'Space Grotesk','Segoe UI',Helvetica,Arial,sans-serif;
 }
@@ -30,9 +30,9 @@ body{font-family:var(--ff-body);background:var(--bg);color:var(--text);font-size
 /* ─── ANIMATED BG BLOBS ─── */
 .bg-blobs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.18;animation:drift 20s ease-in-out infinite alternate}
-.blob-1{width:600px;height:600px;background:radial-gradient(circle,#7c3aed,transparent);top:-150px;left:-100px;animation-duration:22s}
-.blob-2{width:500px;height:500px;background:radial-gradient(circle,#06b6d4,transparent);top:30%;right:-120px;animation-duration:18s;animation-delay:-8s}
-.blob-3{width:400px;height:400px;background:radial-gradient(circle,#db2777,transparent);bottom:10%;left:20%;animation-duration:25s;animation-delay:-4s}
+.blob-1{width:600px;height:600px;background:radial-gradient(circle,#0ea5e9,transparent);top:-150px;left:-100px;animation-duration:22s}
+.blob-2{width:500px;height:500px;background:radial-gradient(circle,#14b8a6,transparent);top:30%;right:-120px;animation-duration:18s;animation-delay:-8s}
+.blob-3{width:400px;height:400px;background:radial-gradient(circle,#1d4ed8,transparent);bottom:10%;left:20%;animation-duration:25s;animation-delay:-4s}
 @keyframes drift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(40px,30px) scale(1.1)}}
 
 /* ─── NAV ─── */
@@ -73,7 +73,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(7,7,15,0.8);backdrop-filte
 .cd-box{background:rgba(14,14,26,0.7);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:24px;padding:2.75rem;display:grid;grid-template-columns:repeat(4,1fr);gap:0;text-align:center;box-shadow:0 0 40px var(--accent-glow)}
 .cd-unit{display:flex;flex-direction:column;gap:8px;padding:0 .5rem;position:relative}
 .cd-unit:not(:last-child)::after{content:':';position:absolute;right:-4px;top:0;font-size:36px;color:rgba(255,255,255,0.2);font-family:var(--ff-display);line-height:1}
-.cd-num{font-family:var(--ff-display);font-size:52px;font-weight:700;line-height:1;background:linear-gradient(135deg,#fff,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cd-num{font-family:var(--ff-display);font-size:52px;font-weight:700;line-height:1;background:linear-gradient(135deg,#fff,#7dd3fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .cd-lbl{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);font-weight:600}
 .cd-cap{text-align:center;font-size:12px;color:var(--muted);margin-top:1.25rem;letter-spacing:1px}
 
@@ -91,16 +91,16 @@ section{max-width:1100px;margin:0 auto;padding:6rem 2rem;position:relative;z-ind
 .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.5rem}
 .stat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;transition:border-color 0.3s,transform 0.3s}
 .stat-card:hover{border-color:var(--border-hover);transform:translateY(-4px)}
-.stat-num{font-family:var(--ff-display);font-size:36px;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-num{font-family:var(--ff-display);font-size:36px;font-weight:700;color:var(--accent)}
 .stat-lbl{font-size:12px;color:var(--muted);margin-top:4px;font-weight:500}
 
 /* ─── EVENTS ─── */
 .evt-filters{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:2.5rem;margin-bottom:2rem}
 .fb{font-size:12px;font-weight:600;padding:7px 18px;border-radius:100px;border:1px solid var(--border);background:var(--card);cursor:pointer;color:var(--muted);font-family:var(--ff-body);transition:all 0.2s}
-.fb.active,.fb:hover{background:var(--accent);color:#fff;border-color:var(--accent);transform:translateY(-1px)}
+.fb.active,.fb:hover{background:var(--accent);color:#040d14;border-color:var(--accent);transform:translateY(-1px)}
 .evt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.75rem}
 .ecard{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:1.75rem;position:relative;overflow:hidden;transition:all 0.35s cubic-bezier(0.4,0,0.2,1)}
-.ecard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--ec-accent,var(--accent))}
+.ecard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
 .ecard:hover{transform:translateY(-8px);border-color:var(--border-hover);box-shadow:0 20px 40px rgba(0,0,0,0.4)}
 .ebadge{display:inline-block;font-size:10px;font-weight:700;padding:4px 11px;border-radius:100px;margin-bottom:1rem;text-transform:uppercase;letter-spacing:0.5px}
 .ename{font-family:var(--ff-display);font-size:24px;font-weight:700;margin-bottom:.6rem;letter-spacing:-.5px;color:var(--text)}
@@ -108,29 +108,29 @@ section{max-width:1100px;margin:0 auto;padding:6rem 2rem;position:relative;z-ind
 .emeta{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
 .emeta span{font-size:12px;color:var(--muted);font-weight:500;display:flex;align-items:center;gap:5px}
 .eprize{font-size:13px;font-weight:600;color:var(--text);padding-top:1rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-.ereg-btn{padding:7px 15px;font-size:11px;font-weight:700;background:var(--accent);color:#fff;border-radius:8px;text-decoration:none;transition:background 0.2s}
-.ereg-btn:hover{background:#6d28d9}
+.ereg-btn{padding:7px 15px;font-size:11px;font-weight:700;background:var(--accent);color:#040d14;border-radius:8px;text-decoration:none;transition:background 0.2s,transform 0.2s}
+.ereg-btn:hover{background:var(--accent2);transform:translateY(-1px)}
 
 /* ─── SCHEDULE ─── */
 #schedule{background:none}
-.day-tabs{display:flex;gap:1rem;margin-top:2.5rem;margin-bottom:3rem;flex-wrap:wrap}
-.day-tab{padding:10px 28px;border-radius:12px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--ff-body);transition:all 0.2s}
-.day-tab.active{background:linear-gradient(135deg,var(--accent),#4f46e5);color:#fff;border-color:var(--accent);box-shadow:0 4px 15px var(--accent-glow)}
+.day-tabs{display:flex;gap:1rem;margin-top:2.5rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.day-tab{padding:10px 28px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--ff-body);transition:all 0.2s}
+.day-tab.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#040d14;border-color:transparent;box-shadow:0 4px 15px var(--accent-glow)}
 .day-tab:hover:not(.active){border-color:var(--border-hover);color:var(--text)}
-.timeline{display:none;position:relative;padding-left:2.5rem}
-.timeline.active{display:block}
-.timeline::before{content:'';position:absolute;left:10px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--accent),var(--accent2));border-radius:2px}
-.tl-item{position:relative;margin-bottom:2.5rem}
-.tl-dot{position:absolute;left:-2.5rem;top:4px;width:20px;height:20px;border-radius:50%;background:var(--bg);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:8px}
-.tl-dot::after{content:'';width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));animation:dot-pulse 2s ease-in-out infinite}
-@keyframes dot-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.7)}}
-.tl-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.4rem 1.6rem;transition:border-color 0.3s,transform 0.3s}
-.tl-card:hover{border-color:var(--border-hover);transform:translateX(6px)}
-.tl-time{font-size:11px;font-weight:700;color:var(--accent2);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
-.tl-name{font-size:17px;font-weight:700;color:var(--text);margin-bottom:4px;font-family:var(--ff-display)}
-.tl-meta{display:flex;gap:1.25rem;flex-wrap:wrap}
-.tl-meta span{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:5px}
-.tl-badge{display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:0.5px}
+.sched-panel{display:none}
+.sched-panel.active{display:block}
+.sched-table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.sched-table thead tr{background:rgba(14,165,233,0.1)}
+.sched-table th{padding:12px 18px;text-align:left;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--border)}
+.sched-table tbody tr{background:var(--card);transition:background 0.2s}
+.sched-table tbody tr:nth-child(even){background:rgba(11,31,52,0.6)}
+.sched-table tbody tr:hover{background:var(--card-hover)}
+.sched-table td{padding:14px 18px;font-size:13px;color:var(--text);border-bottom:1px solid var(--border);vertical-align:middle}
+.sched-table tbody tr:last-child td{border-bottom:none}
+.sched-time{font-weight:700;color:var(--accent2);white-space:nowrap;font-size:12px;letter-spacing:0.5px}
+.sched-name{font-weight:600;font-size:14px}
+.sched-venue{color:var(--muted);font-size:12px}
+.sched-badge{display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;text-transform:uppercase;letter-spacing:0.5px;white-space:nowrap}
 
 /* ─── GALLERY ─── */
 #gallery{background:none}
@@ -304,182 +304,47 @@ footer{background:var(--surface);border-top:1px solid var(--border);position:rel
   </div>
 
   <!-- DAY 1 -->
-  <div class="timeline active" id="day-0">
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-card">
-        <div class="tl-time">09:00 AM</div>
-        <div class="tl-name">Opening Ceremony &amp; Inauguration</div>
-        <div class="tl-meta">
-          <span>🏛️ Main Auditorium</span>
-          <span><span class="tl-badge" style="background:rgba(124,58,237,0.2);color:#a78bfa">All</span></span>
-        </div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-card">
-        <div class="tl-time">10:00 AM</div>
-        <div class="tl-name">Hackathon Kickoff</div>
-        <div class="tl-meta">
-          <span>💻 CS Lab Block A</span>
-          <span><span class="tl-badge" style="background:rgba(79,70,229,0.2);color:#818cf8">Technical</span></span>
-          <span>Team (3–4)</span>
-        </div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-card">
-        <div class="tl-time">10:00 AM</div>
-        <div class="tl-name">Code Sprint</div>
-        <div class="tl-meta">
-          <span>🖥️ CS Lab Block B</span>
-          <span><span class="tl-badge" style="background:rgba(22,163,74,0.2);color:#86efac">Technical</span></span>
-          <span>Individual</span>
-        </div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-card">
-        <div class="tl-time">02:00 PM</div>
-        <div class="tl-name">AI Challenge</div>
-        <div class="tl-meta">
-          <span>🤖 CS Lab Block C</span>
-          <span><span class="tl-badge" style="background:rgba(217,119,6,0.2);color:#fcd34d">Technical</span></span>
-          <span>Team (2–3)</span>
-        </div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-card">
-        <div class="tl-time">05:00 PM</div>
-        <div class="tl-name">Jamming</div>
-        <div class="tl-meta">
-          <span>🎵 Open Air Stage</span>
-          <span><span class="tl-badge" style="background:rgba(139,92,246,0.2);color:#c4b5fd">Cultural</span></span>
-          <span>Individual / Band</span>
-        </div>
-      </div>
-    </div>
+  <div class="sched-panel active" id="day-0">
+    <table class="sched-table">
+      <thead><tr><th>Time</th><th>Event</th><th>Category</th><th>Venue</th><th>Format</th></tr></thead>
+      <tbody>
+        <tr><td class="sched-time">09:00 AM</td><td class="sched-name">Opening Ceremony &amp; Inauguration</td><td><span class="sched-badge" style="background:rgba(14,165,233,0.15);color:#7dd3fc">All</span></td><td class="sched-venue">🏛️ Main Auditorium</td><td>—</td></tr>
+        <tr><td class="sched-time">10:00 AM</td><td class="sched-name">Hackathon Kickoff</td><td><span class="sched-badge" style="background:rgba(79,70,229,0.15);color:#a5b4fc">Technical</span></td><td class="sched-venue">💻 CS Lab Block A</td><td>Team (3–4)</td></tr>
+        <tr><td class="sched-time">10:00 AM</td><td class="sched-name">Code Sprint</td><td><span class="sched-badge" style="background:rgba(22,163,74,0.15);color:#86efac">Technical</span></td><td class="sched-venue">🖥️ CS Lab Block B</td><td>Individual</td></tr>
+        <tr><td class="sched-time">02:00 PM</td><td class="sched-name">AI Challenge</td><td><span class="sched-badge" style="background:rgba(217,119,6,0.15);color:#fcd34d">Technical</span></td><td class="sched-venue">🤖 CS Lab Block C</td><td>Team (2–3)</td></tr>
+        <tr><td class="sched-time">05:00 PM</td><td class="sched-name">Jamming</td><td><span class="sched-badge" style="background:rgba(139,92,246,0.15);color:#c4b5fd">Cultural</span></td><td class="sched-venue">🎵 Open Air Stage</td><td>Individual / Band</td></tr>
+      </tbody>
+    </table>
   </div>
 
   <!-- DAY 2 -->
-  <div class="timeline" id="day-1">
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-card">
-        <div class="tl-time">10:00 AM</div>
-        <div class="tl-name">Tech Quiz</div>
-        <div class="tl-meta">
-          <span>🧠 Seminar Hall</span>
-          <span><span class="tl-badge" style="background:rgba(219,39,119,0.2);color:#f9a8d4">Quiz</span></span>
-          <span>Team (2)</span>
-        </div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-card">
-        <div class="tl-time">11:00 AM</div>
-        <div class="tl-name">Paper Presentation</div>
-        <div class="tl-meta">
-          <span>📄 Conference Room 1</span>
-          <span><span class="tl-badge" style="background:rgba(37,99,235,0.2);color:#93c5fd">Research</span></span>
-          <span>Team (1–2)</span>
-        </div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-card">
-        <div class="tl-time">02:00 PM</div>
-        <div class="tl-name">Debugging Wars</div>
-        <div class="tl-meta">
-          <span>🔧 CS Lab Block A</span>
-          <span><span class="tl-badge" style="background:rgba(13,148,136,0.2);color:#5eead4">Technical</span></span>
-          <span>Individual</span>
-        </div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-card">
-        <div class="tl-time">03:00 PM</div>
-        <div class="tl-name">Web Design Blitz</div>
-        <div class="tl-meta">
-          <span>🎨 Design Lab</span>
-          <span><span class="tl-badge" style="background:rgba(225,29,72,0.2);color:#fda4af">Creative</span></span>
-          <span>Team (2)</span>
-        </div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-card">
-        <div class="tl-time">05:00 PM</div>
-        <div class="tl-name">Fashion Walk for Faculty</div>
-        <div class="tl-meta">
-          <span>✨ Main Auditorium</span>
-          <span><span class="tl-badge" style="background:rgba(244,63,94,0.2);color:#fda4af">Cultural</span></span>
-          <span>Faculty Only</span>
-        </div>
-      </div>
-    </div>
+  <div class="sched-panel" id="day-1">
+    <table class="sched-table">
+      <thead><tr><th>Time</th><th>Event</th><th>Category</th><th>Venue</th><th>Format</th></tr></thead>
+      <tbody>
+        <tr><td class="sched-time">10:00 AM</td><td class="sched-name">Tech Quiz</td><td><span class="sched-badge" style="background:rgba(219,39,119,0.15);color:#f9a8d4">Quiz</span></td><td class="sched-venue">🧠 Seminar Hall</td><td>Team (2)</td></tr>
+        <tr><td class="sched-time">11:00 AM</td><td class="sched-name">Paper Presentation</td><td><span class="sched-badge" style="background:rgba(14,165,233,0.15);color:#7dd3fc">Research</span></td><td class="sched-venue">📄 Conference Room 1</td><td>Team (1–2)</td></tr>
+        <tr><td class="sched-time">02:00 PM</td><td class="sched-name">Debugging Wars</td><td><span class="sched-badge" style="background:rgba(13,148,136,0.15);color:#5eead4">Technical</span></td><td class="sched-venue">🔧 CS Lab Block A</td><td>Individual</td></tr>
+        <tr><td class="sched-time">03:00 PM</td><td class="sched-name">Web Design Blitz</td><td><span class="sched-badge" style="background:rgba(225,29,72,0.15);color:#fda4af">Creative</span></td><td class="sched-venue">🎨 Design Lab</td><td>Team (2)</td></tr>
+        <tr><td class="sched-time">05:00 PM</td><td class="sched-name">Fashion Walk for Faculty</td><td><span class="sched-badge" style="background:rgba(139,92,246,0.15);color:#c4b5fd">Cultural</span></td><td class="sched-venue">✨ Main Auditorium</td><td>Faculty Only</td></tr>
+      </tbody>
+    </table>
   </div>
 
   <!-- DAY 3 -->
-  <div class="timeline" id="day-2">
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-card">
-        <div class="tl-time">10:00 AM</div>
-        <div class="tl-name">Treasure Hunt</div>
-        <div class="tl-meta">
-          <span>🗺️ Campus-wide</span>
-          <span><span class="tl-badge" style="background:rgba(245,158,11,0.2);color:#fcd34d">Cultural</span></span>
-          <span>Team (3)</span>
-        </div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-card">
-        <div class="tl-time">12:00 PM</div>
-        <div class="tl-name">Hackathon Final Presentations</div>
-        <div class="tl-meta">
-          <span>🏛️ Main Auditorium</span>
-          <span><span class="tl-badge" style="background:rgba(79,70,229,0.2);color:#818cf8">Technical</span></span>
-          <span>Teams</span>
-        </div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-card">
-        <div class="tl-time">03:00 PM</div>
-        <div class="tl-name">Awards &amp; Prize Distribution</div>
-        <div class="tl-meta">
-          <span>🏆 Main Auditorium</span>
-          <span><span class="tl-badge" style="background:rgba(124,58,237,0.2);color:#a78bfa">All</span></span>
-        </div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-card">
-        <div class="tl-time">05:00 PM</div>
-        <div class="tl-name">Cultural Night &amp; Closing Ceremony</div>
-        <div class="tl-meta">
-          <span>🎉 Open Air Stage</span>
-          <span><span class="tl-badge" style="background:rgba(6,182,212,0.2);color:#67e8f9">Cultural</span></span>
-        </div>
-      </div>
-    </div>
+  <div class="sched-panel" id="day-2">
+    <table class="sched-table">
+      <thead><tr><th>Time</th><th>Event</th><th>Category</th><th>Venue</th><th>Format</th></tr></thead>
+      <tbody>
+        <tr><td class="sched-time">10:00 AM</td><td class="sched-name">Treasure Hunt</td><td><span class="sched-badge" style="background:rgba(245,158,11,0.15);color:#fcd34d">Cultural</span></td><td class="sched-venue">🗺️ Campus-wide</td><td>Team (3)</td></tr>
+        <tr><td class="sched-time">12:00 PM</td><td class="sched-name">Hackathon Final Presentations</td><td><span class="sched-badge" style="background:rgba(79,70,229,0.15);color:#a5b4fc">Technical</span></td><td class="sched-venue">🏛️ Main Auditorium</td><td>Teams</td></tr>
+        <tr><td class="sched-time">03:00 PM</td><td class="sched-name">Awards &amp; Prize Distribution</td><td><span class="sched-badge" style="background:rgba(14,165,233,0.15);color:#7dd3fc">All</span></td><td class="sched-venue">🏆 Main Auditorium</td><td>—</td></tr>
+        <tr><td class="sched-time">05:00 PM</td><td class="sched-name">Cultural Night &amp; Closing Ceremony</td><td><span class="sched-badge" style="background:rgba(20,184,166,0.15);color:#5eead4">Cultural</span></td><td class="sched-venue">🎉 Open Air Stage</td><td>—</td></tr>
+      </tbody>
+    </table>
   </div>
 </section>
+
 
 <hr class="hdivider">
 
