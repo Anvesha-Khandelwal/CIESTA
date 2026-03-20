@@ -1,3 +1,7 @@
 2026-03-18T17:55:00.893Z | Test User | 1DS21CS999 | DSCE | Jamming | — | 3rd Year | test@example.com | 9876543210
 2026-03-18T17:59:15.775Z | John Doe | 1DS21CS111 | DSCE | Treasure Hunt | The Seekers | 1st Year | john@example.com | 9876543210
 2026-03-18T18:02:03.372Z | John Doe | 1DS21CS111 | DSCE | Treasure Hunt | The Seekers | 1st Year | john@example.com | 9876543210
+2026-03-20T12:30:37.014Z | Gauri Chiranjeev | 1ds24cs072 | dsce | AI Challenge | — | 2nd Year | gaurichiranjeevguddu@gmail.com | 7520151521
+2026-03-20T17:21:30.695Z | Gauri Chiranjeev | 1ds24cs072 | dsce | Web Design Blitz | — | 2nd Year | gaurichiranjeevguddu@gmail.com | 7520151521
+2026-03-20T17:26:26.738Z | Gauri Chiranjeev | 1ds24cs072 | dsce | Fashion Walk for Faculty | — | 2nd Year | gaurichiranjeevguddu@gmail.com | 7520151521
+2026-03-20T17:27:31.023Z | Gauri Chiranjeev | 1ds24cs072 | dsce | Tech Quiz | — | 1st Year | gaurichiranjeevguddu@gmail.com | 7520151521
