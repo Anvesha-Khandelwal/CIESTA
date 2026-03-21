@@ -130,7 +130,6 @@ body{font-family:var(--ff-body);background:var(--bg);color:var(--text);font-size
 <footer class="reg-footer">
   <p>&copy; 2026 CIESTA DSCE · Crafted by Akira — CSE Cultural Team</p>
 </footer>
-
 <script>
 // PRE-FILL EVENT FROM URL
 window.onload = function() {
@@ -146,6 +145,17 @@ window.onload = function() {
     }
   }
 };
+
+// Google Sheets logger
+function logToSheet(data) {
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwHe4EZOuweaD0aLm4TyMoDBL8eQkAmPvgNUSqPRcPpqQ6WG92-Rb19ivW422I6vrUMXA/exec';
+  const form = new FormData();
+  form.append('data', JSON.stringify(data));
+  fetch(SHEET_URL, { method: 'POST', body: form })
+    .then(r => r.text())
+    .then(d => console.log('Sheet:', d))
+    .catch(e => console.log('Sheet error:', e));
+}
 
 async function handleReg(){
   var fname=document.getElementById("f-fname").value.trim();
@@ -194,6 +204,22 @@ async function handleReg(){
     });
 
     if (response.ok) {
+      const result = await response.json();
+
+      // ✅ Log to Google Sheet
+      logToSheet({
+        id: result.id,
+        name: result.name,
+        usn: result.usn,
+        college: result.college,
+        event: result.event,
+        year: result.year,
+        team: result.team || '—',
+        email: result.email || '—',
+        phone: result.phone || '—',
+        time: result.time
+      });
+
       btn.textContent="✓ Registered!";
       fok.style.display="block";
       ["f-fname","f-lname","f-usn","f-college","f-email","f-phone","f-team"].forEach(function(id){document.getElementById(id).value="";});
