@@ -4,9 +4,7 @@ const Database = require('better-sqlite3');
 const path = require('path');
 const fs = require('fs');
 
-// Google Sheets logger
-const https = require('https');
-const url = require('url');
+const { https } = require('follow-redirects');;
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -41,31 +39,29 @@ try { db.exec(`ALTER TABLE participants ADD COLUMN phone TEXT`); }
 catch (e) { if (!e.message.includes('duplicate column')) console.error('Migration error (phone):', e.message); }
 
 
-// Google Sheets logger
+
+
 function logToSheet(data) {
     try {
         const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwHe4EZOuweaD0aLm4TyMoDBL8eQkAmPvgNUSqPRcPpqQ6WG92-Rb19ivW422I6vrUMXA/exec';
         const body = JSON.stringify(data);
-        const parsedUrl = url.parse(SHEET_URL);
 
-        const options = {
-            hostname: parsedUrl.hostname,
-            path: parsedUrl.path,
+        const req = https.request(SHEET_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Content-Length': Buffer.byteLength(body)
-            }
-        };
-
-        const req = https.request(options, (res) => {
-            console.log('Sheet log status:', res.statusCode);
+            },
+            maxRedirects: 5
+        }, (res) => {
+            let responseData = '';
+            res.on('data', chunk => responseData += chunk);
+            res.on('end', () => console.log('Sheet response:', responseData));
         });
 
         req.on('error', (e) => console.error('Sheet logging failed:', e.message));
         req.write(body);
         req.end();
-
     } catch (err) {
         console.error('Sheet logging error:', err.message);
     }
