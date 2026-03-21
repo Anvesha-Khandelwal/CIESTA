@@ -10,30 +10,31 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#040d14;
-  --surface:#071525;
-  --card:#0b1f34;
-  --card-hover:#102742;
-  --accent:#0ea5e9;
-  --accent2:#14b8a6;
-  --accent-glow:rgba(14,165,233,0.3);
-  --text:#e8f4fd;
-  --muted:#7a9bb5;
-  --border:rgba(14,165,233,0.12);
-  --border-hover:rgba(14,165,233,0.45);
+  --bg:#1a1a2e;
+  --surface:#2a2a4e;
+  --card:#1e1e3f;
+  --card-hover:#2d2d5f;
+  --accent:#ffb703;
+  --accent2:#fb8500;
+  --accent-glow:rgba(255,183,3,0.4);
+  --text:#f8f7ff;
+  --muted:#b8b8d1;
+  --border:rgba(255,183,3,0.2);
+  --border-hover:rgba(255,183,3,0.5);
   --ff-display:'Playfair Display',Georgia,serif;
   --ff-body:'Space Grotesk','Segoe UI',Helvetica,Arial,sans-serif;
 }
 html{scroll-behavior:smooth}
-body{font-family:var(--ff-body);background:var(--bg);color:var(--text);font-size:15px;line-height:1.7;overflow-x:hidden}
+body{font-family:var(--ff-body);background:linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #16213e 75%, #1a1a2e 100%);color:var(--text);font-size:15px;line-height:1.7;overflow-x:hidden}
 
 /* ─── ANIMATED BG BLOBS ─── */
 .bg-blobs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.18;animation:drift 20s ease-in-out infinite alternate}
-.blob-1{width:600px;height:600px;background:radial-gradient(circle,#0ea5e9,transparent);top:-150px;left:-100px;animation-duration:22s}
-.blob-2{width:500px;height:500px;background:radial-gradient(circle,#14b8a6,transparent);top:30%;right:-120px;animation-duration:18s;animation-delay:-8s}
-.blob-3{width:400px;height:400px;background:radial-gradient(circle,#1d4ed8,transparent);bottom:10%;left:20%;animation-duration:25s;animation-delay:-4s}
-@keyframes drift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(40px,30px) scale(1.1)}}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:0.15;animation:drift 25s ease-in-out infinite alternate}
+.blob-1{width:500px;height:500px;background:radial-gradient(circle,rgba(255,193,7,0.4),transparent);top:-100px;left:-80px;animation-duration:28s}
+.blob-2{width:400px;height:400px;background:radial-gradient(circle,rgba(255,87,34,0.3),transparent);top:40%;right:-100px;animation-duration:22s;animation-delay:-10s}
+.blob-3{width:350px;height:350px;background:radial-gradient(circle,rgba(156,39,176,0.35),transparent);bottom:20%;left:10%;animation-duration:30s;animation-delay:-6s}
+.blob-4{width:300px;height:300px;background:radial-gradient(circle,rgba(76,175,80,0.25),transparent);top:60%;left:60%;animation-duration:26s;animation-delay:-14s}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(50px,40px) scale(1.2)}}
 
 /* ─── NAV ─── */
 nav{position:sticky;top:0;z-index:200;background:rgba(7,7,15,0.8);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 2rem}
@@ -51,8 +52,8 @@ nav{position:sticky;top:0;z-index:200;background:rgba(7,7,15,0.8);backdrop-filte
 /* ─── HERO ─── */
 .hero-wrap{position:relative;min-height:100vh;display:grid;grid-template-columns:1.1fr 0.9fr;gap:5rem;align-items:center;max-width:1100px;margin:0 auto;padding:9rem 2rem 7rem;z-index:1}
 .hero-bg{position:fixed;inset:0;z-index:-1}
-.hero-bg-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 2s ease-in-out}
-.hero-bg-slide.active{opacity:0.12;animation:kenburns 22s infinite alternate}
+.hero-bg-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 3s cubic-bezier(0.4, 0, 0.2, 1)}
+.hero-bg-slide.active{opacity:0.22;animation:kenburns 25s infinite alternate}
 @keyframes kenburns{0%{transform:scale(1)}100%{transform:scale(1.12)}}
 .hero-eyebrow{font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--accent2);font-weight:700;margin-bottom:1.25rem}
 .hero-title{font-family:var(--ff-display);font-size:clamp(46px,6vw,84px);line-height:1;font-weight:700;letter-spacing:-2px;margin-bottom:1.75rem;color:var(--text)}
@@ -351,46 +352,28 @@ footer{background:var(--surface);border-top:1px solid var(--border);position:rel
 
   <div class="gallery-grid">
     <div class="g-item">
-      <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=900&q=80" alt="Opening Ceremony">
-      <div class="g-overlay">
-        <div class="g-caption">Opening Ceremony</div>
-        <div class="g-sub">CIESTA 3.0 · 2025</div>
-      </div>
+      <img src="https://cdn.filestackcontent.com/MDq4cWqJQx2oNl5WVdYr?policy=eyJjYWxsIjpbInBpY2siLCJyZWFkIiwic3RvcmUiXSwiZXhwaXJ5IjoxODMwMjc3MjAwfQ%3D%3D&signature=fd233a1baadfe980c1f5fbc96a3fcc99fb7788c8c7ebfd379a4d64cb271f35b3">
     </div>
     <div class="g-item">
-      <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=600&q=80" alt="Hackathon Night">
-      <div class="g-overlay">
-        <div class="g-caption">Hackathon</div>
-        <div class="g-sub">Innovation at 2 AM</div>
-      </div>
+      <img src="https://cdn.filestackcontent.com/YiLnBHmkSzmoMXAIZGt3?policy=eyJjYWxsIjpbInBpY2siLCJyZWFkIiwic3RvcmUiXSwiZXhwaXJ5IjoxODMwMjc3MjAwfQ%3D%3D&signature=fd233a1baadfe980c1f5fbc96a3fcc99fb7788c8c7ebfd379a4d64cb271f35b3">
     </div>
     <div class="g-item">
-      <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&q=80" alt="Tech Expo">
-      <div class="g-overlay">
-        <div class="g-caption">Tech Expo</div>
-        <div class="g-sub">Project Showcase</div>
-      </div>
+      <img src="https://cdn.filestackcontent.com/mNLC1eygQvSIeBOAgh3W?policy=eyJjYWxsIjpbInBpY2siLCJyZWFkIiwic3RvcmUiXSwiZXhwaXJ5IjoxODMwMjc3MjAwfQ%3D%3D&signature=fd233a1baadfe980c1f5fbc96a3fcc99fb7788c8c7ebfd379a4d64cb271f35b3">
     </div>
     <div class="g-item">
-      <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=900&q=80" alt="Cultural Night">
-      <div class="g-overlay">
-        <div class="g-caption">Cultural Night</div>
-        <div class="g-sub">Lights &amp; Energy</div>
-      </div>
+      <img src="https://cdn.filestackcontent.com/Rm4xB7fSVqUC56M5nFPA?policy=eyJjYWxsIjpbInBpY2siLCJyZWFkIiwic3RvcmUiXSwiZXhwaXJ5IjoxODMwMjc3MjAwfQ%3D%3D&signature=fd233a1baadfe980c1f5fbc96a3fcc99fb7788c8c7ebfd379a4d64cb271f35b3">
     </div>
     <div class="g-item">
-      <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80" alt="Team Awards">
-      <div class="g-overlay">
-        <div class="g-caption">Award Ceremony</div>
-        <div class="g-sub">Champions crowned</div>
-      </div>
+      <img src="https://cdn.filestackcontent.com/rrcOeeDWQi5LhJ9WGEuI?policy=eyJjYWxsIjpbInBpY2siLCJyZWFkIiwic3RvcmUiXSwiZXhwaXJ5IjoxODMwMjc3MjAwfQ%3D%3D&signature=fd233a1baadfe980c1f5fbc96a3fcc99fb7788c8c7ebfd379a4d64cb271f35b3">
     </div>
     <div class="g-item">
-      <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&q=80" alt="Workshops">
-      <div class="g-overlay">
-        <div class="g-caption">Workshops</div>
-        <div class="g-sub">Learning in action</div>
-      </div>
+      <img src="https://cdn.filestackcontent.com/DOJHmvWsSXeOnRCuWk5Q?policy=eyJjYWxsIjpbInBpY2siLCJyZWFkIiwic3RvcmUiXSwiZXhwaXJ5IjoxODMwMjc3MjAwfQ%3D%3D&signature=fd233a1baadfe980c1f5fbc96a3fcc99fb7788c8c7ebfd379a4d64cb271f35b3">
+    </div>
+    <div class="g-item">
+      <img src="https://cdn.filestackcontent.com/ZdBKj9OQASsSS6xORqUz?policy=eyJjYWxsIjpbInBpY2siLCJyZWFkIiwic3RvcmUiXSwiZXhwaXJ5IjoxODMwMjc3MjAwfQ%3D%3D&signature=fd233a1baadfe980c1f5fbc96a3fcc99fb7788c8c7ebfd379a4d64cb271f35b3">
+    </div>
+    <div class="g-item">
+      <img src="https://cdn.filestackcontent.com/RQzQCQBbQhOWINu4IIx4?policy=eyJjYWxsIjpbInBpY2siLCJyZWFkIiwic3RvcmUiXSwiZXhwaXJ5IjoxODMwMjc3MjAwfQ%3D%3D&signature=fd233a1baadfe980c1f5fbc96a3fcc99fb7788c8c7ebfd379a4d64cb271f35b3">
     </div>
   </div>
 </section>
@@ -492,25 +475,35 @@ function switchDay(idx, btn) {
 
 /* ── HERO SLIDESHOW ── */
 const BG_IMAGES=[
-  "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80",
-  "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=1600&q=80",
-  "https://images.unsplash.com/photo-1511578314322-379afb476865?w=1600&q=80",
-  "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1600&q=80"
+  "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1600&q=80", // Festival celebration
+  "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1600&q=80", // Cultural performance
+  "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1600&q=80", // Vibrant concert performance
+  "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=1600&q=80"  // Energetic music performance
 ];
 const heroBg=document.getElementById("hero-bg");
+
+// Clear any existing slides first
+heroBg.innerHTML = '';
+
 BG_IMAGES.forEach((img,i)=>{
   const div=document.createElement("div");
   div.className="hero-bg-slide";
   div.style.backgroundImage=`url(${img})`;
+  div.style.backgroundSize="cover";
+  div.style.backgroundPosition="center";
+  div.style.backgroundRepeat="no-repeat";
   if(i===0) div.classList.add("active");
   heroBg.appendChild(div);
 });
+
 let currentBg=0;
 setInterval(()=>{
   const divs=heroBg.querySelectorAll(".hero-bg-slide");
-  divs[currentBg].classList.remove("active");
-  currentBg=(currentBg+1)%divs.length;
-  divs[currentBg].classList.add("active");
+  if(divs.length > 0) {
+    divs[currentBg].classList.remove("active");
+    currentBg=(currentBg+1)%divs.length;
+    divs[currentBg].classList.add("active");
+  }
 },6000);
 
 /* ── COUNTDOWN ── */
