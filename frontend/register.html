@@ -24,29 +24,21 @@
   --ff-body:'Space Grotesk','Segoe UI',Helvetica,Arial,sans-serif;
 }
 body{font-family:var(--ff-body);background:var(--bg);color:var(--text);font-size:15px;line-height:1.7;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
-
-/* ─── BLOBS ─── */
 .bg-blobs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.15;animation:drift 20s ease-in-out infinite alternate}
 .blob-1{width:500px;height:500px;background:radial-gradient(circle,#7c3aed,transparent);top:-100px;left:-80px;animation-duration:22s}
 .blob-2{width:400px;height:400px;background:radial-gradient(circle,#06b6d4,transparent);bottom:-100px;right:-80px;animation-duration:18s;animation-delay:-6s}
 @keyframes drift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(30px,20px) scale(1.08)}}
-
-/* ─── NAV ─── */
 .reg-nav{background:rgba(7,7,15,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:1rem 2rem;position:relative;z-index:10}
 .nav-inner{max-width:800px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
 .nav-logo{font-family:var(--ff-display);font-size:19px;font-weight:700;color:var(--text);text-decoration:none}
 .nav-logo span{color:var(--accent)}
 .back-btn{text-decoration:none;font-size:13px;font-weight:500;color:var(--muted);display:flex;align-items:center;gap:5px;transition:color 0.2s}
 .back-btn:hover{color:var(--text)}
-
-/* ─── CONTAINER ─── */
 .reg-container{max-width:800px;margin:3rem auto;padding:0 2rem;width:100%;position:relative;z-index:1;flex:1}
 .reg-header{text-align:center;margin-bottom:2.5rem}
 .reg-header h1{font-family:var(--ff-display);font-size:38px;font-weight:700;margin-bottom:0.5rem;background:linear-gradient(135deg,var(--text),#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .reg-header p{color:var(--muted);font-size:15px}
-
-/* ─── FORM ─── */
 .fcard-form{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2.75rem;box-shadow:0 0 50px rgba(124,58,237,0.12)}
 .frow{margin-bottom:1.5rem}
 .frow label{display:block;font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px;letter-spacing:1px;text-transform:uppercase}
@@ -61,11 +53,8 @@ body{font-family:var(--ff-body);background:var(--bg);color:var(--text);font-size
 .sbtn:disabled{background:#3a3a5c;cursor:not-allowed;box-shadow:none;transform:none}
 .fok{display:none;background:rgba(22,163,74,0.1);border:1px solid rgba(22,163,74,0.3);border-radius:12px;padding:1.25rem;text-align:center;font-size:15px;color:#86efac;margin-top:1.5rem;font-weight:500}
 .ferr{display:none;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.3);border-radius:12px;padding:1rem;text-align:center;font-size:14px;color:#fca5a5;margin-top:1rem}
-
-/* ─── FOOTER ─── */
 .reg-footer{background:var(--surface);border-top:1px solid var(--border);padding:1.5rem 2rem;text-align:center;position:relative;z-index:1}
 .reg-footer p{font-size:12px;color:var(--muted)}
-
 @media(max-width:600px){
   .frow2{grid-template-columns:1fr}
   .reg-container{margin:1.5rem auto}
@@ -74,6 +63,9 @@ body{font-family:var(--ff-body);background:var(--bg);color:var(--text);font-size
 </style>
 </head>
 <body>
+
+<!-- Hidden iframe for silent Google Form submission -->
+<iframe name="hidden_iframe" style="display:none"></iframe>
 
 <div class="bg-blobs">
   <div class="blob blob-1"></div>
@@ -130,45 +122,34 @@ body{font-family:var(--ff-body);background:var(--bg);color:var(--text);font-size
 <footer class="reg-footer">
   <p>&copy; 2026 CIESTA DSCE · Crafted by Akira — CSE Cultural Team</p>
 </footer>
+
 <script>
-// Field mappings from Google Form
-const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfBH97kmrJIVusgfG5O-Iqn4BWPYdQX_ieJS2MjxhzrLbgwzQ/formResponse';
-const ENTRIES = {
-  name:    'entry.1500043536',
-  usn:     'entry.539108964',
-  phone:   'entry.1253579200',
-  email:   'entry.1492704265',
-  year:    'entry.405025960',
-  college: 'entry.777698760',
-  event:   'entry.1983967981'
-};
+// Google Form entry IDs
+const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSfBH97kmrJIVusgfG5O-Iqn4BWPYdQX_ieJS2MjxhzrLbgwzQ/formResponse';
 
-function submitToGoogleForm(data) {
-  const form = document.createElement('form');
-  form.method = 'POST';
-  form.action = FORM_URL;
-  form.target = 'hidden_iframe'; // submit silently
+function submitToGoogleForm(name, usn, phone, email, year, college, event) {
+  // Build URL encoded body exactly like a browser form submission
+  const params = new URLSearchParams();
+  params.append('entry.1500043536', name);
+  params.append('entry.539108964', usn);
+  params.append('entry.1253579200', phone);
+  params.append('entry.1492704265', email);
+  params.append('entry.405025960', year);
+  params.append('entry.777698760', college);
+  params.append('entry.1983967981', event);
 
-  Object.entries(data).forEach(([key, value]) => {
-    if (ENTRIES[key]) {
-      const input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = ENTRIES[key];
-      input.value = value;
-      form.appendChild(input);
-    }
+  // Use no-cors mode — we don't need the response, just fire and forget
+  fetch(FORM_ACTION, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: params.toString()
+  }).then(() => {
+    console.log('Google Form submitted ✅');
+  }).catch(err => {
+    console.log('Google Form error (non-critical):', err);
   });
-
-  document.body.appendChild(form);
-  form.submit();
-  document.body.removeChild(form);
 }
-
-// Hidden iframe so Google Form submission doesn't redirect page
-const iframe = document.createElement('iframe');
-iframe.name = 'hidden_iframe';
-iframe.style.display = 'none';
-document.body.appendChild(iframe);
 
 // PRE-FILL EVENT FROM URL
 window.onload = function() {
@@ -213,14 +194,14 @@ async function handleReg(){
 
   var now=new Date();
   var t=now.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"});
+  var fullName = fname + " " + lname;
 
   try {
-    // Submit to your backend
     const response = await fetch('https://ciesta.onrender.com/api/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name: fname + " " + lname,
+        name: fullName,
         usn: usn,
         college: college,
         email: email,
@@ -233,16 +214,8 @@ async function handleReg(){
     });
 
     if (response.ok) {
-      // ✅ Also submit to Google Form silently
-      submitToGoogleForm({
-        name: fname + " " + lname,
-        usn: usn,
-        college: college,
-        email: email,
-        phone: phone,
-        year: year,
-        event: event
-      });
+      // ✅ Submit to Google Form silently in background
+      submitToGoogleForm(fullName, usn, phone, email, year, college, event);
 
       btn.textContent="✓ Registered!";
       fok.style.display="block";
