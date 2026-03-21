@@ -10,21 +10,13 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#1a1a2e;
-  --surface:#2a2a4e;
-  --card:#1e1e3f;
-  --card-hover:#2d2d5f;
-  --accent:#ffb703;
-  --accent2:#fb8500;
-  --accent-glow:rgba(255,183,3,0.4);
-  --text:#f8f7ff;
-  --muted:#b8b8d1;
-  --border:rgba(255,183,3,0.2);
-  --border-hover:rgba(255,183,3,0.5);
+  --bg:#1a1a2e;--surface:#2a2a4e;--card:#1e1e3f;--accent:#ffb703;--accent2:#fb8500;
+  --accent-glow:rgba(255,183,3,0.4);--text:#f8f7ff;--muted:#b8b8d1;
+  --border:rgba(255,183,3,0.2);--border-hover:rgba(255,183,3,0.5);
   --ff-display:'Playfair Display',Georgia,serif;
   --ff-body:'Space Grotesk','Segoe UI',Helvetica,Arial,sans-serif;
 }
-body{font-family:var(--ff-body);background:linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #16213e 75%, #1a1a2e 100%);color:var(--text);font-size:15px;line-height:1.7;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
+body{font-family:var(--ff-body);background:linear-gradient(135deg,#1a1a2e 0%,#16213e 25%,#0f3460 50%,#16213e 75%,#1a1a2e 100%);color:var(--text);font-size:15px;line-height:1.7;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
 .bg-blobs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:0.15;animation:drift 25s ease-in-out infinite alternate}
 .blob-1{width:500px;height:500px;background:radial-gradient(circle,rgba(255,193,7,0.4),transparent);top:-100px;left:-80px;animation-duration:28s}
@@ -58,23 +50,16 @@ body{font-family:var(--ff-body);background:linear-gradient(135deg, #1a1a2e 0%, #
 .ferr{display:none;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.3);border-radius:12px;padding:1rem;text-align:center;font-size:14px;color:#fca5a5;margin-top:1rem}
 .reg-footer{background:var(--surface);border-top:1px solid var(--border);padding:1.5rem 2rem;text-align:center;position:relative;z-index:1}
 .reg-footer p{font-size:12px;color:var(--muted)}
-@media(max-width:600px){
-  .frow2{grid-template-columns:1fr}
-  .reg-container{margin:1.5rem auto}
-  .fcard-form{padding:1.5rem}
-}
+@media(max-width:600px){.frow2{grid-template-columns:1fr}.reg-container{margin:1.5rem auto}.fcard-form{padding:1.5rem}}
 </style>
 </head>
 <body>
 
-<!-- Hidden iframe for silent Google Form submission -->
 <iframe name="hidden_iframe" style="display:none"></iframe>
 
 <div class="bg-blobs">
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-  <div class="blob blob-3"></div>
-  <div class="blob blob-4"></div>
+  <div class="blob blob-1"></div><div class="blob blob-2"></div>
+  <div class="blob blob-3"></div><div class="blob blob-4"></div>
 </div>
 
 <nav class="reg-nav">
@@ -89,7 +74,6 @@ body{font-family:var(--ff-body);background:linear-gradient(135deg, #1a1a2e 0%, #
     <h1>Event Registration</h1>
     <p>Join CIESTA 4.0 — April 9–11, 2026 · DSCE Campus, Bangalore</p>
   </div>
-
   <div class="fcard-form">
     <div class="frow2">
       <div class="frow"><label>First Name *</label><input type="text" id="f-fname" placeholder="Arjun"></div>
@@ -101,20 +85,26 @@ body{font-family:var(--ff-body);background:linear-gradient(135deg, #1a1a2e 0%, #
     <div class="frow2">
       <div class="frow"><label>Phone *</label><input type="tel" id="f-phone" placeholder="9XXXXXXXXX" maxlength="10"></div>
       <div class="frow"><label>Year of Study *</label>
-        <select id="f-year"><option value="">Select year</option><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option></select>
+        <select id="f-year">
+          <option value="">Select year</option>
+          <option value="1st Year">1st Year</option>
+          <option value="2nd Year">2nd Year</option>
+          <option value="3rd Year">3rd Year</option>
+          <option value="4th Year">4th Year</option>
+        </select>
       </div>
     </div>
     <div class="frow"><label>Event *</label>
       <select id="f-event">
         <option value="">Choose an event</option>
-        <option>Treasure Hunt</option>
-        <option>Literature Event</option>
-        <option>Quiz</option>
-        <option>Shark Tank</option>
-        <option>Mystery Case</option>
-        <option>Tech Survivor</option>
-        <option>Fun Tech</option>
-        <option>Faculty Event</option>
+        <option value="Treasure Hunt">Treasure Hunt</option>
+        <option value="Literature Event">Literature Event</option>
+        <option value="Quiz">Quiz</option>
+        <option value="Shark Tank">Shark Tank</option>
+        <option value="Mystery Case">Mystery Case</option>
+        <option value="Tech Survivor">Tech Survivor</option>
+        <option value="Fun Tech">Fun Tech</option>
+        <option value="Faculty Event">Faculty Event</option>
       </select>
     </div>
     <div class="frow"><label>Team Name (optional)</label><input type="text" id="f-team" placeholder="Leave blank for individual events"></div>
@@ -129,125 +119,94 @@ body{font-family:var(--ff-body);background:linear-gradient(135deg, #1a1a2e 0%, #
 </footer>
 
 <script>
-// Google Form entry IDs
 const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSfBH97kmrJIVusgfG5O-Iqn4BWPYdQX_ieJS2MjxhzrLbgwzQ/formResponse';
 
-function submitToGoogleForm(name, usn, phone, email, year, college, event) {
-  // Build URL encoded body exactly like a browser form submission
-  const params = new URLSearchParams();
-  params.append('entry.1500043536', name);
-  params.append('entry.539108964', usn);
-  params.append('entry.1253579200', phone);
-  params.append('entry.1492704265', email);
-  params.append('entry.405025960', year);
-  params.append('entry.777698760', college);
-  params.append('entry.1983967981', event);
-
-  // Use no-cors mode — we don't need the response, just fire and forget
+function submitToGoogleForm(data) {
+  const params = new URLSearchParams({
+    'entry.1500043536': data.name,
+    'entry.539108964':  data.usn,
+    'entry.1253579200': data.phone,
+    'entry.1492704265': data.email,
+    'entry.405025960':  data.year,
+    'entry.777698760':  data.college,
+    'entry.1983967981': data.event
+  });
   fetch(FORM_ACTION, {
     method: 'POST',
     mode: 'no-cors',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: params.toString()
-  }).then(() => {
-    console.log('Google Form submitted ✅');
-  }).catch(err => {
-    console.log('Google Form error (non-critical):', err);
-  });
+  }).catch(() => {});
 }
 
-// PRE-FILL EVENT FROM URL
 window.onload = function() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const event = urlParams.get('event');
-  if (event) {
-    const select = document.getElementById('f-event');
-    for (let i = 0; i < select.options.length; i++) {
-      if (select.options[i].value === event || select.options[i].text === event) {
-        select.selectedIndex = i;
-        break;
-      }
+  const ev = new URLSearchParams(window.location.search).get('event');
+  if (ev) {
+    const sel = document.getElementById('f-event');
+    for (let i = 0; i < sel.options.length; i++) {
+      if (sel.options[i].value === ev) { sel.selectedIndex = i; break; }
     }
   }
 };
 
-async function handleReg(){
-  var fname=document.getElementById("f-fname").value.trim();
-  var lname=document.getElementById("f-lname").value.trim();
-  var usn=document.getElementById("f-usn").value.trim();
-  var college=document.getElementById("f-college").value.trim();
-  var email=document.getElementById("f-email").value.trim();
-  var phone=document.getElementById("f-phone").value.trim();
-  var year=document.getElementById("f-year").value;
-  var event=document.getElementById("f-event").value;
-  var team=document.getElementById("f-team").value.trim();
-  var btn=document.getElementById("sbtn");
-  var fok=document.getElementById("fok");
-  var ferr=document.getElementById("ferr");
+async function handleReg() {
+  const fname   = document.getElementById('f-fname').value.trim();
+  const lname   = document.getElementById('f-lname').value.trim();
+  const usn     = document.getElementById('f-usn').value.trim();
+  const college = document.getElementById('f-college').value.trim();
+  const email   = document.getElementById('f-email').value.trim();
+  const phone   = document.getElementById('f-phone').value.trim();
+  const year    = document.getElementById('f-year').value;
+  const event   = document.getElementById('f-event').value;
+  const team    = document.getElementById('f-team').value.trim();
+  const btn     = document.getElementById('sbtn');
+  const fok     = document.getElementById('fok');
+  const ferr    = document.getElementById('ferr');
 
-  ferr.style.display="none";
-  fok.style.display="none";
+  ferr.style.display = 'none';
+  fok.style.display  = 'none';
 
-  if(!fname||!lname||!usn||!college||!email||!phone||!year||!event){
-    ferr.style.display="block";
-    ferr.textContent="Please fill in all required fields marked with *";
+  if (!fname||!lname||!usn||!college||!email||!phone||!year||!event) {
+    ferr.style.display = 'block';
+    ferr.textContent = 'Please fill in all required fields marked with *';
     return;
   }
 
-  btn.textContent="Processing...";
-  btn.disabled=true;
+  btn.textContent = 'Processing...';
+  btn.disabled = true;
 
-  var now=new Date();
-  var t=now.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"});
-  var fullName = fname + " " + lname;
-
-  // Connecting to the live production server (Render)
-  var API_URL = "https://ciesta.onrender.com/api/register";
+  const t    = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+  const name = fname + ' ' + lname;
 
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch('https://ciesta.onrender.com/api/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: fullName,
-        usn: usn,
-        college: college,
-        email: email,
-        phone: phone,
-        year: year,
-        event: event,
-        team: team || "—",
-        time: t
-      })
+      body: JSON.stringify({ name, usn, college, email, phone, year, event, team: team || '—', time: t })
     });
 
     if (response.ok) {
-      // ✅ Submit to Google Form silently in background
-      submitToGoogleForm(fullName, usn, phone, email, year, college, event);
-
-      btn.textContent="✓ Registered!";
-      fok.style.display="block";
-      ["f-fname","f-lname","f-usn","f-college","f-email","f-phone","f-team"].forEach(function(id){
-        document.getElementById(id).value="";
+      submitToGoogleForm({ name, usn, phone, email, year, college, event });
+      btn.textContent = '✓ Registered!';
+      fok.style.display = 'block';
+      ['f-fname','f-lname','f-usn','f-college','f-email','f-phone','f-team'].forEach(id => {
+        document.getElementById(id).value = '';
       });
-      document.getElementById("f-year").value="";
-      document.getElementById("f-event").value="";
-      setTimeout(() => {
-        window.location.href = "index.html#events";
-      }, 3000);
+      document.getElementById('f-year').value  = '';
+      document.getElementById('f-event').value = '';
+      setTimeout(() => { window.location.href = 'index.html#events'; }, 3000);
     } else {
-      const errData = await response.json();
-      ferr.textContent = errData.error || "Registration failed. Please try again.";
-      ferr.style.display = "block";
-      btn.textContent="Confirm Registration";
-      btn.disabled=false;
+      const err = await response.json();
+      ferr.textContent = err.error || 'Registration failed. Please try again.';
+      ferr.style.display = 'block';
+      btn.textContent = 'Confirm Registration';
+      btn.disabled = false;
     }
   } catch (err) {
-    console.error(err);
-    ferr.textContent = "Cannot connect to server. Please make sure the server is running.";
-    ferr.style.display = "block";
-    btn.textContent="Confirm Registration";
-    btn.disabled=false;
+    ferr.textContent = 'Cannot connect to server. Please make sure the server is running.';
+    ferr.style.display = 'block';
+    btn.textContent = 'Confirm Registration';
+    btn.disabled = false;
   }
 }
 </script>
