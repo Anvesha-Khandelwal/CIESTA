@@ -12,8 +12,6 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '../frontend')));
 
 const dbPath = path.join(__dirname, 'participants.db');
-
-// ✅ better-sqlite3 - no callbacks, synchronous
 const db = new Database(dbPath);
 console.log('Connected to the SQLite database.');
 
@@ -31,12 +29,27 @@ db.exec(`CREATE TABLE IF NOT EXISTS participants (
     phone TEXT
 )`);
 
-// Migration - add columns if they don't exist
+// Migration
 try { db.exec(`ALTER TABLE participants ADD COLUMN email TEXT`); }
 catch (e) { if (!e.message.includes('duplicate column')) console.error('Migration error (email):', e.message); }
 
 try { db.exec(`ALTER TABLE participants ADD COLUMN phone TEXT`); }
 catch (e) { if (!e.message.includes('duplicate column')) console.error('Migration error (phone):', e.message); }
+
+// Google Sheets logger
+async function logToSheet(data) {
+    try {
+        const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwHe4EZOuweaD0aLm4TyMoDBL8eQkAmPvgNUSqPRcPpqQ6WG92-Rb19ivW422I6vrUMXA/exec';
+        await fetch(SHEET_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        console.log('Logged to Google Sheet ✅');
+    } catch (err) {
+        console.error('Sheet logging failed:', err.message);
+    }
+}
 
 // GET all participants
 app.get('/api/participants', (req, res) => {
@@ -63,11 +76,14 @@ app.post('/api/register', (req, res) => {
 
         const result = stmt.run(name, usn, college, event, team || null, year, time, email || null, phone || null);
 
-        // Log to text file
-        const logPath = path.join(__dirname, 'registrations.txt');
-        const logEntry = `${new Date().toISOString()} | ${name} | ${usn} | ${college} | ${event} | ${team || 'N/A'} | ${year} | ${email || 'N/A'} | ${phone || 'N/A'}\n`;
-        fs.appendFile(logPath, logEntry, (fsErr) => {
-            if (fsErr) console.error('Error writing to registrations.txt:', fsErr);
+        // Log to Google Sheet
+        logToSheet({
+            id: result.lastInsertRowid,
+            name, usn, college, event,
+            team: team || '—',
+            year, time,
+            email: email || '—',
+            phone: phone || '—'
         });
 
         res.status(201).json({
