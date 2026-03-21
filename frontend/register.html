@@ -131,6 +131,45 @@ body{font-family:var(--ff-body);background:var(--bg);color:var(--text);font-size
   <p>&copy; 2026 CIESTA DSCE · Crafted by Akira — CSE Cultural Team</p>
 </footer>
 <script>
+// Field mappings from Google Form
+const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfBH97kmrJIVusgfG5O-Iqn4BWPYdQX_ieJS2MjxhzrLbgwzQ/formResponse';
+const ENTRIES = {
+  name:    'entry.1500043536',
+  usn:     'entry.539108964',
+  phone:   'entry.1253579200',
+  email:   'entry.1492704265',
+  year:    'entry.405025960',
+  college: 'entry.777698760',
+  event:   'entry.1983967981'
+};
+
+function submitToGoogleForm(data) {
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = FORM_URL;
+  form.target = 'hidden_iframe'; // submit silently
+
+  Object.entries(data).forEach(([key, value]) => {
+    if (ENTRIES[key]) {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = ENTRIES[key];
+      input.value = value;
+      form.appendChild(input);
+    }
+  });
+
+  document.body.appendChild(form);
+  form.submit();
+  document.body.removeChild(form);
+}
+
+// Hidden iframe so Google Form submission doesn't redirect page
+const iframe = document.createElement('iframe');
+iframe.name = 'hidden_iframe';
+iframe.style.display = 'none';
+document.body.appendChild(iframe);
+
 // PRE-FILL EVENT FROM URL
 window.onload = function() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -145,17 +184,6 @@ window.onload = function() {
     }
   }
 };
-
-// Google Sheets logger
-function logToSheet(data) {
-  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwHe4EZOuweaD0aLm4TyMoDBL8eQkAmPvgNUSqPRcPpqQ6WG92-Rb19ivW422I6vrUMXA/exec';
-  const form = new FormData();
-  form.append('data', JSON.stringify(data));
-  fetch(SHEET_URL, { method: 'POST', body: form })
-    .then(r => r.text())
-    .then(d => console.log('Sheet:', d))
-    .catch(e => console.log('Sheet error:', e));
-}
 
 async function handleReg(){
   var fname=document.getElementById("f-fname").value.trim();
@@ -187,6 +215,7 @@ async function handleReg(){
   var t=now.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"});
 
   try {
+    // Submit to your backend
     const response = await fetch('https://ciesta.onrender.com/api/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -204,25 +233,22 @@ async function handleReg(){
     });
 
     if (response.ok) {
-      const result = await response.json();
-
-      // ✅ Log to Google Sheet
-      logToSheet({
-        id: result.id,
-        name: result.name,
-        usn: result.usn,
-        college: result.college,
-        event: result.event,
-        year: result.year,
-        team: result.team || '—',
-        email: result.email || '—',
-        phone: result.phone || '—',
-        time: result.time
+      // ✅ Also submit to Google Form silently
+      submitToGoogleForm({
+        name: fname + " " + lname,
+        usn: usn,
+        college: college,
+        email: email,
+        phone: phone,
+        year: year,
+        event: event
       });
 
       btn.textContent="✓ Registered!";
       fok.style.display="block";
-      ["f-fname","f-lname","f-usn","f-college","f-email","f-phone","f-team"].forEach(function(id){document.getElementById(id).value="";});
+      ["f-fname","f-lname","f-usn","f-college","f-email","f-phone","f-team"].forEach(function(id){
+        document.getElementById(id).value="";
+      });
       document.getElementById("f-year").value="";
       document.getElementById("f-event").value="";
       setTimeout(() => {
