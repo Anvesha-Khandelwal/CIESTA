@@ -201,8 +201,8 @@ async function handleReg(){
   var t=now.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"});
   var fullName = fname + " " + lname;
 
-  // Use relative path so the frontend talks directly to the PM2 Node server hosting it.
-  var API_URL = "/api/register";
+  // Connecting to the live production server (Render)
+  var API_URL = "https://ciesta.onrender.com/api/register";
 
   try {
     const response = await fetch(API_URL, {
