@@ -10,25 +10,28 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#07070f;
-  --surface:#0e0e1a;
-  --card:#141428;
-  --accent:#7c3aed;
-  --accent2:#06b6d4;
-  --accent-glow:rgba(124,58,237,0.35);
-  --text:#f0f0ff;
-  --muted:#8888aa;
-  --border:rgba(255,255,255,0.07);
-  --border-hover:rgba(124,58,237,0.5);
+  --bg:#1a1a2e;
+  --surface:#2a2a4e;
+  --card:#1e1e3f;
+  --card-hover:#2d2d5f;
+  --accent:#ffb703;
+  --accent2:#fb8500;
+  --accent-glow:rgba(255,183,3,0.4);
+  --text:#f8f7ff;
+  --muted:#b8b8d1;
+  --border:rgba(255,183,3,0.2);
+  --border-hover:rgba(255,183,3,0.5);
   --ff-display:'Playfair Display',Georgia,serif;
   --ff-body:'Space Grotesk','Segoe UI',Helvetica,Arial,sans-serif;
 }
-body{font-family:var(--ff-body);background:var(--bg);color:var(--text);font-size:15px;line-height:1.7;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
+body{font-family:var(--ff-body);background:linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #16213e 75%, #1a1a2e 100%);color:var(--text);font-size:15px;line-height:1.7;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
 .bg-blobs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.15;animation:drift 20s ease-in-out infinite alternate}
-.blob-1{width:500px;height:500px;background:radial-gradient(circle,#7c3aed,transparent);top:-100px;left:-80px;animation-duration:22s}
-.blob-2{width:400px;height:400px;background:radial-gradient(circle,#06b6d4,transparent);bottom:-100px;right:-80px;animation-duration:18s;animation-delay:-6s}
-@keyframes drift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(30px,20px) scale(1.08)}}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:0.15;animation:drift 25s ease-in-out infinite alternate}
+.blob-1{width:500px;height:500px;background:radial-gradient(circle,rgba(255,193,7,0.4),transparent);top:-100px;left:-80px;animation-duration:28s}
+.blob-2{width:400px;height:400px;background:radial-gradient(circle,rgba(255,87,34,0.3),transparent);top:40%;right:-100px;animation-duration:22s;animation-delay:-10s}
+.blob-3{width:350px;height:350px;background:radial-gradient(circle,rgba(156,39,176,0.35),transparent);bottom:20%;left:10%;animation-duration:30s;animation-delay:-6s}
+.blob-4{width:300px;height:300px;background:radial-gradient(circle,rgba(76,175,80,0.25),transparent);top:60%;left:60%;animation-duration:26s;animation-delay:-14s}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(50px,40px) scale(1.2)}}
 .reg-nav{background:rgba(7,7,15,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:1rem 2rem;position:relative;z-index:10}
 .nav-inner{max-width:800px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
 .nav-logo{font-family:var(--ff-display);font-size:19px;font-weight:700;color:var(--text);text-decoration:none}
@@ -39,12 +42,12 @@ body{font-family:var(--ff-body);background:var(--bg);color:var(--text);font-size
 .reg-header{text-align:center;margin-bottom:2.5rem}
 .reg-header h1{font-family:var(--ff-display);font-size:38px;font-weight:700;margin-bottom:0.5rem;background:linear-gradient(135deg,var(--text),#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .reg-header p{color:var(--muted);font-size:15px}
-.fcard-form{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2.75rem;box-shadow:0 0 50px rgba(124,58,237,0.12)}
+.fcard-form{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2.75rem;box-shadow:0 0 40px var(--accent-glow)}
 .frow{margin-bottom:1.5rem}
 .frow label{display:block;font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px;letter-spacing:1px;text-transform:uppercase}
 .frow input,.frow select{width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:14px;font-family:var(--ff-body);color:var(--text);outline:none;transition:all 0.2s}
 .frow input::placeholder{color:var(--muted)}
-.frow input:focus,.frow select:focus{border-color:var(--border-hover);background:rgba(124,58,237,0.08);box-shadow:0 0 0 3px rgba(124,58,237,0.15)}
+.frow input:focus,.frow select:focus{border-color:var(--border-hover);background:rgba(255,183,3,0.08);box-shadow:0 0 0 3px rgba(255,183,3,0.15)}
 .frow select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238888aa' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;background-color:rgba(255,255,255,0.04);cursor:pointer}
 .frow select option{background:#141428;color:var(--text)}
 .frow2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
@@ -70,6 +73,8 @@ body{font-family:var(--ff-body);background:var(--bg);color:var(--text);font-size
 <div class="bg-blobs">
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="blob blob-4"></div>
 </div>
 
 <nav class="reg-nav">
@@ -196,8 +201,11 @@ async function handleReg(){
   var t=now.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"});
   var fullName = fname + " " + lname;
 
+  // Use relative path so the frontend talks directly to the PM2 Node server hosting it.
+  var API_URL = "/api/register";
+
   try {
-    const response = await fetch('https://ciesta.onrender.com/api/register', {
+    const response = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

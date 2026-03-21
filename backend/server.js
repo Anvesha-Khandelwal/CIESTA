@@ -66,6 +66,29 @@ function logToSheet(data) {
         console.error('Sheet logging error:', err.message);
     }
 }
+
+function logToLocalFiles(data) {
+    const txtLine = `[${data.time}] ID:${data.id} | Name: ${data.name} | USN: ${data.usn} | College: ${data.college} | Event: ${data.event} | Team: ${data.team} | Year: ${data.year} | Email: ${data.email} | Phone: ${data.phone}\n`;
+    
+    const csvPath = path.join(__dirname, 'registrations.csv');
+    const txtPath = path.join(__dirname, 'registrations.txt');
+    const csvHeader = 'ID,Name,USN,College,Event,Team,Year,Time,Email,Phone\n';
+    
+    const escapeCsv = (val) => '"' + String(val).replace(/"/g, '""') + '"';
+    const csvLine = [data.id, data.name, data.usn, data.college, data.event, data.team, data.year, data.time, data.email, data.phone].map(escapeCsv).join(',') + '\n';
+
+    try {
+        fs.appendFileSync(txtPath, txtLine);
+    } catch (e) { console.error('Error appending to TXT:', e.message); }
+
+    try {
+        if (!fs.existsSync(csvPath)) {
+            fs.writeFileSync(csvPath, csvHeader);
+        }
+        fs.appendFileSync(csvPath, csvLine);
+    } catch (e) { console.error('Error appending to CSV:', e.message); }
+}
+
 // GET all participants
 app.get('/api/participants', (req, res) => {
     try {
@@ -93,6 +116,16 @@ app.post('/api/register', (req, res) => {
 
         // Log to Google Sheet
         logToSheet({
+            id: result.lastInsertRowid,
+            name, usn, college, event,
+            team: team || '—',
+            year, time,
+            email: email || '—',
+            phone: phone || '—'
+        });
+
+        // Log to local CSV and TXT files
+        logToLocalFiles({
             id: result.lastInsertRowid,
             name, usn, college, event,
             team: team || '—',
