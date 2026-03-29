@@ -8,7 +8,7 @@
 
 | | URL |
 |---|---|
-| **Website** | `https://anvesha-khandelwal.github.io/CIESTA/frontend/` |
+| **Website** | `https://ciesta.vercel.app/` |
 | **Backend API** | `https://ciesta.onrender.com` |
 | **Admin Panel** | `https://ciesta.onrender.com/admin?pass=ciesta2026` |
 
