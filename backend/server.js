@@ -25,7 +25,7 @@ async function initDB() {
                 id      SERIAL PRIMARY KEY,
                 name    TEXT NOT NULL,
                 usn     TEXT NOT NULL,
-                college TEXT NOT NULL,
+                branch  TEXT NOT NULL,
                 event   TEXT NOT NULL,
                 team    TEXT,
                 year    TEXT NOT NULL,
@@ -33,6 +33,18 @@ async function initDB() {
                 email   TEXT,
                 phone   TEXT
             )
+        `);
+        // Rename column if old DB still has 'college'
+        await pool.query(`
+            DO $$
+            BEGIN
+                IF EXISTS (
+                    SELECT 1 FROM information_schema.columns
+                    WHERE table_name='participants' AND column_name='college'
+                ) THEN
+                    ALTER TABLE participants RENAME COLUMN college TO branch;
+                END IF;
+            END $$;
         `);
         console.log('✅ Database ready.');
     } catch (err) {
@@ -71,7 +83,7 @@ app.get('/admin', async (req, res) => {
                 <td>${r.id}</td>
                 <td>${r.name}</td>
                 <td>${r.usn}</td>
-                <td>${r.college}</td>
+                <td>${r.branch}</td>
                 <td>${r.event}</td>
                 <td>${r.year}</td>
                 <td>${r.team || '—'}</td>
@@ -109,7 +121,7 @@ app.get('/admin', async (req, res) => {
                 <table>
                     <thead>
                         <tr>
-                            <th>#</th><th>Name</th><th>USN</th><th>College</th>
+                            <th>#</th><th>Name</th><th>USN</th><th>Branch</th>
                             <th>Event</th><th>Year</th><th>Team</th>
                             <th>Email</th><th>Phone</th><th>Time</th>
                         </tr>
@@ -136,9 +148,9 @@ app.get('/admin/csv', async (req, res) => {
     try {
         const { rows } = await pool.query('SELECT * FROM participants ORDER BY id ASC');
         const escape = v => '"' + String(v || '').replace(/"/g, '""') + '"';
-        const header = 'ID,Name,USN,College,Event,Year,Team,Email,Phone,Time\n';
+        const header = 'ID,Name,USN,Branch,Event,Year,Team,Email,Phone,Time\n';
         const csv = rows.map(r =>
-            [r.id, r.name, r.usn, r.college, r.event, r.year,
+            [r.id, r.name, r.usn, r.branch, r.event, r.year,
              r.team || '', r.email || '', r.phone || '', r.time]
             .map(escape).join(',')
         ).join('\n');
@@ -163,25 +175,25 @@ app.get('/api/participants', async (req, res) => {
 
 // ── API: POST register ──────────────────────────────────────────
 app.post('/api/register', async (req, res) => {
-    const { name, usn, college, event, team, year, time, email, phone } = req.body;
+    const { name, usn, branch, event, team, year, time, email, phone } = req.body;
 
-    if (!name || !usn || !college || !event || !year || !time) {
+    if (!name || !usn || !branch || !event || !year || !time) {
         return res.status(400).json({ error: 'Missing required fields' });
     }
 
     try {
         const result = await pool.query(
-            `INSERT INTO participants (name, usn, college, event, team, year, time, email, phone)
+            `INSERT INTO participants (name, usn, branch, event, team, year, time, email, phone)
              VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
              RETURNING id`,
-            [name, usn, college, event, team || null, year, time, email || null, phone || null]
+            [name, usn, branch, event, team || null, year, time, email || null, phone || null]
         );
 
         console.log(`✅ Registered: ${name} | ${event}`);
 
         res.status(201).json({
             id: result.rows[0].id,
-            name, usn, college, event,
+            name, usn, branch, event,
             team: team || null, year, time,
             email: email || null,
             phone: phone || null
