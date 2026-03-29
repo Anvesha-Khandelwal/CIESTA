@@ -29,12 +29,12 @@ async function initDB() {
                 event   TEXT NOT NULL,
                 team    TEXT,
                 year    TEXT NOT NULL,
-                time    TEXT NOT NULL,
+                time    TEXT,
                 email   TEXT,
                 phone   TEXT
             )
         `);
-        // Rename column if old DB still has 'college'
+        // Auto-rename college → branch if old DB still has it
         await pool.query(`
             DO $$
             BEGIN
@@ -46,6 +46,10 @@ async function initDB() {
                 END IF;
             END $$;
         `);
+        // Make time column nullable in case it exists as NOT NULL
+        await pool.query(`
+            ALTER TABLE participants ALTER COLUMN time DROP NOT NULL;
+        `).catch(() => {}); // ignore if already nullable
         console.log('✅ Database ready.');
     } catch (err) {
         console.error('❌ DB init error:', err.message);
@@ -89,7 +93,7 @@ app.get('/admin', async (req, res) => {
                 <td>${r.team || '—'}</td>
                 <td>${r.email || '—'}</td>
                 <td>${r.phone || '—'}</td>
-                <td>${r.time}</td>
+                <td>${r.time || '—'}</td>
             </tr>
         `).join('');
 
@@ -151,7 +155,7 @@ app.get('/admin/csv', async (req, res) => {
         const header = 'ID,Name,USN,Branch,Event,Year,Team,Email,Phone,Time\n';
         const csv = rows.map(r =>
             [r.id, r.name, r.usn, r.branch, r.event, r.year,
-             r.team || '', r.email || '', r.phone || '', r.time]
+             r.team || '', r.email || '', r.phone || '', r.time || '']
             .map(escape).join(',')
         ).join('\n');
 
@@ -175,9 +179,13 @@ app.get('/api/participants', async (req, res) => {
 
 // ── API: POST register ──────────────────────────────────────────
 app.post('/api/register', async (req, res) => {
-    const { name, usn, branch, event, team, year, time, email, phone } = req.body;
+    const { name, usn, branch, event, team, year, email, phone } = req.body;
 
-    if (!name || !usn || !branch || !event || !year || !time) {
+    // Generate time server-side so it's always reliable
+    const time = req.body.time || new Date().toLocaleString('en-IN');
+
+    // Only check truly required fields — time is now server-generated
+    if (!name || !usn || !branch || !event || !year) {
         return res.status(400).json({ error: 'Missing required fields' });
     }
 
