@@ -27,7 +27,7 @@
 html{scroll-behavior:smooth}
 body{
   font-family:var(--ff-body);
-  background:var(--bg);
+  background:linear-gradient(135deg, #f7e3d1 0%, #fbf1e6 45%, #fffdf8 100%);
   color:var(--text);
   font-size:15px;
   line-height:1.7;
@@ -60,8 +60,8 @@ nav{position:sticky;top:0;z-index:200;background:rgba(253,251,247,0.9);backdrop-
 .hero-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent-glow);animation:pulse-dot 2s ease-in-out infinite}
 @keyframes pulse-dot{0%,100%{box-shadow:0 0 6px var(--accent-glow)}50%{box-shadow:0 0 18px var(--accent-glow)}}
 .hero-cta{margin-top:2.25rem;display:flex;gap:12px;flex-wrap:wrap}
-.btn-primary{background:linear-gradient(135deg,var(--accent),#4f46e5);color:#fff;border:none;padding:14px 32px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--ff-body);text-decoration:none;display:inline-block;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 15px var(--accent-glow)}
-.btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 25px var(--accent-glow)}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;padding:14px 32px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--ff-body);text-decoration:none;display:inline-block;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 15px var(--accent-glow)}
+.btn-primary:hover{background:linear-gradient(135deg,#b8492a,#f2a900);transform:translateY(-3px);box-shadow:0 8px 25px var(--accent-glow)}
 .btn-outline{background:rgba(217,93,57,0.04);color:var(--text);border:1px solid var(--border-hover);padding:14px 32px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--ff-body);text-decoration:none;display:inline-block;backdrop-filter:blur(8px);transition:background 0.2s,transform 0.2s}
 .btn-outline:hover{background:rgba(217,93,57,0.1);transform:translateY(-2px)}
 .hero-badges{margin-top:1.75rem;display:flex;gap:8px;flex-wrap:wrap}
@@ -272,16 +272,19 @@ footer{background:var(--surface);border-top:1px solid var(--border);position:rel
         <div class="stat-card"><div class="stat-num">29</div><div class="stat-lbl">States Celebrated</div></div>
       </div>
     </div>
-    <div class="about-images">
-      <div class="img-frame frame-1">
-        <img src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?w=600&q=80" alt="Traditional Indian Attire">
-      </div>
-      <div class="img-frame frame-2">
-        <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&q=80" alt="Cultural Dance">
-      </div>
-      <div class="img-frame frame-tech">
-        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&q=80" alt="Coding">
-      </div>
+  <div class="about-images">
+  <div class="img-frame frame-1">
+    <img src="https://images.unsplash.com/photo-1548013146-72479768bada?w=600&q=80" 
+         alt="Indian Temple Architecture">
+  </div>
+  <div class="img-frame frame-2">
+<img src="https://images.unsplash.com/photo-1700544628901-523c8108d864?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHJhbmdvbGl8ZW58MHx8MHx8fDA%3D" alt="Rangoli">
+  </div>
+  <div class="img-frame frame-tech">
+    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&q=80" 
+         alt="Tech Workspace">
+  </div>
+</div>
     </div>
   </div>
 </section>
