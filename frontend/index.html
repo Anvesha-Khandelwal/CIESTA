@@ -759,8 +759,8 @@ section {
 
 /* ─── FOOTER ─── */
 footer {
-  background: var(--surface);
-  border-top: 1px solid var(--border);
+  background: rgba(255, 246, 236, 0.95);
+  border-top: 1px solid rgba(217, 93, 57, 0.12);
   position: relative;
   z-index: 1;
 }
@@ -1215,7 +1215,7 @@ footer {
    EVENTS DATA
 ══════════════════════════════════════════════ */
 const EVENTS = [
-  { name: "Treasure Hunt",   cat: "Cultural",   badge: "Adventure", date: "Apr 9, 10 AM",  mode: "Team (3–4)",  prize: "₹12,000", desc: "Crack clues and decode paths across campus to claim the hidden prize.",                          accent: "#f59e0b" },
+  { name: "Treasure Hunt",   cat: "Mystery",    badge: "Adventure", date: "Apr 9, 10 AM",  mode: "Team (3–4)",  prize: "₹12,000", desc: "Crack clues and decode paths across campus to claim the hidden prize.",                          accent: "#f59e0b" },
   { name: "Literature Event",cat: "Literature",  badge: "Writing",   date: "Apr 9, 12 PM",  mode: "Individual",  prize: "₹6,500",  desc: "Storytelling and creative writing contest for original literary works.",                         accent: "#a855f7" },
   { name: "Quiz",            cat: "Quiz",        badge: "Knowledge", date: "Apr 9, 2 PM",   mode: "Team (2)",    prize: "₹8,000",  desc: "Intense trivia across science, tech, and culture — fast answers win.",                           accent: "#db2777" },
   { name: "Shark Tank",      cat: "Business",    badge: "Pitch",     date: "Apr 10, 10 AM", mode: "Team (2–3)",  prize: "₹15,000", desc: "Pitch your startup idea to judges and secure mentorship support.",                               accent: "#16a34a" },
@@ -1257,14 +1257,16 @@ function renderEvts() {
   filtered.forEach(e => {
     const d = document.createElement("div");
     d.className = "ecard reveal";
+    const registerHtml = e.cat === "Faculty" ? "" :
+      `<div class="eprize">` +
+        `<a href="register.html?event=${encodeURIComponent(e.name)}" class="ereg-btn">Register →</a>` +
+      `</div>`;
     d.innerHTML =
       `<span class="ebadge" style="background:rgba(255,255,255,0.1);color:${e.accent}">${e.cat}</span>` +
       `<h3 class="ename">${e.name}</h3>` +
       `<p class="edesc">${e.desc}</p>` +
       `<div class="emeta"><span>📅 ${e.date}</span><span>👥 ${e.mode}</span></div>` +
-      `<div class="eprize">` +
-        `<a href="register.html?event=${encodeURIComponent(e.name)}" class="ereg-btn">Register →</a>` +
-      `</div>`;
+      registerHtml;
     evtGrid.appendChild(d);
   });
 
