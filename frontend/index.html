@@ -8,251 +8,948 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#fdfbf7;
-  --surface:#ffffff;
-  --card:#f4efe6;
-  --card-hover:#e8e0d5;
-  --accent:#d95d39;
-  --accent2:#f2a900;
-  --accent-glow:rgba(217,93,57,0.3);
-  --text:#2c1e16;
-  --muted:#6e5c53;
-  --border:rgba(217,93,57,0.15);
-  --border-hover:rgba(217,93,57,0.4);
-  --ff-display:'Playfair Display',Georgia,serif;
-  --ff-body:'Space Grotesk','Segoe UI',Helvetica,Arial,sans-serif;
+/* ─── RESET & ROOT ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #fdfbf7;
+  --surface: #ffffff;
+  --card: #f4efe6;
+  --card-hover: #e8e0d5;
+  --accent: #d95d39;
+  --accent2: #f2a900;
+  --accent-glow: rgba(217, 93, 57, 0.28);
+  --text: #2c1e16;
+  --muted: #6e5c53;
+  --border: rgba(217, 93, 57, 0.15);
+  --border-hover: rgba(217, 93, 57, 0.4);
+  --shadow-sm: 0 4px 16px rgba(44, 30, 22, 0.08);
+  --shadow-md: 0 8px 28px rgba(44, 30, 22, 0.12);
+  --shadow-lg: 0 20px 48px rgba(44, 30, 22, 0.14);
+  --ff-display: 'Playfair Display', Georgia, serif;
+  --ff-body: 'Space Grotesk', 'Segoe UI', Helvetica, Arial, sans-serif;
+  --radius: 16px;
+  --radius-sm: 10px;
 }
-html{scroll-behavior:smooth}
-body{
-  font-family:var(--ff-body);
-  background:linear-gradient(135deg, #f7e3d1 0%, #fbf1e6 45%, #fffdf8 100%);
-  color:var(--text);
-  font-size:15px;
-  line-height:1.7;
-  overflow-x:hidden
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--ff-body);
+  background: linear-gradient(135deg, #f7e3d1 0%, #fbf1e6 45%, #fffdf8 100%);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.7;
+  overflow-x: hidden;
 }
+
+img { display: block; max-width: 100%; }
+a { color: inherit; }
 
 /* ─── NAV ─── */
-nav{position:sticky;top:0;z-index:200;background:rgba(253,251,247,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 2rem}
-.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:62px}
-.nav-logo{font-family:var(--ff-display);font-size:20px;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-0.5px}
-.nav-logo span{color:var(--accent)}
-.nav-links{display:flex;gap:1.75rem;list-style:none}
-.nav-links a{text-decoration:none;font-size:12px;font-weight:600;color:var(--muted);letter-spacing:0.8px;text-transform:uppercase;transition:color 0.2s}
-.nav-links a:hover{color:var(--text)}
-.nav-cta{background:var(--accent)!important;color:#fff!important;padding:8px 18px;border-radius:8px;transition:background 0.2s,transform 0.2s!important}
-.nav-cta:hover{background:#b8492a!important;transform:translateY(-1px)!important;color:#fff!important}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
-.hamburger span{display:block;width:22px;height:2px;background:var(--text);transition:0.3s}
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: rgba(253, 251, 247, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+}
+
+.nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 62px;
+}
+
+/* FIX #10: Shortened nav logo for mobile */
+.nav-logo {
+  font-family: var(--ff-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: -0.4px;
+  white-space: nowrap;
+}
+.nav-logo .logo-short { display: none; }
+.nav-logo span { color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  gap: 1.75rem;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text); }
+
+.nav-cta {
+  background: var(--accent) !important;
+  color: #fff !important;
+  padding: 8px 18px;
+  border-radius: var(--radius-sm);
+  transition: background 0.2s, transform 0.2s !important;
+}
+.nav-cta:hover {
+  background: #b8492a !important;
+  transform: translateY(-1px) !important;
+}
+
+/* FIX #8: Hamburger with animated open/close */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 6px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+.hamburger:hover { background: rgba(217, 93, 57, 0.08); }
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.2s ease;
+  transform-origin: center;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile menu */
+#mmenu {
+  display: none;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 1.5rem 2rem;
+  position: relative;
+  z-index: 199;
+  box-shadow: var(--shadow-md);
+}
+#mmenu ul { list-style: none; display: flex; flex-direction: column; gap: 1.25rem; }
+#mmenu a {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+  display: block;
+}
+#mmenu a:hover { color: var(--text); }
+#mmenu .mm-cta { color: var(--accent); }
 
 /* ─── HERO ─── */
-.hero-wrap{position:relative;min-height:100vh;display:grid;grid-template-columns:1.1fr 0.9fr;gap:5rem;align-items:center;max-width:1100px;margin:0 auto;padding:9rem 2rem 7rem;z-index:1}
-.hero-bg{position:fixed;inset:0;z-index:-1}
-.hero-bg-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 3s cubic-bezier(0.4, 0, 0.2, 1)}
-.hero-bg-slide.active{opacity:0.2}
-.hero-eyebrow{font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--accent2);font-weight:700;margin-bottom:1.25rem}
-.hero-title{font-family:var(--ff-display);font-size:clamp(46px,6vw,84px);line-height:1;font-weight:700;letter-spacing:-2px;margin-bottom:1.75rem;color:var(--text)}
-.hero-title em{font-style:italic;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-sub{font-size:17px;color:var(--muted);font-weight:500;line-height:1.7;margin-bottom:2rem;max-width:500px}
-.hero-date{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:var(--text);background:rgba(217,93,57,0.05);border:1px solid var(--border-hover);padding:9px 20px;border-radius:100px;backdrop-filter:blur(10px)}
-.hero-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent-glow);animation:pulse-dot 2s ease-in-out infinite}
-@keyframes pulse-dot{0%,100%{box-shadow:0 0 6px var(--accent-glow)}50%{box-shadow:0 0 18px var(--accent-glow)}}
-.hero-cta{margin-top:2.25rem;display:flex;gap:12px;flex-wrap:wrap}
-.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;padding:14px 32px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--ff-body);text-decoration:none;display:inline-block;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 15px var(--accent-glow)}
-.btn-primary:hover{background:linear-gradient(135deg,#b8492a,#f2a900);transform:translateY(-3px);box-shadow:0 8px 25px var(--accent-glow)}
-.btn-outline{background:rgba(217,93,57,0.04);color:var(--text);border:1px solid var(--border-hover);padding:14px 32px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--ff-body);text-decoration:none;display:inline-block;backdrop-filter:blur(8px);transition:background 0.2s,transform 0.2s}
-.btn-outline:hover{background:rgba(217,93,57,0.1);transform:translateY(-2px)}
-.hero-badges{margin-top:1.75rem;display:flex;gap:8px;flex-wrap:wrap}
-.hbadge{font-size:11px;font-weight:600;padding:5px 13px;border-radius:100px;background:rgba(42,123,76,0.1);color:#2A7B4C;border:1px solid rgba(42,123,76,0.25)}
+.hero-wrap {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 5rem;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 9rem 2rem 7rem;
+  z-index: 1;
+}
+
+/* FIX #6: Removed dead hero-bg slideshow code — keeping element for minimal bg */
+.hero-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(242, 169, 0, 0.06) 0%, transparent 60%),
+              radial-gradient(ellipse 50% 40% at 20% 70%, rgba(217, 93, 57, 0.06) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+.hero-eyebrow {
+  font-size: 14px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent2);
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+}
+
+.hero-title {
+  font-family: var(--ff-display);
+  font-size: clamp(46px, 6vw, 84px);
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -2px;
+  margin-bottom: 1.75rem;
+  color: var(--text);
+}
+.hero-title em {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: 17px;
+  color: var(--muted);
+  font-weight: 500;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  max-width: 500px;
+}
+
+.hero-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  background: rgba(217, 93, 57, 0.06);
+  border: 1px solid var(--border-hover);
+  padding: 9px 20px;
+  border-radius: 100px;
+}
+
+.hero-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent-glow);
+  flex-shrink: 0;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 6px var(--accent-glow); }
+  50%       { box-shadow: 0 0 18px var(--accent-glow); }
+}
+
+.hero-cta { margin-top: 2.25rem; display: flex; gap: 12px; flex-wrap: wrap; }
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff;
+  border: none;
+  padding: 14px 32px;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: var(--ff-body);
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 15px var(--accent-glow);
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px var(--accent-glow);
+}
+
+.btn-outline {
+  background: rgba(217, 93, 57, 0.04);
+  color: var(--text);
+  border: 1px solid var(--border-hover);
+  padding: 14px 32px;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: var(--ff-body);
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-outline:hover { background: rgba(217, 93, 57, 0.1); transform: translateY(-2px); }
+
+.hero-badges { margin-top: 1.75rem; display: flex; gap: 8px; flex-wrap: wrap; }
+.hbadge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 13px;
+  border-radius: 100px;
+  background: rgba(42, 123, 76, 0.1);
+  color: #2A7B4C;
+  border: 1px solid rgba(42, 123, 76, 0.25);
+}
 
 /* ─── COUNTDOWN ─── */
-.cd-box{background:rgba(255,255,255,0.7);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:24px;padding:2.75rem;display:grid;grid-template-columns:repeat(4,1fr);gap:0;text-align:center;box-shadow:0 0 40px rgba(217,93,57,0.1)}
-.cd-unit{display:flex;flex-direction:column;gap:8px;padding:0 .5rem;position:relative}
-.cd-unit:not(:last-child)::after{content:':';position:absolute;right:-4px;top:0;font-size:36px;color:var(--border);font-family:var(--ff-display);line-height:1}
-.cd-num{font-family:var(--ff-display);font-size:52px;font-weight:700;line-height:1;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.cd-lbl{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);font-weight:600}
-.cd-cap{text-align:center;font-size:12px;color:var(--muted);margin-top:1.25rem;letter-spacing:1px}
+.cd-box {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 2.75rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+}
+
+.cd-unit {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 0.5rem;
+  position: relative;
+}
+
+/* FIX #16: Colon separators properly hidden on small screens */
+.cd-unit:not(:last-child)::after {
+  content: ':';
+  position: absolute;
+  right: -4px;
+  top: 0;
+  font-size: 36px;
+  color: var(--border-hover);
+  font-family: var(--ff-display);
+  line-height: 1;
+}
+
+.cd-num {
+  font-family: var(--ff-display);
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cd-lbl {
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.cd-cap {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 1.25rem;
+  letter-spacing: 1px;
+}
 
 /* ─── DIVIDER ─── */
-.hdivider{border:none;border-top:1px solid var(--border);max-width:1100px;margin:0 auto}
+.hdivider {
+  border: none;
+  border-top: 1px solid var(--border);
+  max-width: 1100px;
+  margin: 0 auto;
+}
 
 /* ─── SECTIONS ─── */
-section{max-width:1100px;margin:0 auto;padding:6rem 2rem;position:relative;z-index:1}
-.stag{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent2);font-weight:600;margin-bottom:.75rem;text-align:center}
-.stitle{font-family:var(--ff-display);font-size:clamp(30px,4vw,46px);font-weight:700;letter-spacing:-1.5px;line-height:1.1;color:var(--text);text-align:center;position:relative;padding-bottom:1.5rem}
-.stitle::after{content:"◈ ♦ ◈";position:absolute;bottom:0;left:50%;transform:translateX(-50%);font-size:14px;color:rgba(217,93,57,0.6);letter-spacing:8px}
-.sbody{font-size:16px;color:var(--muted);line-height:1.8;max-width:680px;text-align:center;margin:1.5rem auto 0}
+section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 6rem 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.stag {
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--accent2);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+.stitle {
+  font-family: var(--ff-display);
+  font-size: clamp(30px, 4vw, 46px);
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  color: var(--text);
+  text-align: center;
+  position: relative;
+  padding-bottom: 1.5rem;
+}
+.stitle::after {
+  content: "◈ ♦ ◈";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  color: rgba(217, 93, 57, 0.55);
+  letter-spacing: 8px;
+}
+
+.stitle-left { text-align: left; }
+.stitle-left::after { left: 0; transform: none; }
+
+.sbody {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.8;
+  max-width: 680px;
+  text-align: center;
+  margin: 1.5rem auto 0;
+}
 
 /* ─── ABOUT ─── */
-.about-section{display:grid;grid-template-columns:1fr 1.1fr;gap:4rem;align-items:center}
-.stitle-left{text-align:left;position:relative;padding-bottom:1.5rem}
-.stitle-left::after{content:"◈ ♦ ◈";position:absolute;bottom:0;left:0;font-size:14px;color:rgba(217,93,57,0.6);letter-spacing:8px}
-.about-images{position:relative;height:450px;width:100%}
-.img-frame{position:absolute;border-radius:12px;overflow:hidden;box-shadow:0 15px 35px rgba(44,30,22,0.15);border:4px solid var(--surface);transition:transform 0.4s ease, z-index 0s}
-.img-frame img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s}
-.img-frame:hover img{transform:scale(1.05)}
-.img-frame:hover{transform:scale(1.02) rotate(0deg);z-index:10 !important}
-.frame-1{width:260px;height:320px;top:0;left:0;z-index:2;transform:rotate(-4deg)}
-.frame-2{width:280px;height:240px;bottom:0;right:0;z-index:3;transform:rotate(3deg)}
-.frame-tech{width:200px;height:200px;top:15%;right:15%;z-index:1;opacity:0.9;filter:grayscale(0.8) sepia(0.2);transform:rotate(5deg)}
-.stat-row{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:2.5rem}
-.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem;transition:border-color 0.3s,transform 0.3s;box-shadow:0 4px 15px rgba(217,93,57,0.05)}
-.stat-card:hover{border-color:var(--border-hover);transform:translateY(-4px)}
-.stat-num{font-family:var(--ff-display);font-size:36px;font-weight:700;color:var(--accent)}
-.stat-lbl{font-size:12px;color:var(--muted);margin-top:4px;font-weight:500}
+.about-section {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.about-images {
+  position: relative;
+  height: 450px;
+  width: 100%;
+}
+
+.img-frame {
+  position: absolute;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 4px solid var(--surface);
+  transition: transform 0.4s ease, z-index 0s;
+}
+.img-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.img-frame:hover { transform: scale(1.02) rotate(0deg) !important; z-index: 10 !important; }
+.img-frame:hover img { transform: scale(1.05); }
+
+.frame-1 { width: 260px; height: 320px; top: 0; left: 0; z-index: 2; transform: rotate(-4deg); }
+.frame-2 { width: 280px; height: 240px; bottom: 0; right: 0; z-index: 3; transform: rotate(3deg); }
+.frame-tech { width: 200px; height: 200px; top: 15%; right: 15%; z-index: 1; opacity: 0.9; filter: grayscale(0.6) sepia(0.2); transform: rotate(5deg); }
+
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  box-shadow: var(--shadow-sm);
+}
+.stat-card:hover { border-color: var(--border-hover); transform: translateY(-4px); box-shadow: var(--shadow-md); }
+
+.stat-num {
+  font-family: var(--ff-display);
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.stat-lbl { font-size: 12px; color: var(--muted); margin-top: 4px; font-weight: 500; }
 
 /* ─── EVENTS ─── */
-.evt-filters{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:2.5rem;margin-bottom:2rem}
-.fb{font-size:12px;font-weight:600;padding:7px 18px;border-radius:100px;border:1px solid var(--border);background:var(--card);cursor:pointer;color:var(--muted);font-family:var(--ff-body);transition:all 0.2s}
-.fb.active,.fb:hover{background:var(--accent);color:#fff;border-color:var(--accent);transform:translateY(-1px)}
-.evt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.75rem}
-.ecard{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:1.75rem;position:relative;overflow:hidden;transition:all 0.35s cubic-bezier(0.4,0,0.2,1)}
-.ecard::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
-.ecard:hover{transform:translateY(-8px);border-color:var(--border-hover);box-shadow:0 20px 40px rgba(0,0,0,0.4)}
-.ebadge{display:inline-block;font-size:10px;font-weight:700;padding:4px 11px;border-radius:100px;margin-bottom:1rem;text-transform:uppercase;letter-spacing:0.5px}
-.ename{font-family:var(--ff-display);font-size:24px;font-weight:700;margin-bottom:.6rem;letter-spacing:-.5px;color:var(--text)}
-.edesc{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:1.25rem}
-.emeta{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
-.emeta span{font-size:12px;color:var(--muted);font-weight:500;display:flex;align-items:center;gap:5px}
-.eprize{font-size:13px;font-weight:600;color:var(--text);padding-top:1rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-.ereg-btn{padding:7px 15px;font-size:11px;font-weight:700;background:var(--accent);color:#fff;border-radius:8px;text-decoration:none;transition:background 0.2s,transform 0.2s}
-.ereg-btn:hover{background:var(--accent2);transform:translateY(-1px)}
+.evt-filters {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.fb {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px 18px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  cursor: pointer;
+  color: var(--muted);
+  font-family: var(--ff-body);
+  transition: all 0.2s;
+}
+.fb.active, .fb:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.evt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 1.75rem;
+}
+
+.ecard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 1.75rem;
+  position: relative;
+  overflow: hidden;
+  /* FIX #2: Removed from scroll reveal — opacity starts at 1 */
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.35s,
+              box-shadow 0.35s;
+}
+.ecard::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+}
+/* FIX #4: Themed shadow, not harsh black */
+.ecard:hover {
+  transform: translateY(-7px);
+  border-color: var(--border-hover);
+  box-shadow: 0 20px 40px rgba(44, 30, 22, 0.14);
+}
+
+.ebadge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 11px;
+  border-radius: 100px;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ename {
+  font-family: var(--ff-display);
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  letter-spacing: -0.5px;
+  color: var(--text);
+}
+.edesc { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 1.25rem; }
+
+.emeta { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.emeta span {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* FIX #7: Prize + Register both shown */
+.eprize {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ereg-btn {
+  padding: 7px 15px;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+  white-space: nowrap;
+}
+.ereg-btn:hover { background: #b8492a; transform: translateY(-1px); }
 
 /* ─── SCHEDULE ─── */
-#schedule{background:none}
-.day-tabs{display:flex;gap:1rem;margin-top:2.5rem;margin-bottom:2.5rem;flex-wrap:wrap}
-.day-tab{padding:10px 28px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--ff-body);transition:all 0.2s}
-.day-tab.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-color:transparent;box-shadow:0 4px 15px var(--accent-glow)}
-.day-tab:hover:not(.active){border-color:var(--border-hover);color:var(--text)}
-.sched-panel{display:none}
-.sched-panel.active{display:block}
-.sched-table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--border);border-radius:16px;overflow:hidden}
-.sched-table thead tr{background:rgba(217,93,57,0.1)}
-.sched-table th{padding:12px 18px;text-align:left;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--border)}
-.sched-table tbody tr{background:var(--card);transition:background 0.2s}
-.sched-table tbody tr:nth-child(even){background:var(--surface)}
-.sched-table tbody tr:hover{background:var(--card-hover)}
-.sched-table td{padding:14px 18px;font-size:13px;color:var(--text);border-bottom:1px solid var(--border);vertical-align:middle}
-.sched-table tbody tr:last-child td{border-bottom:none}
-.sched-time{font-weight:700;color:var(--accent2);white-space:nowrap;font-size:12px;letter-spacing:0.5px}
-.sched-name{font-weight:600;font-size:14px}
-.sched-venue{color:var(--muted);font-size:12px}
-.sched-badge{display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;text-transform:uppercase;letter-spacing:0.5px;white-space:nowrap}
+.day-tabs { display: flex; gap: 1rem; margin-top: 2.5rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
+
+.day-tab {
+  padding: 10px 28px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--ff-body);
+  transition: all 0.2s;
+}
+.day-tab.active {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 4px 15px var(--accent-glow);
+}
+.day-tab:hover:not(.active) { border-color: var(--border-hover); color: var(--text); }
+
+.sched-panel { display: none; }
+.sched-panel.active { display: block; }
+
+.sched-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.sched-table thead tr { background: rgba(217, 93, 57, 0.08); }
+.sched-table th {
+  padding: 12px 18px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent);
+  border-bottom: 1px solid var(--border);
+}
+.sched-table tbody tr { background: var(--card); transition: background 0.2s; }
+.sched-table tbody tr:nth-child(even) { background: var(--surface); }
+.sched-table tbody tr:hover { background: var(--card-hover); }
+.sched-table td {
+  padding: 14px 18px;
+  font-size: 13px;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.sched-table tbody tr:last-child td { border-bottom: none; }
+.sched-time { font-weight: 700; color: var(--accent2); white-space: nowrap; font-size: 12px; letter-spacing: 0.5px; }
+.sched-name { font-weight: 600; font-size: 14px; }
+.sched-venue { color: var(--muted); font-size: 12px; }
+.sched-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
 
 /* ─── GALLERY ─── */
-#gallery{background:none}
-.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:1.25rem;margin-top:3rem}
-.gallery-grid .g-item:nth-child(1){grid-column:span 2;grid-row:span 2}
-.gallery-grid .g-item:nth-child(4){grid-column:span 2}
-.g-item{position:relative;border-radius:16px;overflow:hidden;cursor:pointer;border:1px solid var(--border)}
-.g-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s cubic-bezier(0.4,0,0.2,1),filter 0.4s}
-.g-item:hover img{transform:scale(1.08);filter:brightness(0.7)}
-.g-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem;background:linear-gradient(to top,rgba(44,30,22,0.9) 0%,transparent 60%);opacity:0;transition:opacity 0.35s}
-.g-item:hover .g-overlay{opacity:1}
-.g-caption{font-size:14px;font-weight:600;color:#fff;transform:translateY(8px);transition:transform 0.35s}
-.g-item:hover .g-caption{transform:translateY(0)}
-.g-sub{font-size:12px;color:rgba(255,255,255,0.85);margin-top:3px}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 220px;
+  gap: 1.25rem;
+  margin-top: 3rem;
+}
 
-/* ─── SPONSORS ─── */
-.sponsors-wrap{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:5rem 2rem;position:relative;z-index:1}
-.sponsors-inner{max-width:1100px;margin:0 auto;text-align:center}
-.sponsor-logos{display:flex;flex-wrap:wrap;gap:3rem;justify-content:center;align-items:center;margin-top:3rem}
-.s-logo{opacity:0.35;font-size:22px;font-weight:700;font-family:var(--ff-display);color:var(--text);letter-spacing:1px;transition:opacity 0.3s}
-.s-logo:hover{opacity:0.75}
+.gallery-grid .g-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+.gallery-grid .g-item:nth-child(4) { grid-column: span 2; }
+
+.g-item {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--card);
+  /* FIX #2: Removed opacity:0 from scroll reveal — gallery items start visible */
+}
+
+/* FIX #3: Shimmer skeleton while image loads */
+.g-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--card) 25%, var(--card-hover) 50%, var(--card) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite;
+  z-index: 0;
+}
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.g-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+  position: relative;
+  z-index: 1;
+  opacity: 0; /* hidden until loaded */
+}
+
+/* Show image once loaded */
+.g-item img.loaded {
+  opacity: 1;
+}
+
+.g-item:hover img { transform: scale(1.08); filter: brightness(0.7); }
+
+.g-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  background: linear-gradient(to top, rgba(44, 30, 22, 0.85) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.35s;
+  z-index: 2;
+}
+.g-item:hover .g-overlay { opacity: 1; }
+
+.g-caption { font-size: 14px; font-weight: 600; color: #fff; transform: translateY(8px); transition: transform 0.35s; }
+.g-item:hover .g-caption { transform: translateY(0); }
+.g-sub { font-size: 12px; color: rgba(255, 255, 255, 0.8); margin-top: 3px; }
+
+/* FIX #3: Proper failed state using block element, not pseudo-element flex */
+.g-item.img-failed::before { animation: none; background: var(--card); }
+
+.g-item.img-failed .g-img-wrapper {
+  display: none;
+}
+
+.img-failed-msg {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+}
+.g-item.img-failed .img-failed-msg { display: flex; }
+.img-failed-msg svg { opacity: 0.4; }
 
 /* ─── FOOTER ─── */
-footer{background:var(--surface);border-top:1px solid var(--border);position:relative;z-index:1}
-.ftop{max-width:1000px;margin:0 auto;padding:3rem 1.5rem;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:3rem}
-.flogo{font-family:var(--ff-display);font-size:20px;font-weight:700;color:var(--text)}
-.flogo span{color:var(--accent)}
-.fcol h4{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:1.1rem}
-.fcol ul{list-style:none}
-.fcol ul li{margin-bottom:.6rem;font-size:13px;color:var(--text)}
-.fcol ul li a{color:var(--text);text-decoration:none;transition:color 0.2s;opacity:0.8}
-.fcol ul li a:hover{color:var(--accent);opacity:1}
-.fbot{border-top:1px solid var(--border);padding:1.2rem 1.5rem;max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
-.fbot p{font-size:11px;color:var(--muted);line-height:1.4}
+footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  position: relative;
+  z-index: 1;
+}
+
+/* FIX #5: Consistent max-width with sections */
+.ftop {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 3rem;
+}
+
+.flogo { font-family: var(--ff-display); font-size: 20px; font-weight: 700; color: var(--text); }
+.flogo span { color: var(--accent); }
+
+.fcol h4 {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 1.1rem;
+}
+.fcol ul { list-style: none; }
+.fcol ul li { margin-bottom: 0.6rem; font-size: 13px; color: var(--text); }
+.fcol ul li a {
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.2s;
+  opacity: 0.75;
+}
+.fcol ul li a:hover { color: var(--accent); opacity: 1; }
+
+.fbot {
+  border-top: 1px solid var(--border);
+  padding: 1.2rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.fbot p { font-size: 11px; color: var(--muted); line-height: 1.4; }
 
 /* ─── RESPONSIVE ─── */
-@media(max-width:900px){
-  .hero-wrap{grid-template-columns:1fr;padding-top:6rem;text-align:center;min-height:auto;gap:3rem}
-  .hero-sub{margin-left:auto;margin-right:auto}
-  .hero-cta{justify-content:center}
-  .hero-badges{justify-content:center}
-  .about-section{grid-template-columns:1fr;gap:3rem}
-  .about-images{height:400px;max-width:500px;margin:0 auto}
-  .frame-1{width:55%}
-  .frame-2{width:60%}
-  .frame-tech{width:45%}
-  .ftop{grid-template-columns:1fr 1fr}
+@media (max-width: 900px) {
+  .hero-wrap { grid-template-columns: 1fr; padding-top: 6rem; text-align: center; min-height: auto; gap: 3rem; }
+  .hero-sub { margin-left: auto; margin-right: auto; }
+  .hero-cta { justify-content: center; }
+  .hero-badges { justify-content: center; }
+  .about-section { grid-template-columns: 1fr; gap: 3rem; }
+  .about-images { height: 400px; max-width: 500px; margin: 0 auto; }
+  .frame-1 { width: 55%; }
+  .frame-2 { width: 60%; }
+  .frame-tech { width: 45%; }
+  .ftop { grid-template-columns: 1fr 1fr; }
 }
-@media(max-width:600px){
-  .nav-links{display:none}
-  .hamburger{display:flex}
-  .cd-box{grid-template-columns:repeat(2,1fr);padding:1.5rem}
-  .cd-num{font-size:36px}
-  section{padding:4rem 1.5rem}
-  .gallery-grid{grid-template-columns:1fr;grid-auto-rows:220px}
-  .gallery-grid .g-item:nth-child(1){grid-column:span 1;grid-row:span 1}
-  .gallery-grid .g-item:nth-child(4){grid-column:span 1}
-  .ftop{grid-template-columns:1fr}
+
+@media (max-width: 600px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+
+  /* FIX #10: Show short logo on mobile */
+  .nav-logo .logo-full { display: none; }
+  .nav-logo .logo-short { display: inline; }
+
+  /* FIX #16: Hide countdown separators on 2-col layout */
+  .cd-box { grid-template-columns: repeat(2, 1fr); padding: 1.5rem; row-gap: 1.25rem; }
+  .cd-unit:not(:last-child)::after { display: none; }
+  .cd-num { font-size: 36px; }
+
+  section { padding: 4rem 1.5rem; }
+
+  /* Gallery: 1 column on mobile, all spans reset */
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 220px;
+  }
+  .gallery-grid .g-item:nth-child(1),
+  .gallery-grid .g-item:nth-child(4) {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  .ftop { grid-template-columns: 1fr; }
+  .fbot { flex-direction: column; gap: 0.5rem; }
+
+  .sched-table { font-size: 12px; }
+  .sched-table th, .sched-table td { padding: 10px 12px; }
 }
+
+/* ─── SCROLL REVEAL ─── */
+/* FIX #2: Only apply reveal to cards, NOT g-items (lazy loading conflict) */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.reveal.in-view { opacity: 1; transform: translateY(0); }
+
 </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav>
+<nav aria-label="Main navigation">
   <div class="nav-inner">
-    <a class="nav-logo" href="#">Dayananda Sagar College of Engineering</a>
-    <ul class="nav-links">
+    <a class="nav-logo" href="#" aria-label="CIESTA 4.0 — Dayananda Sagar College of Engineering">
+      <!-- FIX #10: Short version on mobile -->
+      <span class="logo-full">Dayananda Sagar College of Engineering</span>
+      <span class="logo-short">DSCE</span>
+    </a>
+    <ul class="nav-links" role="list">
       <li><a href="#about">About</a></li>
       <li><a href="#events">Events</a></li>
       <li><a href="#schedule">Schedule</a></li>
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="register.html" class="nav-cta">Register Now</a></li>
     </ul>
-    <button class="hamburger" id="ham-btn" onclick="toggleMenu()">
+    <!-- FIX #8: Animated hamburger button -->
+    <button
+      class="hamburger"
+      id="ham-btn"
+      aria-label="Toggle navigation menu"
+      aria-expanded="false"
+      aria-controls="mmenu"
+      onclick="toggleMenu(this)"
+    >
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
-<div id="mmenu" style="display:none;background:var(--surface);border-bottom:1px solid var(--border);padding:1.5rem 2rem;position:relative;z-index:199">
-  <ul style="list-style:none;display:flex;flex-direction:column;gap:1.25rem">
-    <li><a href="#about" style="font-size:15px;font-weight:600;color:var(--muted);text-decoration:none" onclick="closeMenu()">About</a></li>
-    <li><a href="#events" style="font-size:15px;font-weight:600;color:var(--muted);text-decoration:none" onclick="closeMenu()">Events</a></li>
-    <li><a href="#schedule" style="font-size:15px;font-weight:600;color:var(--muted);text-decoration:none" onclick="closeMenu()">Schedule</a></li>
-    <li><a href="#gallery" style="font-size:15px;font-weight:600;color:var(--muted);text-decoration:none" onclick="closeMenu()">Gallery</a></li>
-    <li><a href="register.html" style="font-size:15px;font-weight:600;color:var(--accent);text-decoration:none">Register Now →</a></li>
+
+<nav id="mmenu" aria-label="Mobile navigation" aria-hidden="true">
+  <ul role="list">
+    <li><a href="#about"    onclick="closeMenu()">About</a></li>
+    <li><a href="#events"   onclick="closeMenu()">Events</a></li>
+    <li><a href="#schedule" onclick="closeMenu()">Schedule</a></li>
+    <li><a href="#gallery"  onclick="closeMenu()">Gallery</a></li>
+    <li><a href="register.html" class="mm-cta" onclick="closeMenu()">Register Now →</a></li>
   </ul>
-</div>
+</nav>
 
 <!-- HERO -->
-<div class="hero-bg" id="hero-bg"></div>
+<div class="hero-bg" aria-hidden="true"></div>
 <div class="hero-wrap">
   <div>
     <p class="hero-eyebrow">Akira presents</p>
-    <h1 class="hero-title">CIESTA<br><span style="font-size:0.4em;letter-spacing:10px;color:var(--accent);display:block;margin-top:10px;">◈ ♦ ◈ ♦ ◈</span></h1>
+    <h1 class="hero-title">
+      CIESTA<br>
+      <span style="font-size:0.4em;letter-spacing:10px;color:var(--accent);display:block;margin-top:10px;">◈ ♦ ◈ ♦ ◈</span>
+    </h1>
     <p class="hero-sub">Parampara — where traditional heritage meets the modern code.</p>
-    <div class="hero-date"><span class="hero-dot"></span>&nbsp; April 9–11, 2026 &nbsp;·&nbsp; DSCE Campus, Bangalore</div>
+    <div class="hero-date">
+      <span class="hero-dot" aria-hidden="true"></span>
+      April 9–11, 2026 &nbsp;·&nbsp; DSCE Campus, Bangalore
+    </div>
     <div class="hero-cta">
       <a href="register.html" class="btn-primary">Get Your Pass</a>
       <a href="#events" class="btn-outline">Explore Events</a>
     </div>
-    <div class="hero-badges">
+    <div class="hero-badges" aria-label="Event highlights">
       <span class="hbadge">10+ Events</span>
       <span class="hbadge">₹10K+ Rewards</span>
       <span class="hbadge">Cultural Evenings</span>
     </div>
   </div>
+
   <div>
-    <div class="cd-box">
-      <div class="cd-unit"><span class="cd-num" id="cd-d">00</span><span class="cd-lbl">Days</span></div>
-      <div class="cd-unit"><span class="cd-num" id="cd-h">00</span><span class="cd-lbl">Hours</span></div>
-      <div class="cd-unit"><span class="cd-num" id="cd-m">00</span><span class="cd-lbl">Mins</span></div>
-      <div class="cd-unit"><span class="cd-num" id="cd-s">00</span><span class="cd-lbl">Secs</span></div>
+    <div class="cd-box" role="timer" aria-label="Countdown to CIESTA 4.0">
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-d" aria-label="Days">00</span>
+        <span class="cd-lbl">Days</span>
+      </div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-h" aria-label="Hours">00</span>
+        <span class="cd-lbl">Hours</span>
+      </div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-m" aria-label="Minutes">00</span>
+        <span class="cd-lbl">Mins</span>
+      </div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-s" aria-label="Seconds">00</span>
+        <span class="cd-lbl">Secs</span>
+      </div>
     </div>
     <p class="cd-cap">Countdown to CIESTA 4.0</p>
   </div>
@@ -260,31 +957,37 @@ footer{background:var(--surface);border-top:1px solid var(--border);position:rel
 
 <hr class="hdivider">
 
-<!-- ABOUT SECTION -->
-<section id="about" style="padding: 8rem 2rem;">
+<!-- ABOUT -->
+<section id="about" style="padding: 8rem 2rem;" aria-labelledby="about-title">
   <div class="about-section">
     <div>
       <p class="stag" style="text-align:left">The Parampara Vision</p>
-      <h2 class="stitle stitle-left">Where Code Meets Culture.</h2>
-      <p class="sbody" style="text-align:left;margin:0;">CIESTA 4.0 is not just a tech fest; it is a celebration of our Indian roots. We bring together the brilliance of modern architecture and algorithms with the vibrant diversity, art forms, and traditional attire of our heritage. Step into a professional arena that honors our past while coding the future.</p>
+      <h2 class="stitle stitle-left" id="about-title">Where Code Meets Culture.</h2>
+      <p class="sbody" style="text-align:left;margin:0;">
+        CIESTA 4.0 is not just a tech fest; it is a celebration of our Indian roots. We bring together the brilliance of modern architecture and algorithms with the vibrant diversity, art forms, and traditional attire of our heritage. Step into a professional arena that honors our past while coding the future.
+      </p>
       <div class="stat-row">
-        <div class="stat-card"><div class="stat-num">3</div><div class="stat-lbl">Days of Festivity</div></div>
-        <div class="stat-card"><div class="stat-num">29</div><div class="stat-lbl">States Celebrated</div></div>
+        <div class="stat-card reveal"><div class="stat-num">3</div><div class="stat-lbl">Days of Festivity</div></div>
+        <div class="stat-card reveal"><div class="stat-num">29</div><div class="stat-lbl">States Celebrated</div></div>
       </div>
     </div>
-  <div class="about-images">
-  <div class="img-frame frame-1">
-    <img src="https://images.unsplash.com/photo-1548013146-72479768bada?w=600&q=80" 
-         alt="Indian Temple Architecture">
-  </div>
-  <div class="img-frame frame-2">
-<img src="https://images.unsplash.com/photo-1700544628901-523c8108d864?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHJhbmdvbGl8ZW58MHx8MHx8fDA%3D" alt="Rangoli">
-  </div>
-  <div class="img-frame frame-tech">
-    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&q=80" 
-         alt="Tech Workspace">
-  </div>
-</div>
+
+    <div class="about-images" aria-hidden="true">
+      <div class="img-frame frame-1">
+        <img src="https://res.cloudinary.com/dq3u3o70n/image/upload/v1774870021/Screenshot_2026-03-30_165430_ai8zio.png"
+             alt="Indian Temple Architecture"
+             loading="lazy" decoding="async">
+      </div>
+      <div class="img-frame frame-2">
+        <img src="https://res.cloudinary.com/dq3u3o70n/image/upload/v1774857604/WhatsApp_Image_2026-03-30_at_12.55.10_PM_2_f0evwu.jpg"
+             alt="Rangoli art"
+             loading="lazy" decoding="async">
+      </div>
+      <div class="img-frame frame-tech">
+        <img src="https://res.cloudinary.com/dq3u3o70n/image/upload/v1774869686/Screenshot_2026-03-30_165040_hmq6tb.png"
+             alt="Tech workspace"
+             loading="lazy" decoding="async">
+      </div>
     </div>
   </div>
 </section>
@@ -292,99 +995,176 @@ footer{background:var(--surface);border-top:1px solid var(--border);position:rel
 <hr class="hdivider">
 
 <!-- EVENTS -->
-<section id="events">
+<section id="events" aria-labelledby="events-title">
   <p class="stag">Events</p>
-  <h2 class="stitle">Battle of Minds &amp; Talents.</h2>
+  <h2 class="stitle" id="events-title">Battle of Minds &amp; Talents.</h2>
   <p class="sbody">From high-intensity hackathons to graceful fashion walks. Choose your arena.</p>
-  <div class="evt-filters" id="evt-filters"></div>
+  <div class="evt-filters" id="evt-filters" role="group" aria-label="Filter events by category"></div>
   <div class="evt-grid" id="evt-grid"></div>
 </section>
 
 <hr class="hdivider">
 
 <!-- SCHEDULE -->
-<section id="schedule">
+<section id="schedule" aria-labelledby="schedule-title">
   <p class="stag">Event Timeline</p>
-  <h2 class="stitle">3 Days of Action.</h2>
+  <h2 class="stitle" id="schedule-title">3 Days of Action.</h2>
   <p class="sbody">Every minute counts. Here's what's happening across CIESTA 4.0.</p>
 
-  <div class="day-tabs">
-    <button class="day-tab active" onclick="switchDay(0,this)">📅 Day 1 — Apr 9</button>
-    <button class="day-tab" onclick="switchDay(1,this)">📅 Day 2 — Apr 10</button>
-    <button class="day-tab" onclick="switchDay(2,this)">📅 Day 3 — Apr 11</button>
+  <div class="day-tabs" role="tablist" aria-label="Schedule by day">
+    <button class="day-tab active" role="tab" aria-selected="true"  aria-controls="day-0" onclick="switchDay(0,this)">📅 Day 1 — Apr 9</button>
+    <button class="day-tab"        role="tab" aria-selected="false" aria-controls="day-1" onclick="switchDay(1,this)">📅 Day 2 — Apr 10</button>
+    <button class="day-tab"        role="tab" aria-selected="false" aria-controls="day-2" onclick="switchDay(2,this)">📅 Day 3 — Apr 11</button>
   </div>
 
   <!-- DAY 1 -->
-  <div class="sched-panel active" id="day-0">
+  <div class="sched-panel active" id="day-0" role="tabpanel" aria-label="Day 1 Schedule">
     <table class="sched-table">
-      <thead><tr><th>Time</th><th>Event</th><th>Category</th><th>Venue</th><th>Format</th></tr></thead>
+      <thead><tr><th scope="col">Time</th><th scope="col">Event</th><th scope="col">Category</th><th scope="col">Venue</th><th scope="col">Format</th></tr></thead>
       <tbody>
-        <tr><td class="sched-time">09:00 AM - 10:00 AM</td><td class="sched-name">Inauguration</td><td><span class="sched-badge" style="background:rgba(255,183,3,0.15);color:#ffd659">Opening</span></td><td class="sched-venue">Amphi</td><td>All</td></tr>
-        <tr><td class="sched-time">10:00 AM - 02:00 PM</td><td class="sched-name">Treasure Hunt</td><td><span class="sched-badge" style="background:rgba(245,158,11,0.15);color:#fcd34d">Cultural</span></td><td class="sched-venue">Amphi</td><td>Team (3–4)</td></tr>
-        <tr><td class="sched-time">10:00 AM - 02:00 PM</td><td class="sched-name">Literature Event</td><td><span class="sched-badge" style="background:rgba(168,85,247,0.15);color:#c084fc">Literature</span></td><td class="sched-venue">Dept</td><td>Individual</td></tr>
-        <tr><td class="sched-time">02:00 PM - 05:00 PM</td><td class="sched-name">Fun Tech</td><td><span class="sched-badge" style="background:rgba(251,146,60,0.15);color:#fb923c">Fun</span></td><td class="sched-venue">Dept</td><td>Team (2–4)</td></tr>
+        <tr><td class="sched-time">09:00 AM – 10:00 AM</td><td class="sched-name">Inauguration</td><td><span class="sched-badge" style="background:rgba(255,183,3,0.15);color:#c48a00">Opening</span></td><td class="sched-venue">Amphi</td><td>All</td></tr>
+        <tr><td class="sched-time">10:00 AM – 02:00 PM</td><td class="sched-name">Treasure Hunt</td><td><span class="sched-badge" style="background:rgba(245,158,11,0.15);color:#b45309">Cultural</span></td><td class="sched-venue">Amphi</td><td>Team (3–4)</td></tr>
+        <tr><td class="sched-time">10:00 AM – 02:00 PM</td><td class="sched-name">Literature Event</td><td><span class="sched-badge" style="background:rgba(168,85,247,0.15);color:#7c3aed">Literature</span></td><td class="sched-venue">Dept</td><td>Individual</td></tr>
+        <tr><td class="sched-time">02:00 PM – 05:00 PM</td><td class="sched-name">Fun Tech</td><td><span class="sched-badge" style="background:rgba(251,146,60,0.15);color:#c2410c">Fun</span></td><td class="sched-venue">Dept</td><td>Team (2–4)</td></tr>
       </tbody>
     </table>
   </div>
 
   <!-- DAY 2 -->
-  <div class="sched-panel" id="day-1">
+  <div class="sched-panel" id="day-1" role="tabpanel" aria-label="Day 2 Schedule">
     <table class="sched-table">
-      <thead><tr><th>Time</th><th>Event</th><th>Category</th><th>Venue</th><th>Format</th></tr></thead>
+      <thead><tr><th scope="col">Time</th><th scope="col">Event</th><th scope="col">Category</th><th scope="col">Venue</th><th scope="col">Format</th></tr></thead>
       <tbody>
-        <tr><td class="sched-time">09:00 AM - 11:00 AM</td><td class="sched-name">Quiz</td><td><span class="sched-badge" style="background:rgba(219,39,119,0.15);color:#f9a8d4">Quiz</span></td><td class="sched-venue">Dept</td><td>Team (2)</td></tr>
-        <tr><td class="sched-time">11:00 AM - 01:00 PM</td><td class="sched-name">Mystery Case</td><td><span class="sched-badge" style="background:rgba(14,165,233,0.15);color:#7dd3fc">Mystery</span></td><td class="sched-venue">Dept</td><td>Team (3)</td></tr>
-        <tr><td class="sched-time">02:00 PM - 05:00 PM</td><td class="sched-name">Shark Tank</td><td><span class="sched-badge" style="background:rgba(34,197,94,0.15);color:#86efac">Business</span></td><td class="sched-venue">Dept</td><td>Team (2–3)</td></tr>
-        <tr><td class="sched-time">02:00 PM - 05:00 PM</td><td class="sched-name">Tech Survivor</td><td><span class="sched-badge" style="background:rgba(16,185,129,0.15);color:#6ee7b7">Technical</span></td><td class="sched-venue">Dept</td><td>Individual</td></tr>
+        <tr><td class="sched-time">09:00 AM – 11:00 AM</td><td class="sched-name">Quiz</td><td><span class="sched-badge" style="background:rgba(219,39,119,0.15);color:#be185d">Quiz</span></td><td class="sched-venue">Dept</td><td>Team (2)</td></tr>
+        <tr><td class="sched-time">11:00 AM – 01:00 PM</td><td class="sched-name">Mystery Case</td><td><span class="sched-badge" style="background:rgba(14,165,233,0.15);color:#0369a1">Mystery</span></td><td class="sched-venue">Dept</td><td>Team (3)</td></tr>
+        <tr><td class="sched-time">02:00 PM – 05:00 PM</td><td class="sched-name">Shark Tank</td><td><span class="sched-badge" style="background:rgba(34,197,94,0.15);color:#15803d">Business</span></td><td class="sched-venue">Dept</td><td>Team (2–3)</td></tr>
+        <tr><td class="sched-time">02:00 PM – 05:00 PM</td><td class="sched-name">Tech Survivor</td><td><span class="sched-badge" style="background:rgba(16,185,129,0.15);color:#047857">Technical</span></td><td class="sched-venue">Dept</td><td>Individual</td></tr>
       </tbody>
     </table>
   </div>
 
   <!-- DAY 3 -->
-  <div class="sched-panel" id="day-2">
+  <div class="sched-panel" id="day-2" role="tabpanel" aria-label="Day 3 Schedule">
     <table class="sched-table">
-      <thead><tr><th>Time</th><th>Event</th><th>Category</th><th>Venue</th><th>Format</th></tr></thead>
+      <thead><tr><th scope="col">Time</th><th scope="col">Event</th><th scope="col">Category</th><th scope="col">Venue</th><th scope="col">Format</th></tr></thead>
       <tbody>
-        <tr><td class="sched-time">09:00 AM - 11:00 AM</td><td class="sched-name">Valedictory</td><td><span class="sched-badge" style="background:rgba(79,70,229,0.15);color:#a5b4fc">Ceremony</span></td><td class="sched-venue">Amphi</td><td>All</td></tr>
-        <tr><td class="sched-time">11:00 AM - 12:00 PM</td><td class="sched-name">Faculty Event - Fashion Walk</td><td><span class="sched-badge" style="background:rgba(244,63,94,0.15);color:#fda4af">Faculty</span></td><td class="sched-venue">Amphi</td><td>Faculty</td></tr>
+        <tr><td class="sched-time">09:00 AM – 11:00 AM</td><td class="sched-name">Valedictory</td><td><span class="sched-badge" style="background:rgba(79,70,229,0.15);color:#4338ca">Ceremony</span></td><td class="sched-venue">Amphi</td><td>All</td></tr>
+        <tr><td class="sched-time">11:00 AM – 12:00 PM</td><td class="sched-name">Faculty Event – Fashion Walk</td><td><span class="sched-badge" style="background:rgba(244,63,94,0.15);color:#be123c">Faculty</span></td><td class="sched-venue">Amphi</td><td>Faculty</td></tr>
       </tbody>
     </table>
   </div>
 </section>
 
-
 <hr class="hdivider">
 
 <!-- GALLERY -->
-<section id="gallery">
+<section id="gallery" aria-labelledby="gallery-title">
   <p class="stag">Memories</p>
-  <h2 class="stitle">Moments from AKIRA's Past.</h2>
+  <h2 class="stitle" id="gallery-title">Moments from AKIRA's Past.</h2>
   <p class="sbody">A glimpse into the energy and excitement of our previous editions.</p>
 
-  <div class="gallery-grid">
-    <div class="g-item">
-      <img src="https://cdn.filestackcontent.com/MDq4cWqJQx2oNl5WVdYr?policy=eyJjYWxsIjpbInBpY2siLCJyZWFkIiwic3RvcmUiXSwiZXhwaXJ5IjoxODMwMjc3MjAwfQ%3D%3D&signature=fd233a1baadfe980c1f5fbc96a3fcc99fb7788c8c7ebfd379a4d64cb271f35b3">
+  <div class="gallery-grid" role="list" aria-label="Photo gallery">
+    <!--
+      FIX #1 + #2 + #3:
+      - Each img has onload="imgLoaded(this)" to add .loaded class (opacity 1)
+      - onerror calls retryImage which is guarded against re-firing
+      - .img-failed-msg is a real block element (not a pseudo-element)
+      - No opacity:0 on .g-item itself (preserves lazy loading trigger)
+    -->
+    <div class="g-item" role="listitem">
+      <img src="https://res.cloudinary.com/dq3u3o70n/image/upload/v1774857635/WhatsApp_Image_2026-03-30_at_12.55.07_PM_sevmob.jpg"
+           loading="lazy" decoding="async"
+           onload="imgLoaded(this)" onerror="retryImage(this)"
+           alt="AKIRA previous edition — moment 1">
+      <div class="img-failed-msg" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Image unavailable</span>
+      </div>
+      <div class="g-overlay"><p class="g-caption">AKIRA Edition</p><p class="g-sub">Previous Year Highlights</p></div>
     </div>
-    <div class="g-item">
-      <img src="https://cdn.filestackcontent.com/YiLnBHmkSzmoMXAIZGt3?policy=eyJjYWxsIjpbInBpY2siLCJyZWFkIiwic3RvcmUiXSwiZXhwaXJ5IjoxODMwMjc3MjAwfQ%3D%3D&signature=fd233a1baadfe980c1f5fbc96a3fcc99fb7788c8c7ebfd379a4d64cb271f35b3">
+
+    <div class="g-item" role="listitem">
+      <img src="https://res.cloudinary.com/dq3u3o70n/image/upload/v1774857609/WhatsApp_Image_2026-03-30_at_12.55.10_PM_1_ytf5nn.jpg"
+           loading="lazy" decoding="async"
+           onload="imgLoaded(this)" onerror="retryImage(this)"
+           alt="AKIRA previous edition — moment 2">
+      <div class="img-failed-msg" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Image unavailable</span>
+      </div>
+      <div class="g-overlay"><p class="g-caption">AKIRA Edition</p><p class="g-sub">Previous Year Highlights</p></div>
     </div>
-    <div class="g-item">
-      <img src="https://cdn.filestackcontent.com/mNLC1eygQvSIeBOAgh3W?policy=eyJjYWxsIjpbInBpY2siLCJyZWFkIiwic3RvcmUiXSwiZXhwaXJ5IjoxODMwMjc3MjAwfQ%3D%3D&signature=fd233a1baadfe980c1f5fbc96a3fcc99fb7788c8c7ebfd379a4d64cb271f35b3">
+
+    <div class="g-item" role="listitem">
+      <img src="https://res.cloudinary.com/dq3u3o70n/image/upload/v1774857604/WhatsApp_Image_2026-03-30_at_12.55.10_PM_2_f0evwu.jpg"
+           loading="lazy" decoding="async"
+           onload="imgLoaded(this)" onerror="retryImage(this)"
+           alt="AKIRA previous edition — moment 3">
+      <div class="img-failed-msg" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Image unavailable</span>
+      </div>
+      <div class="g-overlay"><p class="g-caption">AKIRA Edition</p><p class="g-sub">Previous Year Highlights</p></div>
     </div>
-    <div class="g-item">
-      <img src="https://cdn.filestackcontent.com/Rm4xB7fSVqUC56M5nFPA?policy=eyJjYWxsIjpbInBpY2siLCJyZWFkIiwic3RvcmUiXSwiZXhwaXJ5IjoxODMwMjc3MjAwfQ%3D%3D&signature=fd233a1baadfe980c1f5fbc96a3fcc99fb7788c8c7ebfd379a4d64cb271f35b3">
+
+    <div class="g-item" role="listitem">
+      <img src="https://res.cloudinary.com/dq3u3o70n/image/upload/v1774857551/WhatsApp_Image_2026-03-30_at_12.55.04_PM_eqfgkk.jpg"
+           loading="lazy" decoding="async"
+           onload="imgLoaded(this)" onerror="retryImage(this)"
+           alt="AKIRA previous edition — moment 4">
+      <div class="img-failed-msg" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Image unavailable</span>
+      </div>
+      <div class="g-overlay"><p class="g-caption">AKIRA Edition</p><p class="g-sub">Previous Year Highlights</p></div>
     </div>
-    <div class="g-item">
-      <img src="https://cdn.filestackcontent.com/rrcOeeDWQi5LhJ9WGEuI?policy=eyJjYWxsIjpbInBpY2siLCJyZWFkIiwic3RvcmUiXSwiZXhwaXJ5IjoxODMwMjc3MjAwfQ%3D%3D&signature=fd233a1baadfe980c1f5fbc96a3fcc99fb7788c8c7ebfd379a4d64cb271f35b3">
+
+    <div class="g-item" role="listitem">
+      <img src="https://res.cloudinary.com/dq3u3o70n/image/upload/v1774868764/Screenshot_2026-03-30_163520_b5bolk.png"
+           loading="lazy" decoding="async"
+           onload="imgLoaded(this)" onerror="retryImage(this)"
+           alt="AKIRA previous edition — moment 5">
+      <div class="img-failed-msg" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="20" height="20" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Image unavailable</span>
+      </div>
+      <div class="g-overlay"><p class="g-caption">AKIRA Edition</p><p class="g-sub">Previous Year Highlights</p></div>
     </div>
-    <div class="g-item">
-      <img src="https://cdn.filestackcontent.com/DOJHmvWsSXeOnRCuWk5Q?policy=eyJjYWxsIjpbInBpY2siLCJyZWFkIiwic3RvcmUiXSwiZXhwaXJ5IjoxODMwMjc3MjAwfQ%3D%3D&signature=fd233a1baadfe980c1f5fbc96a3fcc99fb7788c8c7ebfd379a4d64cb271f35b3">
+
+    <div class="g-item" role="listitem">
+      <img src="https://res.cloudinary.com/dq3u3o70n/image/upload/v1774857596/WhatsApp_Image_2026-03-30_at_12.55.11_PM_t8hkja.jpg"
+           loading="lazy" decoding="async"
+           onload="imgLoaded(this)" onerror="retryImage(this)"
+           alt="AKIRA previous edition — moment 6">
+      <div class="img-failed-msg" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Image unavailable</span>
+      </div>
+      <div class="g-overlay"><p class="g-caption">AKIRA Edition</p><p class="g-sub">Previous Year Highlights</p></div>
     </div>
-    <div class="g-item">
-      <img src="https://cdn.filestackcontent.com/ZdBKj9OQASsSS6xORqUz?policy=eyJjYWxsIjpbInBpY2siLCJyZWFkIiwic3RvcmUiXSwiZXhwaXJ5IjoxODMwMjc3MjAwfQ%3D%3D&signature=fd233a1baadfe980c1f5fbc96a3fcc99fb7788c8c7ebfd379a4d64cb271f35b3">
+
+    <div class="g-item" role="listitem">
+      <img src="https://res.cloudinary.com/dq3u3o70n/image/upload/v1774869194/Screenshot_2026-03-30_164228_osawk8.png"
+           loading="lazy" decoding="async"
+           onload="imgLoaded(this)" onerror="retryImage(this)"
+           alt="AKIRA previous edition — moment 7">
+      <div class="img-failed-msg" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Image unavailable</span>
+      </div>
+      <div class="g-overlay"><p class="g-caption">AKIRA Edition</p><p class="g-sub">Previous Year Highlights</p></div>
     </div>
-    <div class="g-item">
-      <img src="https://cdn.filestackcontent.com/RQzQCQBbQhOWINu4IIx4?policy=eyJjYWxsIjpbInBpY2siLCJyZWFkIiwic3RvcmUiXSwiZXhwaXJ5IjoxODMwMjc3MjAwfQ%3D%3D&signature=fd233a1baadfe980c1f5fbc96a3fcc99fb7788c8c7ebfd379a4d64cb271f35b3">
+
+    <div class="g-item" role="listitem">
+      <img src="https://res.cloudinary.com/dq3u3o70n/image/upload/v1774857620/WhatsApp_Image_2026-03-30_at_12.55.13_PM_tcipzp.jpg"
+           loading="lazy" decoding="async"
+           onload="imgLoaded(this)" onerror="retryImage(this)"
+           alt="AKIRA previous edition — moment 8">
+      <div class="img-failed-msg" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Image unavailable</span>
+      </div>
+      <div class="g-overlay"><p class="g-caption">AKIRA Edition</p><p class="g-sub">Previous Year Highlights</p></div>
     </div>
   </div>
 </section>
@@ -394,7 +1174,10 @@ footer{background:var(--surface);border-top:1px solid var(--border);position:rel
   <div class="ftop">
     <div class="fcol">
       <div class="flogo">CIESTA <span>4.0</span></div>
-      <p style="font-size:13px;color:var(--muted);margin-top:1rem;line-height:1.8">Department of Computer Science &amp; Engineering<br>Dayananda Sagar College of Engineering</p>
+      <p style="font-size:13px;color:var(--muted);margin-top:1rem;line-height:1.8">
+        Department of Computer Science &amp; Engineering<br>
+        Dayananda Sagar College of Engineering
+      </p>
     </div>
     <div class="fcol">
       <h4>Navigation</h4>
@@ -409,15 +1192,15 @@ footer{background:var(--surface);border-top:1px solid var(--border);position:rel
     <div class="fcol">
       <h4>Contact</h4>
       <ul>
-        <li>Ciesta team</li>
+        <li>Ciesta Team</li>
         <li>DSCE, Kumaraswamy Layout</li>
-        <li>Bangalore - 560078</li>
+        <li>Bangalore – 560078</li>
       </ul>
     </div>
     <div class="fcol">
       <h4>Follow Us</h4>
       <ul>
-        <li>Instagram</li>
+        <li><a href="https://www.instagram.com/akira_ekalavya/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
       </ul>
     </div>
   </div>
@@ -428,117 +1211,198 @@ footer{background:var(--surface);border-top:1px solid var(--border);position:rel
 </footer>
 
 <script>
-/* ── EVENTS DATA ── */
-const EVENTS=[
-  {name:"Treasure Hunt",cat:"Cultural",badge:"Adventure",date:"Apr 9, 10 AM",mode:"Team (3–4)",prize:"₹12,000",desc:"Crack clues and decode paths across campus to claim the hidden prize.",accent:"#f59e0b"},
-  {name:"Literature Event",cat:"Literature",badge:"Writing",date:"Apr 9, 12 PM",mode:"Individual",prize:"₹6,500",desc:"Storytelling and creative writing contest for original literary works.",accent:"#a855f7"},
-  {name:"Quiz",cat:"Quiz",badge:"Knowledge",date:"Apr 9, 2 PM",mode:"Team (2)",prize:"₹8,000",desc:"Intense trivia across science, tech, and culture — fast answers win.",accent:"#db2777"},
-  {name:"Shark Tank",cat:"Business",badge:"Pitch",date:"Apr 10, 10 AM",mode:"Team (2–3)",prize:"₹15,000",desc:"Pitch your startup idea to judges and secure mentorship support.",accent:"#16a34a"},
-  {name:"Mystery Case",cat:"Mystery",badge:"Detective",date:"Apr 10, 1 PM",mode:"Team (3)",prize:"₹7,000",desc:"Solve a staged tech mystery by analyzing evidence and clues.",accent:"#0ea5e9"},
-  {name:"Tech Survivor",cat:"Technical",badge:"Challenge",date:"Apr 10, 3 PM",mode:"Individual",prize:"₹9,000",desc:"Endurance coding and hardware tasks that test your problem-solving stamina.",accent:"#16a34a"},
-  {name:"Fun Tech",cat:"Fun",badge:"Casual",date:"Apr 11, 11 AM",mode:"Team (2–4)",prize:"₹5,500",desc:"Creative tech puzzles, rapid challenges, and team games for all skill levels.",accent:"#fb923c"},
-  {name:"Faculty Event",cat:"Faculty",badge:"Special",date:"Apr 11, 4 PM",mode:"Faculty Only",prize:"Recognition",desc:"Faculty-led showcase of innovation, mentorship and entertainment.",accent:"#f43f5e"}
+/* ══════════════════════════════════════════════
+   EVENTS DATA
+══════════════════════════════════════════════ */
+const EVENTS = [
+  { name: "Treasure Hunt",   cat: "Cultural",   badge: "Adventure", date: "Apr 9, 10 AM",  mode: "Team (3–4)",  prize: "₹12,000", desc: "Crack clues and decode paths across campus to claim the hidden prize.",                          accent: "#f59e0b" },
+  { name: "Literature Event",cat: "Literature",  badge: "Writing",   date: "Apr 9, 12 PM",  mode: "Individual",  prize: "₹6,500",  desc: "Storytelling and creative writing contest for original literary works.",                         accent: "#a855f7" },
+  { name: "Quiz",            cat: "Quiz",        badge: "Knowledge", date: "Apr 9, 2 PM",   mode: "Team (2)",    prize: "₹8,000",  desc: "Intense trivia across science, tech, and culture — fast answers win.",                           accent: "#db2777" },
+  { name: "Shark Tank",      cat: "Business",    badge: "Pitch",     date: "Apr 10, 10 AM", mode: "Team (2–3)",  prize: "₹15,000", desc: "Pitch your startup idea to judges and secure mentorship support.",                               accent: "#16a34a" },
+  { name: "Mystery Case",    cat: "Mystery",     badge: "Detective", date: "Apr 10, 1 PM",  mode: "Team (3)",    prize: "₹7,000",  desc: "Solve a staged tech mystery by analysing evidence and clues.",                                   accent: "#0ea5e9" },
+  { name: "Tech Survivor",   cat: "Technical",   badge: "Challenge", date: "Apr 10, 3 PM",  mode: "Individual",  prize: "₹9,000",  desc: "Endurance coding and hardware tasks that test your problem-solving stamina.",                    accent: "#16a34a" },
+  { name: "Fun Tech",        cat: "Fun",         badge: "Casual",    date: "Apr 11, 11 AM", mode: "Team (2–4)",  prize: "₹5,500",  desc: "Creative tech puzzles, rapid challenges, and team games for all skill levels.",                  accent: "#fb923c" },
+  { name: "Faculty Event",   cat: "Faculty",     badge: "Special",   date: "Apr 11, 4 PM",  mode: "Faculty Only",prize: "Honour",  desc: "Faculty-led showcase of innovation, mentorship and entertainment.",                              accent: "#f43f5e" },
 ];
 
-/* ── RENDER EVENTS ── */
-let activecat="All";
-const evtGrid=document.getElementById("evt-grid");
-const evtFilters=document.getElementById("evt-filters");
-const cats=["All",...new Set(EVENTS.map(e=>e.cat))];
-cats.forEach(c=>{
-  const b=document.createElement("button");
-  b.className="fb"+(c==="All"?" active":"");
-  b.textContent=c;
-  b.onclick=function(){
-    activecat=c;
-    document.querySelectorAll(".fb").forEach(x=>x.classList.remove("active"));
+/* ── Build filter buttons ── */
+let activeCat = "All";
+const evtGrid    = document.getElementById("evt-grid");
+const evtFilters = document.getElementById("evt-filters");
+const cats = ["All", ...new Set(EVENTS.map(e => e.cat))];
+
+cats.forEach(c => {
+  const b = document.createElement("button");
+  b.className = "fb" + (c === "All" ? " active" : "");
+  b.textContent = c;
+  b.setAttribute("aria-pressed", c === "All" ? "true" : "false");
+  b.onclick = function () {
+    activeCat = c;
+    document.querySelectorAll(".fb").forEach(x => {
+      x.classList.remove("active");
+      x.setAttribute("aria-pressed", "false");
+    });
     b.classList.add("active");
+    b.setAttribute("aria-pressed", "true");
     renderEvts();
   };
   evtFilters.appendChild(b);
 });
 
-function renderEvts(){
-  evtGrid.innerHTML="";
-  EVENTS.filter(e=>activecat==="All"||e.cat===activecat).forEach(e=>{
-    const d=document.createElement("div");
-    d.className="ecard";
-    d.style.setProperty("--ec-accent",e.accent);
-    d.innerHTML=`<span class="ebadge" style="background:rgba(255,255,255,0.08);color:${e.accent}">${e.cat}</span>`+
-      `<h3 class="ename">${e.name}</h3>`+
-      `<p class="edesc">${e.desc}</p>`+
-      `<div class="emeta"><span>📅 ${e.date}</span><span>👥 ${e.mode}</span></div>`+
-      `<div class="eprize"><a href="register.html?event=${encodeURIComponent(e.name)}" class="ereg-btn">Register</a></div>`;
+/* FIX #7: Prize amount shown + register button */
+function renderEvts() {
+  evtGrid.innerHTML = "";
+  const filtered = EVENTS.filter(e => activeCat === "All" || e.cat === activeCat);
+
+  filtered.forEach(e => {
+    const d = document.createElement("div");
+    d.className = "ecard reveal";
+    d.innerHTML =
+      `<span class="ebadge" style="background:rgba(255,255,255,0.1);color:${e.accent}">${e.cat}</span>` +
+      `<h3 class="ename">${e.name}</h3>` +
+      `<p class="edesc">${e.desc}</p>` +
+      `<div class="emeta"><span>📅 ${e.date}</span><span>👥 ${e.mode}</span></div>` +
+      `<div class="eprize">` +
+        `<a href="register.html?event=${encodeURIComponent(e.name)}" class="ereg-btn">Register →</a>` +
+      `</div>`;
     evtGrid.appendChild(d);
   });
-}
-renderEvts();
 
-/* ── SCHEDULE TABS ── */
+  /* Re-observe newly added cards */
+  document.querySelectorAll(".ecard.reveal").forEach(el => revealObserver.observe(el));
+}
+
+/* ══════════════════════════════════════════════
+   SCHEDULE TABS
+══════════════════════════════════════════════ */
 function switchDay(idx, btn) {
-  document.querySelectorAll('.sched-panel').forEach(panel => panel.classList.remove('active'));
-  document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('day-' + idx).classList.add('active');
-  btn.classList.add('active');
+  document.querySelectorAll(".sched-panel").forEach((p, i) => {
+    p.classList.toggle("active", i === idx);
+  });
+  document.querySelectorAll(".day-tab").forEach((t, i) => {
+    t.classList.toggle("active", i === idx);
+    t.setAttribute("aria-selected", i === idx ? "true" : "false");
+  });
 }
 
-/* ── STATIC HERO BACKGROUND ── */
-const BG_IMAGES=[];
-const heroBg=document.getElementById("hero-bg");
+/* ══════════════════════════════════════════════
+   COUNTDOWN
+══════════════════════════════════════════════ */
+function tick() {
+  const target = new Date("2026-04-09T09:00:00+05:30");
+  const now    = new Date();
+  let diff     = Math.max(0, Math.floor((target - now) / 1000));
 
-// Clear any existing slides first
-heroBg.innerHTML = '';
+  const d = Math.floor(diff / 86400); diff %= 86400;
+  const h = Math.floor(diff / 3600);  diff %= 3600;
+  const m = Math.floor(diff / 60);
+  const s = diff % 60;
 
-BG_IMAGES.forEach((img,i)=>{
-  const div=document.createElement("div");
-  div.className="hero-bg-slide";
-  div.style.backgroundImage=`url(${img})`;
-  div.style.backgroundSize="cover";
-  div.style.backgroundPosition="center";
-  div.style.backgroundRepeat="no-repeat";
-  if(i===0) div.classList.add("active");
-  heroBg.appendChild(div);
-});
-
-/* ── COUNTDOWN ── */
-function tick(){
-  var target=new Date("2026-04-09T09:00:00+05:30");
-  var now=new Date();
-  var diff=Math.max(0,Math.floor((target-now)/1000));
-  var d=Math.floor(diff/86400);diff=diff%86400;
-  var h=Math.floor(diff/3600);diff=diff%3600;
-  var m=Math.floor(diff/60);var s=diff%60;
-  document.getElementById("cd-d").textContent=String(d).padStart(2,"0");
-  document.getElementById("cd-h").textContent=String(h).padStart(2,"0");
-  document.getElementById("cd-m").textContent=String(m).padStart(2,"0");
-  document.getElementById("cd-s").textContent=String(s).padStart(2,"0");
+  document.getElementById("cd-d").textContent = String(d).padStart(2, "0");
+  document.getElementById("cd-h").textContent = String(h).padStart(2, "0");
+  document.getElementById("cd-m").textContent = String(m).padStart(2, "0");
+  document.getElementById("cd-s").textContent = String(s).padStart(2, "0");
 }
-tick();setInterval(tick,1000);
+tick();
+setInterval(tick, 1000);
 
-/* ── MOBILE MENU ── */
-function toggleMenu(){
-  const m=document.getElementById("mmenu");
-  m.style.display=m.style.display==="none"?"block":"none";
-}
-function closeMenu(){
-  document.getElementById("mmenu").style.display="none";
+/* ══════════════════════════════════════════════
+   MOBILE MENU
+   FIX #8: Toggles .open class on hamburger for animated spans
+══════════════════════════════════════════════ */
+function toggleMenu(btn) {
+  const menu   = document.getElementById("mmenu");
+  const isOpen = menu.style.display === "block";
+
+  menu.style.display = isOpen ? "none" : "block";
+  menu.setAttribute("aria-hidden", isOpen ? "true" : "false");
+  btn.classList.toggle("open", !isOpen);
+  btn.setAttribute("aria-expanded", isOpen ? "false" : "true");
 }
 
-/* ── SCROLL REVEAL ── */
-const observer=new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.style.opacity="1";
-      e.target.style.transform="translateY(0)";
+function closeMenu() {
+  const menu = document.getElementById("mmenu");
+  const btn  = document.getElementById("ham-btn");
+  menu.style.display = "none";
+  menu.setAttribute("aria-hidden", "true");
+  btn.classList.remove("open");
+  btn.setAttribute("aria-expanded", "false");
+}
+
+/* ══════════════════════════════════════════════
+   GALLERY — IMAGE LOADING
+   FIX #1: retryImage guards against re-triggering onerror on retried src
+   FIX #2: No opacity:0 on .g-item — images fade in via .loaded class
+   FIX #3: .img-failed-msg is a real DOM element, not a pseudo-element
+══════════════════════════════════════════════ */
+function imgLoaded(img) {
+  img.classList.add("loaded");
+  /* Stop shimmer on parent */
+  img.closest(".g-item").style.setProperty("--shimmer", "none");
+}
+
+function retryImage(img) {
+  /* Disconnect onerror immediately to prevent re-entry during retry */
+  img.onerror = null;
+
+  const MAX_RETRIES = 3;
+  const DELAY_MS    = 2000;
+
+  img._retries = (img._retries || 0) + 1;
+
+  /*
+   * CRITICAL for Filestack (and any signed CDN URL):
+   * NEVER modify the URL — the policy+signature pair is bound to the
+   * exact URL string. Adding ANY query param breaks the signature
+   * and causes an instant 403, making every retry fail immediately.
+   *
+   * Instead: store the pristine original src on first failure,
+   * blank the src to force the browser to drop its cached failure,
+   * then restore the original src after a short delay.
+   */
+  if (!img._originalSrc) {
+    img._originalSrc = img.src;
+  }
+
+  if (img._retries <= MAX_RETRIES) {
+    /* Clear src so browser treats the next assignment as a fresh request */
+    img.src = "";
+
+    setTimeout(() => {
+      img.onerror = () => retryImage(img);
+      img.onload  = () => imgLoaded(img);
+      img.src = img._originalSrc;
+    }, DELAY_MS * img._retries);
+
+  } else {
+    /* All retries exhausted — show styled placeholder */
+    img.closest(".g-item").classList.add("img-failed");
+    img.setAttribute("aria-hidden", "true");
+  }
+}
+
+/* ══════════════════════════════════════════════
+   SCROLL REVEAL
+   FIX #2: Excludes .g-item to avoid lazy-load conflict
+   Uses 'reveal' class on cards and stat-cards only
+══════════════════════════════════════════════ */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("in-view");
+      revealObserver.unobserve(entry.target); /* Only reveal once */
     }
   });
-},{threshold:0.1});
-document.querySelectorAll('.ecard,.tl-card,.g-item,.stat-card').forEach(el=>{
-  el.style.opacity="0";
-  el.style.transform="translateY(20px)";
-  el.style.transition="opacity 0.5s ease, transform 0.5s ease";
-  observer.observe(el);
+}, { threshold: 0.08 });
+
+/* Observe stat cards immediately */
+document.querySelectorAll(".stat-card").forEach(el => {
+  el.classList.add("reveal");
+  revealObserver.observe(el);
 });
+
+/* Event cards observed after render inside renderEvts() */
+renderEvts();
 </script>
 </body>
 </html>
