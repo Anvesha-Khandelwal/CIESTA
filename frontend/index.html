@@ -796,7 +796,7 @@ footer {
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 900px) {
-  .hero-wrap { grid-template-columns: 1fr; padding-top: 6rem; text-align: center; min-height: auto; gap: 3rem; }
+  .hero-wrap { grid-template-columns: 1fr; padding-top: 6rem; padding-bottom: 3rem; text-align: center; min-height: auto; gap: 3rem; }
   .hero-sub { margin-left: auto; margin-right: auto; }
   .hero-cta { justify-content: center; }
   .hero-badges { justify-content: center; }
@@ -809,7 +809,7 @@ footer {
 }
 
 @media (max-width: 600px) {
-  .hero-bg { position: absolute; width: 100%; height: 100%; opacity: 0.6; }
+  .hero-bg { position: fixed; inset: 0; opacity: 0.6; }
 
   .nav-links { display: none; }
   .hamburger { display: flex; }
@@ -818,7 +818,7 @@ footer {
   .cd-box { grid-template-columns: repeat(2, 1fr); padding: 1.5rem; row-gap: 1.25rem; }
   .cd-unit:not(:last-child)::after { display: none; }
   .cd-num { font-size: 36px; }
-  section { padding: 4rem 1.5rem; }
+  section { padding: 2.5rem 1.25rem; }
   .gallery-grid {
     grid-template-columns: 1fr;
     grid-auto-rows: 220px;
