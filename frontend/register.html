@@ -63,19 +63,19 @@ body{font-family:var(--ff-body);background:linear-gradient(135deg,#f7e7d9 0%,#fd
 <div class="reg-container">
   <div class="reg-header">
     <h1>Event Registration<br><span style="font-size:0.4em;letter-spacing:10px;color:rgba(217,93,57,0.6);display:block;margin-top:10px;">◈ ♦ ◈ ♦ ◈</span></h1>
-    <p>Join CIESTA 4.0 — April 9th, 10th, 11th, 2026 · DSCE Campus, Bangalore</p>
+    <p>Register for CIESTA 4.0 - April 9th, 10th, 11th, 2026 · DSCE Campus, Bengaluru</p>
   </div>
 
   <div class="fcard-form">
     <div class="frow2">
-      <div class="frow"><label>First Name *</label><input type="text" id="f-fname" placeholder="Ex: Arjun"></div>
-      <div class="frow"><label>Last Name *</label><input type="text" id="f-lname" placeholder="Ex: Sharma"></div>
+      <div class="frow"><label>First Name *</label><input type="text" id="f-fname" placeholder="eg: Arjun"></div>
+      <div class="frow"><label>Last Name *</label><input type="text" id="f-lname" placeholder="eg: Sharma"></div>
     </div>
-    <div class="frow"><label>USN / Roll Number *</label><input type="text" id="f-usn" placeholder="Ex: 1DS21CS001"></div>
-    <div class="frow"><label>Branch *</label><input type="text" id="f-branch" placeholder="Ex: Computer Science"></div>
-    <div class="frow"><label>Email Address *</label><input type="email" id="f-email" placeholder="Ex: arjun@example.com"></div>
+    <div class="frow"><label>USN / Roll Number *</label><input type="text" id="f-usn" placeholder="eg: 1DS21CS001"></div>
+    <div class="frow"><label>Branch *</label><input type="text" id="f-branch" placeholder="eg: Computer Science"></div>
+    <div class="frow"><label>Email Address *</label><input type="email" id="f-email" placeholder="eg: arjun@example.com"></div>
     <div class="frow2">
-      <div class="frow"><label>Phone *</label><input type="tel" id="f-phone" placeholder="Ex: 9XXXXXXXXX" maxlength="10"></div>
+      <div class="frow"><label>Phone *</label><input type="tel" id="f-phone" placeholder="eg: 9XXXXXXXXX" maxlength="10"></div>
       <div class="frow"><label>Year of Study *</label>
         <select id="f-year">
           <option value="">Select year</option>
@@ -100,8 +100,8 @@ body{font-family:var(--ff-body);background:linear-gradient(135deg,#f7e7d9 0%,#fd
       </select>
     </div>
     <div class="frow"><label>Team Name (optional)</label><input type="text" id="f-team" placeholder="Leave blank for individual events"></div>
-    <button class="sbtn" id="sbtn" onclick="handleReg()">Confirm Registration</button>
-    <div class="fok" id="fok">✓ You're registered for CIESTA 4.0! See you on April 9–11.</div>
+    <button class="sbtn" id="sbtn" onclick="handleReg()">Submit Registration</button>
+    <div class="fok" id="fok">Registration successful. See you at CIESTA 4.0.</div>
     <div class="ferr" id="ferr"></div>
   </div>
 </div>
@@ -195,12 +195,12 @@ async function handleReg() {
     } else {
       const err = await response.json();
       showErr(ferr, err.error || 'Registration failed. Please try again.');
-      btn.textContent = 'Confirm Registration';
+      btn.textContent = 'Submit Registration';
       btn.disabled = false;
     }
   } catch (err) {
     showErr(ferr, 'Cannot connect to server. Please check your internet connection and try again.');
-    btn.textContent = 'Confirm Registration';
+    btn.textContent = 'Submit Registration';
     btn.disabled = false;
   }
 }

@@ -830,6 +830,15 @@ footer {
   .fbot { flex-direction: column; gap: 0.5rem; }
   .sched-table { font-size: 12px; }
   .sched-table th, .sched-table td { padding: 10px 12px; }
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #events { order: 1; }
+  #schedule { order: 2; }
+  #about { order: 3; }
+  #gallery { order: 4; }
 }
 
 /* ─── SCROLL REVEAL ─── */
@@ -852,8 +861,8 @@ footer {
       <span class="logo-short">DSCE</span>
     </a>
     <ul class="nav-links" role="list">
-      <li><a href="#about">About</a></li>
       <li><a href="#events">Events</a></li>
+      <li><a href="#about">About</a></li>
       <li><a href="#schedule">Schedule</a></li>
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="register.html" class="nav-cta">Register Now</a></li>
@@ -873,8 +882,8 @@ footer {
 
 <nav id="mmenu" aria-label="Mobile navigation" aria-hidden="true">
   <ul role="list">
-    <li><a href="#about"    onclick="closeMenu()">About</a></li>
     <li><a href="#events"   onclick="closeMenu()">Events</a></li>
+    <li><a href="#about"    onclick="closeMenu()">About</a></li>
     <li><a href="#schedule" onclick="closeMenu()">Schedule</a></li>
     <li><a href="#gallery"  onclick="closeMenu()">Gallery</a></li>
     <li><a href="register.html" class="mm-cta" onclick="closeMenu()">Register Now →</a></li>
@@ -1763,12 +1772,13 @@ footer {
       CIESTA <span style="font-size:0.70em; font-weight:1100; color:var(--accent); vertical-align:text-bottom;">4.0</span><br>
       <span style="font-size:0.4em;letter-spacing:10px;color:var(--accent);display:block;margin-top:10px;">◈ ♦ ◈ ♦ ◈</span>
     </h1>
-    <p class="hero-sub">KALAVerse — where traditional heritage meets the modern code.</p>
+    <p class="hero-sub">KALAVerse - where traditional heritage meets modern code.</p>
     <div class="hero-date">
       <span class="hero-dot" aria-hidden="true"></span>
-      April 9th, 10th, 11th, 2026 &nbsp;·&nbsp; DSCE Campus, Bangalore
+      April 9th,10th,11th, 2026 &nbsp;·&nbsp; DSCE Campus, Bengaluru
     </div>
     <div class="hero-cta">
+      <a href="register.html" class="btn-primary">Register Now</a>
       <a href="#events" class="btn-outline">Explore Events</a>
     </div>
     <div class="hero-badges" aria-label="Event highlights">
@@ -1803,6 +1813,17 @@ footer {
 
 <hr class="hdivider">
 
+<!-- EVENTS -->
+<section id="events" aria-labelledby="events-title">
+  <p class="stag">Events</p>
+  <h2 class="stitle" id="events-title">Battle of Minds &amp; Talents.</h2>
+  <p class="sbody">From cracking clues to pitching ideas, writing stories to surviving tech — every event is a stage. Choose yours.</p>
+  <div class="evt-filters" id="evt-filters" role="group" aria-label="Filter events by category"></div>
+  <div class="evt-grid" id="evt-grid"></div>
+</section>
+
+<hr class="hdivider">
+
 <!-- ABOUT -->
 <section id="about" style="padding: 8rem 2rem;" aria-labelledby="about-title">
   <div class="about-section">
@@ -1810,7 +1831,7 @@ footer {
       <p class="stag" style="text-align:left">The Parampara Vision</p>
       <h2 class="stitle stitle-left" id="about-title">Where Code Meets Culture.</h2>
       <p class="sbody" style="text-align:left;margin:0;">
-        CIESTA 4.0 is not just a Cultural Fest — it is where our department comes alive. From cracking mystery cases and pitching shark-worthy ideas to literary showdowns and coding marathons, we wrap every competition in the colors, art forms, and traditions of our Indian heritage. This is not just a fest, it is your stage.
+        CIESTA 4.0 is more than a fest. It is a celebration of innovation, creativity, and Indian cultural expression. From high-energy competitions to curated cultural experiences, every moment is designed to feel purposeful, inclusive, and memorable.
       </p>
       <div class="stat-row">
         <div class="stat-card reveal"><div class="stat-num">3</div><div class="stat-lbl">Days of Festivity</div></div>
@@ -1833,17 +1854,6 @@ footer {
       </div>
     </div>
   </div>
-</section>
-
-<hr class="hdivider">
-
-<!-- EVENTS -->
-<section id="events" aria-labelledby="events-title">
-  <p class="stag">Events</p>
-  <h2 class="stitle" id="events-title">Battle of Minds &amp; Talents.</h2>
-  <p class="sbody">From cracking clues to pitching ideas, writing stories to surviving tech — every event is a stage. Choose yours.</p>
-  <div class="evt-filters" id="evt-filters" role="group" aria-label="Filter events by category"></div>
-  <div class="evt-grid" id="evt-grid"></div>
 </section>
 
 <hr class="hdivider">
@@ -1900,7 +1910,7 @@ footer {
 <!-- GALLERY -->
 <section id="gallery" aria-labelledby="gallery-title">
   <p class="stag">Memories</p>
-  <h2 class="stitle" id="gallery-title">Moments from AKIRA's Past.</h2>
+  <h2 class="stitle" id="gallery-title">Moments from Previous Editions.</h2>
   <p class="sbody">A glimpse into the energy and excitement of our previous editions.</p>
 
   <div class="gallery-grid" role="list" aria-label="Photo gallery">
@@ -2017,7 +2027,8 @@ footer {
     <div class="fcol">
       <h4>Contact</h4>
       <ul>
-        <li>Ciesta Team</li>
+        <li>+91 8105 814001</li>
+        <li>+91 6281 748574</li>
         <li>DSCE, Kumaraswamy Layout</li>
         <li>Bangalore – 560078</li>
       </ul>
