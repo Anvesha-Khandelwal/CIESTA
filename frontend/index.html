@@ -572,8 +572,97 @@ section {
   padding-top: 1rem;
   border-top: 1px solid var(--border);
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
+  gap: 0.75rem;
+  justify-content: flex-start;
+}
+
+.rulebook-btn {
+  padding: 9px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.rulebook-btn:hover {
+  background: #b8482b;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(184, 72, 43, 0.25);
+}
+
+.rulebook-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.rulebook-modal.open {
+  display: flex;
+}
+
+.rulebook-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(28, 18, 11, 0.7);
+  backdrop-filter: blur(6px);
+}
+
+.rulebook-panel {
+  position: relative;
+  max-width: 660px;
+  width: 100%;
+  max-height: min(90vh, 720px);
+  overflow-y: auto;
+  background: rgba(255, 250, 244, 0.96);
+  border: 1px solid rgba(217, 93, 57, 0.14);
+  border-radius: 28px;
+  padding: 2rem;
+  box-shadow: 0 30px 80px rgba(28, 18, 11, 0.18);
+  z-index: 1;
+}
+
+.rulebook-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: rgba(224, 31, 15, 0.14);
+  color: #e01f0f;
+  font-size: 24px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.rulebook-close:hover {
+  background: rgba(224, 31, 15, 0.26);
+  transform: translateY(-1px);
+}
+
+.rulebook-content {
+  margin-top: 1.5rem;
+  color: var(--text);
+  line-height: 1.8;
+}
+
+.rulebook-content ul {
+  padding-left: 1.15rem;
+}
+
+.rulebook-content li {
+  margin-bottom: 0.75rem;
 }
 
 .ereg-btn {
@@ -1830,42 +1919,6 @@ footer {
   <div class="evt-grid" id="evt-grid"></div>
 </section>
 
-<hr class="hdivider">
-
-<!-- ABOUT -->
-<section id="about" style="padding: 8rem 2rem;" aria-labelledby="about-title">
-  <div class="about-section">
-    <div>
-      <p class="stag" style="text-align:left">The Parampara Vision</p>
-      <h2 class="stitle stitle-left" id="about-title">Where Code Meets Culture.</h2>
-      <p class="sbody" style="text-align:left;margin:0;">
-        CIESTA 4.0 is more than a fest. It is a celebration of innovation, creativity, and Indian cultural expression. From high-energy competitions to curated cultural experiences, every moment is designed to feel purposeful, inclusive, and memorable.
-      </p>
-      <div class="stat-row">
-        <div class="stat-card reveal"><div class="stat-num">3</div><div class="stat-lbl">Days of Festivity</div></div>
-        <div class="stat-card reveal"><div class="stat-num">29</div><div class="stat-lbl">States Celebrated</div></div>
-      </div>
-    </div>
-
-    <div class="about-images" aria-hidden="true">
-      <div class="img-frame frame-1">
-        <img src="https://res.cloudinary.com/dq3u3o70n/image/upload/v1774870021/Screenshot_2026-03-30_165430_ai8zio.png"
-             alt="Indian Temple Architecture" loading="lazy" decoding="async">
-      </div>
-      <div class="img-frame frame-2">
-        <img src="https://res.cloudinary.com/dq3u3o70n/image/upload/v1774857604/WhatsApp_Image_2026-03-30_at_12.55.10_PM_2_f0evwu.jpg"
-             alt="Rangoli art" loading="lazy" decoding="async">
-      </div>
-      <div class="img-frame frame-tech">
-        <img src="https://res.cloudinary.com/dq3u3o70n/image/upload/v1774869686/Screenshot_2026-03-30_165040_hmq6tb.png"
-             alt="Tech workspace" loading="lazy" decoding="async">
-      </div>
-    </div>
-  </div>
-</section>
-
-<hr class="hdivider">
-
 <!-- SCHEDULE -->
 <section id="schedule" aria-labelledby="schedule-title">
   <p class="stag">Event Timeline</p>
@@ -1885,9 +1938,8 @@ footer {
         <tr><td class="sched-time">11:00 AM – 11:30 AM</td><td class="sched-name">Inauguration</td><td><span class="sched-badge" style="background:rgba(255,183,3,0.15);color:#c48a00">Opening</span></td><td class="sched-venue">Amphi</td><td>All</td></tr>
         <tr><td class="sched-time">11:30 AM – 02:00 PM</td><td class="sched-name">Treasure Hunt</td><td><span class="sched-badge" style="background:rgba(245,158,11,0.15);color:#b45309">Mystery</span></td><td class="sched-venue">Amphi</td><td>Team (3–4)</td></tr>
         <tr><td class="sched-time">11:30 AM – 02:00 PM</td><td class="sched-name">Literature Event</td><td><span class="sched-badge" style="background:rgba(245,158,11,0.15);color:#b45309">Literature</span></td><td class="sched-venue">Dept Classroom 401</td><td>Team (3–4)</td></tr>
-        <tr><td class="sched-time">02:00 AM – 05:00 PM</td><td class="sched-name">Literature Event(Faculty Event)</td><td><span class="sched-badge" style="background:rgba(168,85,247,0.15);color:#7c3aed">Literature</span></td><td class="sched-venue">Dept</td><td>Individual</td></tr>
-        <tr><td class="sched-time">02:00 PM – 05:00 PM</td><td class="sched-name">Fun Tech</td><td><span class="sched-badge" style="background:rgba(251,146,60,0.15);color:#c2410c">Fun</span></td><td class="sched-venue">Dept labs 402&403</td><td>Team (2–4)</td></tr>
-        <tr><td class="sched-time">02:00 PM – 05:00 PM</td><td class="sched-name">IPL Auction</td><td><span class="sched-badge" style="background:rgba(251,146,60,0.15);color:#c2410c">IPL</span></td><td class="sched-venue">Dept labs 401</td><td>Team (2–4)</td></tr>
+        <tr><td class="sched-time">02:00 PM – 05:00 PM</td><td class="sched-name">Techathlon</td><td><span class="sched-badge" style="background:rgba(251,146,60,0.15);color:#c2410c">Fun Tech</span></td><td class="sched-venue">Dept labs 402&403</td><td>Individual</td></tr>
+        <tr><td class="sched-time">02:00 PM – 05:00 PM</td><td class="sched-name">Bid Wars</td><td><span class="sched-badge" style="background:rgba(251,146,60,0.15);color:#c2410c">IPL</span></td><td class="sched-venue">Dept labs 401</td><td>Team (2–4)</td></tr>
       </tbody>
     </table>
   </div>
@@ -1896,11 +1948,10 @@ footer {
     <table class="sched-table">
       <thead><tr><th scope="col">Time</th><th scope="col">Event</th><th scope="col">Category</th><th scope="col">Venue</th><th scope="col">Format</th></tr></thead>
       <tbody>
-        <tr><td class="sched-time">09:00 AM – 11:00 AM</td><td class="sched-name">Quiz</td><td><span class="sched-badge" style="background:rgba(219,39,119,0.15);color:#be185d">Quiz</span></td><td class="sched-venue">Dept classroom 401</td><td>Team (2)</td></tr>
+        <tr><td class="sched-time">09:00 AM – 11:00 AM</td><td class="sched-name">Nexus</td><td><span class="sched-badge" style="background:rgba(219,39,119,0.15);color:#be185d">Quiz</span></td><td class="sched-venue">Dept classroom 401</td><td>Team (2)</td></tr>
         <tr><td class="sched-time">11:00 AM – 01:00 PM</td><td class="sched-name">Mystery Case</td><td><span class="sched-badge" style="background:rgba(14,165,233,0.15);color:#0369a1">Mystery</span></td><td class="sched-venue">Dept Classroom 401</td><td>Team (3)</td></tr>
-        <tr><td class="sched-time">02:00 PM – 05:00 PM</td><td class="sched-name">Shark Tank</td><td><span class="sched-badge" style="background:rgba(34,197,94,0.15);color:#15803d">Business</span></td><td class="sched-venue">Dept Classroom 401</td><td>Team (2–3)</td></tr>
+        <tr><td class="sched-time">02:00 PM – 05:00 PM</td><td class="sched-name">Bizarre Bazaar</td><td><span class="sched-badge" style="background:rgba(34,197,94,0.15);color:#15803d">Business</span></td><td class="sched-venue">Dept Classroom 401</td><td>Team (2–3)</td></tr>
         <tr><td class="sched-time">02:00 PM – 05:00 PM</td><td class="sched-name">Tech Survivor</td><td><span class="sched-badge" style="background:rgba(16,185,129,0.15);color:#047857">Technical</span></td><td class="sched-venue">Dept Lab 402&403</td><td>Individual</td></tr>
-        <tr><td class="sched-time">02:00 PM – 05:00 PM</td><td class="sched-name">Min it to win it</td><td><span class="sched-badge" style="background:rgba(16,185,129,0.15);color:#047857">Faculty</span></td><td class="sched-venue">Dept</td><td>Individual</td></tr>
       </tbody>
     </table>
   </div>
@@ -2014,6 +2065,16 @@ footer {
   </div>
 </section>
 
+<div class="rulebook-modal" id="rulebook-modal" aria-hidden="true">
+  <div class="rulebook-backdrop" onclick="closeRulebook()"></div>
+  <div class="rulebook-panel" role="dialog" aria-modal="true" aria-labelledby="rulebook-title">
+    <button type="button" class="rulebook-close" onclick="closeRulebook()" aria-label="Close RuleBook">×</button>
+    <p class="stag">RuleBook</p>
+    <h2 class="stitle" id="rulebook-title"></h2>
+    <div class="rulebook-content"></div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="ftop">
@@ -2046,7 +2107,7 @@ footer {
     <div class="fcol">
       <h4>Follow Us</h4>
       <ul>
-        <li><a href="https://www.instagram.com/akira_ekalavya/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+        <li><a href="https://www.instagram.com/akira_ekalavya/" target="_blank" rel="noopener noreferrer"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="vertical-align:middle;margin-right:0.35rem;"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5A4.25 4.25 0 0 0 20.5 16.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5Zm8.25 2.25a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5Zm-4.25 1.25a5.25 5.25 0 1 1 0 10.5 5.25 5.25 0 0 1 0-10.5Zm0 1.5a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5Z"/></svg>Instagram</a></li>
       </ul>
     </div>
   </div>
@@ -2060,20 +2121,52 @@ footer {
 const EVENTS = [
   { name: "Treasure Hunt",   cat: "Mystery",    badge: "Adventure", date: "Apr 9, 11:30 AM",  mode: "Team (3–4)",  prize: "₹12,000", desc: "Crack clues and decode paths across campus to claim the hidden prize.",                          accent: "#f59e0b" },
   { name: "Literature Event",cat: "Literature",  badge: "Writing",   date: "Apr 9, 11:30 AM",  mode: "Individual",  prize: "₹6,500",  desc: "Storytelling and creative writing contest for original literary works.",                         accent: "#a855f7" },
-  { name: "Quiz",            cat: "Quiz",        badge: "Knowledge", date: "Apr 10, 9 AM",   mode: "Team (2)",    prize: "₹8,000",  desc: "Intense trivia across science, tech, and culture — fast answers win.",                           accent: "#db2777" },
-  { name: "Shark Tank",      cat: "Business",    badge: "Pitch",     date: "Apr 10, 2 PM", mode: "Team (2–3)",  prize: "₹15,000", desc: "Pitch your startup idea to judges and secure mentorship support.",                               accent: "#16a34a" },
+  { name: "Nexus",            cat: "Quiz",        badge: "Knowledge", date: "Apr 10, 9 AM",   mode: "Team (2)",    prize: "₹8,000",  desc: "Intense trivia across science, tech, and culture — fast answers win.",                           accent: "#db2777" },
+  { name: "Bizarre Bazaar",   cat: "Shark Tank",    badge: "Pitch",     date: "Apr 10, 2 PM", mode: "Team (2–3)",  prize: "₹15,000", desc: "Pitch your startup idea to judges and secure mentorship support.",                               accent: "#16a34a" },
   { name: "Mystery Case",    cat: "Mystery",     badge: "Detective", date: "Apr 10, 11 AM",  mode: "Team (3)",    prize: "₹7,000",  desc: "Solve a staged tech mystery by analysing evidence and clues.",                                   accent: "#0ea5e9" },
   { name: "Tech Survivor",   cat: "Technical",   badge: "Challenge", date: "Apr 10, 2 PM",  mode: "Individual",  prize: "₹9,000",  desc: "Endurance coding and hardware tasks that test your problem-solving stamina.",                    accent: "#16a34a" },
-  { name: "Fun Tech",        cat: "Fun",         badge: "Casual",    date: "Apr 9, 2 PM", mode: "Team (2–4)",  prize: "₹5,500",  desc: "Creative tech puzzles, rapid challenges, and team games for all skill levels.",                  accent: "#fb923c" },
-   { name: "IPL",        cat: "IPL",         badge: "Cricket",    date: "Apr 9, 2 PM", mode: "Team (2–4)",  prize: "₹5,500",  desc: "Test your cricket knowledge and strategy in this exciting tournament.",                  accent: "#db2777" },
-  { name: "Min it to win it",   cat: "Faculty",     badge: "Special",   date: "Apr 10, 2 PM",  mode: "Faculty Only",prize: "Honour",  desc: "Faculty-led showcase of innovation, mentorship and entertainment.",                              accent: "#f43f5e" },
-   { name: "Literature Event(Faculty Event)t",   cat: "Faculty",     badge: "Special",   date: "Apr 9, 2 PM",  mode: "Faculty Only",prize: "Honour",  desc: "A special literature event for faculty members.",                              accent: "#f43f5e" },
+  { name: "Techathlon",        cat: "Fun Tech",         badge: "Casual",    date: "Apr 9, 2 PM", mode: "Individual",  prize: "₹5,500",  desc: "Creative tech puzzles, rapid challenges, and team games for all skill levels.",                  accent: "#fb923c" },
+   { name: "Bid Wars",        cat: "IPL",         badge: "Cricket",    date: "Apr 9, 2 PM", mode: "Team (2–4)",  prize: "₹5,500",  desc: "Test your cricket knowledge and strategy in this exciting tournament.",                  accent: "#db2777" },
 ];
 
 let activeCat = "All";
 const evtGrid    = document.getElementById("evt-grid");
 const evtFilters = document.getElementById("evt-filters");
 const cats = ["All", ...new Set(EVENTS.map(e => e.cat))];
+
+const RULEBOOKS = {
+  "Treasure Hunt": "<p>Rules & Regulations 🎯</p><ol><li>Squad goals = 4 only. No adding “genius friends” mid-game.</li><li>Stay glued together. This isn’t a breakup story—no splitting allowed.</li><li>One clue at a time. No jumping ahead like you’ve already watched the ending.</li><li>Expect a mix of culture + tech twists—your brain is your only weapon here.</li><li>No phones, no Google, no lifelines. If it’s not in your head, it’s not in play.</li><li>Some tasks will make you perform, act, or interact—don’t be shy, go all in.</li><li>Need help? You can take a hint… but it’ll cost you time ⏳ Choose wisely.</li><li>Play fair or go home. No tampering, no cheating, no drama.</li><li>Fastest team wins. Tie? Get ready for a final showdown 🔥</li></ol>",
+  "Literature Event": "<p>Welcome to the Literature Event RuleBook. This contest emphasizes original creative writing and storytelling.</p><ul><li>Submit original work within the allotted time.</li><li>Work may be prose, poetry, or a short dramatic piece.</li><li>Judging is based on creativity, structure, and emotional impact.</li><li>All entries must be free from plagiarism.</li><li>Teams compete individually and may not consult external sources.</li></ul>",
+  "Quiz": "<p>Welcome to the Quiz RuleBook. Fast thinking and teamwork will be rewarded.</p><ul><li>Teams of 2 answer questions across tech, culture, and current affairs.</li><li>No external devices or references are allowed.</li><li>Each correct answer earns points; incorrect answers may deduct points.</li><li>Ties are broken by buzzer speed.</li><li>The highest total score wins.</li></ul>",
+  "Nexus": "<p>Rules:</p><ol><li>Each team can have 2–3 participants.</li><li>The quiz will consist of 3 rounds:<br>Round 1: Descriptive MCQs – Participants will answer descriptive questions with options, with 60 seconds allotted per question.<br>Round 2: Thematic Sub-Rounds – This round will include multiple sub-rounds, each focusing on a specific theme (e.g., Culture, Technology, Traditions, Innovation, etc.).<br>Round 3: Rapid Fire – Each team will be given 10 questions, to be answered within a limited time.</li><li>No use of mobile phones or external help during the quiz.</li><li>Answers must be given within the allotted time for each question.</li><li>In case of a tie, a tie-breaker question will be conducted.</li><li>The quiz master’s decision is final.</li><li>Participants must maintain discipline and fair play throughout the event.</li><li>For the interactive round, participants are expected to actively perform/engage when required.</li></ol><p><strong>Venue:</strong> NB 401</p><p><strong>Requirements:</strong> A4 sheets</p>",
+  "Bizarre Bazaar": "<p>Step into the Bizarre Bazaar—a world where creativity meets chaos and absurdity turns into opportunity. Here, you don’t just sell products… you sell ideas, emotions, and pure madness. If you can make people believe the unbelievable, you belong here.</p><p><strong>Participation</strong><br>This is a team event (2 members per team).<br>Each team will be assigned a unique bizarre product on the spot.<br>Both members must actively participate in all rounds.</p><p>⏱️ <strong>Event Structure & Flow</strong><br>Total Rounds: 3<br>All the rounds will be elimination rounds.<br>Preparation time will be provided before Round 1.<br>All rounds will be conducted on stage.</p><h3>ROUND 1: “Sell the Product”</h3><p><strong>Objective:</strong> Creativity & Persuasion<br><strong>Preparation Time:</strong> 3 minutes<br><strong>Performance Time:</strong> 1.5–2 minutes per team</p><p><strong>Rules:</strong></p><ul><li>Teams must present a sales pitch for their assigned product.</li><li>Both members should contribute to the presentation.</li><li>Use of props is optional (if allowed by organizers).</li></ul><p><strong>Judging Criteria:</strong></p><ul><li>Creativity (10)</li><li>Confidence (10)</li><li>Team Coordination (10)</li><li>Persuasiveness (10)</li></ul><p><strong>Total:</strong> 40 marks</p><h3>ROUND 2: “Emotion Overload”</h3><p><strong>Objective:</strong> Adaptability & Expression<br><strong>Performance Time:</strong> 2 minutes per team</p><p><strong>Rules:</strong></p><ul><li>Teams must continue selling their product.</li><li>During the pitch, random emotions will be assigned at intervals.</li><li>Participants must instantly adapt and continue in that emotion.</li></ul><p><strong>Judging Criteria:</strong></p><ul><li>Spontaneity (10)</li><li>Expression & Acting (10)</li><li>Coordination (10)</li><li>Entertainment Value (10)</li></ul><p><strong>Total:</strong> 40 marks</p><h3>ROUND 3: “Love vs Hate”</h3><p><strong>Objective:</strong> Perspective & Quick Thinking<br><strong>Performance Time:</strong> 2 minutes per team</p><p><strong>Rules:</strong></p><ul><li>One member starts by explaining why they love the product.</li><li>The other explains why they hate it.</li><li>Teams will be instructed to switch roles randomly during the round.</li><li>Repetition of points is strictly prohibited.</li><li>Points must be clear, relevant, and creative.</li></ul><p><strong>Judging Criteria:</strong></p><ul><li>Creativity in Arguments (10)</li><li>Presence of Mind (10)</li><li>Team Coordination (10)</li><li>Clarity & Impact (10)</li></ul><p><strong>Total:</strong> 40 marks</p><h3>General Rules</h3><ul><li>Time limits are strict; exceeding time may lead to deductions.</li><li>No use of offensive, inappropriate, or disrespectful content.</li><li>No external help (phones, internet, etc.) during rounds.</li><li>Teams must maintain fair play and sportsmanship.</li><li>Judges’ decisions are final and binding.</li></ul><h3>Disqualification Criteria</h3><ul><li>Use of offensive language/content</li><li>Failure of one member to participate</li><li>Repetition of points in Round 3</li><li>Not adhering to rules or time limits</li></ul><h3>Winning Criteria</h3><p>Total marks across all 3 rounds: 120 marks<br>The team with the highest score will be declared “Masters of the Bizarre Bazaar.”</p>",
+  "Mystery Case": "<p>Welcome to the Mystery Case RuleBook. Solve the case using logic, evidence, and teamwork.</p><ul><li>Teams of 3 analyze clues and evidence to reach a conclusion.</li><li>Document your reasoning and answer all questions completely.</li><li>Working together is required, but silence is maintained during key stages.</li><li>Accuracy and insight are valued more than speed.</li><li>Final scores combine correctness, reasoning, and presentation.</li></ul>",
+  "Tech Survivor": "<p>Welcome to the Tech Survivor RuleBook. This individual challenge tests practical tech skills.</p><ul><li>Participants complete a series of coding and hardware tasks.</li><li>Each task must be finished correctly before moving to the next.</li><li>Use only the provided equipment and software.</li><li>Partial solutions may receive partial credit.</li><li>Highest correct task count wins; speed is a secondary factor.</li></ul>",
+  "Techathlon": "<p><strong>TECHATHLON: THE DIGITAL SPEED ARENA</strong></p><p>Step into the Digital Speed Arena—where reflexes meet precision and speed defines the champion. This is not just about typing fast; it’s about reacting quicker, aiming sharper, and performing under pressure. If your fingers are fast and your focus is sharper than your Wi-Fi signal, this is your battlefield. ⚡⌨️</p><h3>Participation</h3><ul><li>This is an individual event.</li><li>Participants must be familiar with basic computer operations.</li><li>Each participant will compete in all rounds until elimination.</li></ul><h3>⏱️ Event Structure & Flow</h3><ul><li>Total Rounds: 3</li><li>All rounds will be elimination rounds.</li><li>Participants must report 15 minutes before the event.</li><li>All rounds will be conducted using computers provided by the organizers.</li></ul><h3>ROUND 1: “Lightning Reflex”</h3><p><strong>Objective:</strong> Reaction Speed & Focus<br>Attempts: 3 per participant<br>Time: ~30 seconds per participant</p><p><strong>Rules:</strong></p><ul><li>Participants must click the mouse as soon as the signal appears on screen.</li><li>Each participant will get three attempts.</li><li>The best reaction time will be recorded.</li><li>Top performers will advance to the next round.</li></ul><p><strong>Judging Criteria:</strong></p><ul><li>Reaction Speed (10)</li><li>Accuracy (10)</li><li>Consistency (10)</li><li>Focus Under Pressure (10)</li></ul><p><strong>Total:</strong> 40 marks</p><h3>ROUND 2: “Precision Strike”</h3><p><strong>Objective:</strong> Mouse Accuracy & Control<br>Time: 30–45 seconds per participant</p><p><strong>Rules:</strong></p><ul><li>Participants must click on targets appearing randomly on the screen.</li><li>Score will be based on number of successful hits and accuracy.</li><li>Participants with the highest scores will advance to the final round.</li></ul><p><strong>Judging Criteria:</strong></p><ul><li>Accuracy (10)</li><li>Speed (10)</li><li>Control (10)</li><li>Performance Consistency (10)</li></ul><p><strong>Total:</strong> 40 marks</p><h3>ROUND 3: “The Final Sprint”</h3><p><strong>Objective:</strong> Typing Speed & Accuracy<br>Time: 1 minute per participant</p><p><strong>Rules:</strong></p><ul><li>Participants must type the given paragraph within the time limit.</li><li>Both speed and accuracy will be considered.</li><li>Errors will reduce the final score.</li><li>The participant with the highest score will be declared the winner.</li></ul><p><strong>Judging Criteria:</strong></p><ul><li>Typing Speed (10)</li><li>Accuracy (10)</li><li>Time Management (10)</li><li>Performance Under Pressure (10)</li></ul><p><strong>Total:</strong> 40 marks</p><h3>General Rules</h3><ul><li>Time limits are strict; exceeding time may lead to deductions.</li><li>Participants must use only the assigned system.</li><li>No use of mobile phones, internet, or external assistance during the event.</li><li>Participants must maintain discipline and fair play.</li><li>Judges’ decisions are final and binding.</li></ul><h3>Disqualification Criteria</h3><ul><li>Use of unauthorized devices or external help</li><li>Failure to follow instructions from organizers</li><li>Misconduct or disruptive behavior</li><li>Attempting to manipulate results or systems</li></ul><h3>Winning Criteria</h3><p>Total marks across all 3 rounds: 120 marks<br>The participant with the highest cumulative score will be declared “Champion of the Digital Speed Arena.”</p>",
+  "Bid Wars": "<p>Welcome to Bid Wars! Get ready for a thrilling mix of cricket knowledge and smart bidding, where only the sharpest minds and best strategies will win.</p><p><strong>Timings:</strong> 2:00 pm 9th April</p><p>Here are the rules:</p><h3>Round 1: The Quiz</h3><p>The first round is a 20-question quiz on IPL and cricket. The top 10 teams will qualify for the auction stage.</p><h3>Round 2: The Auction</h3><p><strong>Franchise Allocation</strong><br>The quiz topper gets to choose their IPL franchise. The remaining 9 franchises will be randomly assigned to the other teams. Each team will represent one IPL franchise.</p><p><strong>Team Building Rules</strong></p><ul><li>Each franchise must build a squad of 11 players with these conditions:</li><li>Minimum 4 Batsmen</li><li>Minimum 4 Bowlers</li><li>Minimum 2 All-Rounders</li><li>Minimum 1 Wicketkeeper</li><li>Maximum 5 Overseas Players</li></ul><p><strong>Auction Rules</strong></p><ul><li>Each franchise has a purse of ₹100 crore.</li><li>A player list with base prices and points will be given to each team before the auction.</li><li>Players will be shown one by one on a PPT slide, displaying: Player Name, Base Price, Role.</li><li>Bidding takes place live for each player.</li><li>Teams must balance squad requirements with their purse to complete their XI.</li></ul><p><strong>Winner Declaration</strong></p><p>Once squads are finalized, teams will be ranked by the total points of their players. The franchise with the highest total points will be crowned the Bid Wars Champion!</p><p><strong>Venue:</strong> 401</p>"
+};
+
+function openRulebook(eventName) {
+  const modal = document.getElementById("rulebook-modal");
+  const title = document.getElementById("rulebook-title");
+  const content = document.querySelector(".rulebook-content");
+  title.textContent = `${eventName} RuleBook`;
+  content.innerHTML = RULEBOOKS[eventName] || "<p>Rules are being prepared for this event.</p>";
+  modal.classList.add("open");
+  modal.setAttribute("aria-hidden", "false");
+}
+
+function closeRulebook() {
+  const modal = document.getElementById("rulebook-modal");
+  modal.classList.remove("open");
+  modal.setAttribute("aria-hidden", "true");
+}
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeRulebook();
+  }
+});
 
 cats.forEach(c => {
   const b = document.createElement("button");
@@ -2096,14 +2189,33 @@ function renderEvts() {
   filtered.forEach(e => {
     const d = document.createElement("div");
     d.className = "ecard reveal";
-    const registerHtml = e.cat === "Faculty" ? "" :
-      `<div class="eprize"><a href="register.html?event=${encodeURIComponent(e.name)}" class="ereg-btn">Register →</a></div>`;
+    const isFaculty = e.cat === "Faculty";
+    const actionContainer = document.createElement("div");
+    actionContainer.className = "eprize";
+
     d.innerHTML =
       `<span class="ebadge" style="background:rgba(255,255,255,0.1);color:${e.accent}">${e.cat}</span>` +
       `<h3 class="ename">${e.name}</h3>` +
       `<p class="edesc">${e.desc}</p>` +
-      `<div class="emeta"><span>📅 ${e.date}</span><span>👥 ${e.mode}</span></div>` +
-      registerHtml;
+      `<div class="emeta"><span>📅 ${e.date}</span><span>👥 ${e.mode}</span></div>`;
+
+    if (!isFaculty) {
+      const rulebookBtn = document.createElement("button");
+      rulebookBtn.type = "button";
+      rulebookBtn.className = "rulebook-btn";
+      rulebookBtn.textContent = "RuleBook";
+      rulebookBtn.addEventListener("click", () => openRulebook(e.name));
+
+      const registerLink = document.createElement("a");
+      registerLink.href = `register.html?event=${encodeURIComponent(e.name)}`;
+      registerLink.className = "ereg-btn";
+      registerLink.textContent = "Register";
+
+      actionContainer.appendChild(rulebookBtn);
+      actionContainer.appendChild(registerLink);
+      d.appendChild(actionContainer);
+    }
+
     evtGrid.appendChild(d);
   });
   document.querySelectorAll(".ecard.reveal").forEach(el => revealObserver.observe(el));
