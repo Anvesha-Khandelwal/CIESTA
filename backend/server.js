@@ -11,20 +11,16 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../frontend')));
 
-// ── PostgreSQL Connection — LIMITED POOL (fixes memory crash) ───
+// ── PostgreSQL Connection ───────────────────────────────────────
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false },
-    max: 2,              // FREE TIER FIX: only 2 connections max
-    idleTimeoutMillis: 10000,
-    connectionTimeoutMillis: 5000,
+    ssl: { rejectUnauthorized: false }
 });
 
 // ── Create table if not exists ──────────────────────────────────
 async function initDB() {
-    const client = await pool.connect();
     try {
-        await client.query(`
+        await pool.query(`
             CREATE TABLE IF NOT EXISTS participants (
                 id      SERIAL PRIMARY KEY,
                 name    TEXT NOT NULL,
@@ -38,7 +34,8 @@ async function initDB() {
                 phone   TEXT
             )
         `);
-        await client.query(`
+        // Auto-rename college → branch if old DB still has it
+        await pool.query(`
             DO $$
             BEGIN
                 IF EXISTS (
@@ -49,14 +46,13 @@ async function initDB() {
                 END IF;
             END $$;
         `);
-        await client.query(
-            `ALTER TABLE participants ALTER COLUMN time DROP NOT NULL;`
-        ).catch(() => {});
+        // Make time column nullable in case it exists as NOT NULL
+        await pool.query(`
+            ALTER TABLE participants ALTER COLUMN time DROP NOT NULL;
+        `).catch(() => {}); // ignore if already nullable
         console.log('✅ Database ready.');
     } catch (err) {
         console.error('❌ DB init error:', err.message);
-    } finally {
-        client.release(); // always release
     }
 }
 initDB();
@@ -83,9 +79,8 @@ app.get('/admin', async (req, res) => {
         `);
     }
 
-    const client = await pool.connect();
     try {
-        const { rows } = await client.query('SELECT * FROM participants ORDER BY id DESC');
+        const { rows } = await pool.query('SELECT * FROM participants ORDER BY id DESC');
 
         const tableRows = rows.map(r => `
             <tr>
@@ -99,14 +94,6 @@ app.get('/admin', async (req, res) => {
                 <td>${r.email || '—'}</td>
                 <td>${r.phone || '—'}</td>
                 <td>${r.time || '—'}</td>
-                <td>
-                  <a href="/admin/delete?pass=${ADMIN_PASS}&id=${r.id}"
-                     onclick="return confirm('Delete ${r.name}?')"
-                     style="color:#f87171;font-size:12px;text-decoration:none;
-                            padding:3px 10px;border:1px solid #f87171;border-radius:4px">
-                     Delete
-                  </a>
-                </td>
             </tr>
         `).join('');
 
@@ -120,14 +107,11 @@ app.get('/admin', async (req, res) => {
                 body{background:#0a0a0f;color:#e2e8f0;font-family:'Segoe UI',sans-serif;padding:2rem}
                 h1{font-size:1.5rem;margin-bottom:0.5rem;color:#a78bfa}
                 .meta{color:#64748b;font-size:0.85rem;margin-bottom:1.5rem}
-                .btn{display:inline-block;padding:0.6rem 1.2rem;background:#7c3aed;color:#fff;
-                     border-radius:8px;text-decoration:none;font-size:0.85rem;margin-bottom:1.5rem;margin-right:8px}
-                .btn-red{background:#dc2626}
-                .btn:hover{opacity:0.85}
+                .btn{display:inline-block;padding:0.6rem 1.2rem;background:#7c3aed;color:#fff;border-radius:8px;text-decoration:none;font-size:0.85rem;margin-bottom:1.5rem}
+                .btn:hover{background:#6d28d9}
                 .table-wrap{overflow-x:auto}
-                table{width:100%;border-collapse:collapse;font-size:0.82rem;min-width:900px}
-                th{background:#1e1e2e;padding:0.75rem 1rem;text-align:left;color:#94a3b8;
-                   font-size:0.7rem;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #1e1e2e}
+                table{width:100%;border-collapse:collapse;font-size:0.82rem;min-width:800px}
+                th{background:#1e1e2e;padding:0.75rem 1rem;text-align:left;color:#94a3b8;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #1e1e2e}
                 td{padding:0.75rem 1rem;border-bottom:1px solid #1a1a2a;color:#e2e8f0}
                 tr:hover td{background:#111120}
                 .empty{text-align:center;padding:3rem;color:#64748b}
@@ -137,22 +121,17 @@ app.get('/admin', async (req, res) => {
                 <h1>CIESTA 4.0 — Registrations</h1>
                 <p class="meta">Total: <strong style="color:#a78bfa">${rows.length}</strong> registrations</p>
                 <a class="btn" href="/admin/csv?pass=${ADMIN_PASS}">⬇ Download CSV</a>
-                <a class="btn btn-red"
-                   href="/admin/delete-spam?pass=${ADMIN_PASS}&time=15%3A08"
-                   onclick="return confirm('Delete ALL entries registered around 15:08? This cannot be undone.')">
-                   🗑 Delete Spam (15:08)
-                </a>
                 <div class="table-wrap">
                 <table>
                     <thead>
                         <tr>
                             <th>#</th><th>Name</th><th>USN</th><th>Branch</th>
                             <th>Event</th><th>Year</th><th>Team</th>
-                            <th>Email</th><th>Phone</th><th>Time</th><th>Action</th>
+                            <th>Email</th><th>Phone</th><th>Time</th>
                         </tr>
                     </thead>
                     <tbody>
-                        ${tableRows || '<tr><td colspan="11" class="empty">No registrations yet</td></tr>'}
+                        ${tableRows || '<tr><td colspan="10" class="empty">No registrations yet</td></tr>'}
                     </tbody>
                 </table>
                 </div>
@@ -161,88 +140,17 @@ app.get('/admin', async (req, res) => {
         `);
     } catch (err) {
         res.status(500).send('Database error: ' + err.message);
-    } finally {
-        client.release();
-    }
-});
-
-// ── DELETE single entry by ID ───────────────────────────────────
-app.get('/admin/delete', async (req, res) => {
-    if (req.query.pass !== ADMIN_PASS) return res.status(401).send('Unauthorized');
-    const { id } = req.query;
-    if (!id) return res.status(400).send('Missing id');
-    const client = await pool.connect();
-    try {
-        await client.query('DELETE FROM participants WHERE id = $1', [id]);
-        res.redirect('/admin?pass=' + ADMIN_PASS);
-    } catch (err) {
-        res.status(500).send('Error: ' + err.message);
-    } finally {
-        client.release();
-    }
-});
-
-// ── DELETE spam entries by time pattern ────────────────────────
-app.get('/admin/delete-spam', async (req, res) => {
-    if (req.query.pass !== ADMIN_PASS) return res.status(401).send('Unauthorized');
-    const timePattern = req.query.time || '15:08'; // e.g. "15:08"
-    const client = await pool.connect();
-    try {
-        // Preview first
-        const preview = await client.query(
-            `SELECT id, name, usn, event, time FROM participants WHERE time LIKE $1`,
-            [`%${timePattern}%`]
-        );
-        if (req.query.confirm !== 'yes') {
-            // Show preview page
-            const rows = preview.rows;
-            const previewRows = rows.map(r =>
-                `<tr><td>${r.id}</td><td>${r.name}</td><td>${r.usn}</td><td>${r.event}</td><td>${r.time}</td></tr>`
-            ).join('');
-            return res.send(`
-                <html><head><style>
-                body{background:#0a0a0f;color:#e2e8f0;font-family:sans-serif;padding:2rem}
-                table{border-collapse:collapse;width:100%}
-                th,td{padding:10px;border:1px solid #333;font-size:13px}
-                th{background:#1e1e2e;color:#f87171}
-                .btn{padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:700;display:inline-block;margin-top:1.5rem;margin-right:10px}
-                .del{background:#dc2626;color:#fff}
-                .cancel{background:#374151;color:#fff}
-                </style></head><body>
-                <h2 style="color:#f87171;margin-bottom:1rem">⚠ Preview: ${rows.length} entries matching "${timePattern}"</h2>
-                <table><thead><tr><th>ID</th><th>Name</th><th>USN</th><th>Event</th><th>Time</th></tr></thead>
-                <tbody>${previewRows || '<tr><td colspan="5" style="text-align:center">No matching entries found</td></tr>'}</tbody></table>
-                <a class="btn del" href="/admin/delete-spam?pass=${ADMIN_PASS}&time=${encodeURIComponent(timePattern)}&confirm=yes">
-                  🗑 Yes, Delete All ${rows.length} Entries
-                </a>
-                <a class="btn cancel" href="/admin?pass=${ADMIN_PASS}">Cancel</a>
-                </body></html>
-            `);
-        }
-        // Actually delete
-        const result = await client.query(
-            `DELETE FROM participants WHERE time LIKE $1`,
-            [`%${timePattern}%`]
-        );
-        res.send(`
-            <html><body style="background:#0a0a0f;color:#e2e8f0;font-family:sans-serif;padding:2rem;text-align:center">
-            <h2 style="color:#4ade80;margin-bottom:1rem">✅ Deleted ${result.rowCount} spam entries</h2>
-            <a href="/admin?pass=${ADMIN_PASS}" style="color:#a78bfa">← Back to Admin</a>
-            </body></html>
-        `);
-    } catch (err) {
-        res.status(500).send('Error: ' + err.message);
-    } finally {
-        client.release();
     }
 });
 
 // ── CSV Download ────────────────────────────────────────────────
 app.get('/admin/csv', async (req, res) => {
-    if (req.query.pass !== ADMIN_PASS) return res.status(401).send('Unauthorized');
-    const client = await pool.connect();
+    if (req.query.pass !== ADMIN_PASS) {
+        return res.status(401).send('Unauthorized');
+    }
+
     try {
-        const { rows } = await client.query('SELECT * FROM participants ORDER BY id ASC');
+        const { rows } = await pool.query('SELECT * FROM participants ORDER BY id ASC');
         const escape = v => '"' + String(v || '').replace(/"/g, '""') + '"';
         const header = 'ID,Name,USN,Branch,Event,Year,Team,Email,Phone,Time\n';
         const csv = rows.map(r =>
@@ -250,57 +158,57 @@ app.get('/admin/csv', async (req, res) => {
              r.team || '', r.email || '', r.phone || '', r.time || '']
             .map(escape).join(',')
         ).join('\n');
+
         res.setHeader('Content-Type', 'text/csv');
         res.setHeader('Content-Disposition', 'attachment; filename="ciesta-registrations.csv"');
         res.send(header + csv);
     } catch (err) {
         res.status(500).send('Error: ' + err.message);
-    } finally {
-        client.release();
     }
 });
 
 // ── API: GET all participants ────────────────────────────────────
 app.get('/api/participants', async (req, res) => {
-    const client = await pool.connect();
     try {
-        const { rows } = await client.query('SELECT * FROM participants ORDER BY id ASC');
+        const { rows } = await pool.query('SELECT * FROM participants ORDER BY id ASC');
         res.json(rows);
     } catch (err) {
         res.status(500).json({ error: err.message });
-    } finally {
-        client.release();
     }
 });
 
 // ── API: POST register ──────────────────────────────────────────
 app.post('/api/register', async (req, res) => {
     const { name, usn, branch, event, team, year, email, phone } = req.body;
+
+    // Generate time server-side so it's always reliable
     const time = req.body.time || new Date().toLocaleString('en-IN');
 
+    // Only check truly required fields — time is now server-generated
     if (!name || !usn || !branch || !event || !year) {
         return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    const client = await pool.connect();
     try {
-        const result = await client.query(
+        const result = await pool.query(
             `INSERT INTO participants (name, usn, branch, event, team, year, time, email, phone)
-             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id`,
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+             RETURNING id`,
             [name, usn, branch, event, team || null, year, time, email || null, phone || null]
         );
+
         console.log(`✅ Registered: ${name} | ${event}`);
+
         res.status(201).json({
             id: result.rows[0].id,
             name, usn, branch, event,
             team: team || null, year, time,
-            email: email || null, phone: phone || null
+            email: email || null,
+            phone: phone || null
         });
     } catch (err) {
         console.error('DB error:', err.message);
         res.status(500).json({ error: err.message });
-    } finally {
-        client.release();
     }
 });
 
