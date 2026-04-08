@@ -154,7 +154,7 @@ async function handleReg() {
 
   try {
     // PRIMARY: Formspree — always works, no server needed
-    const res = await fetch('https://formspree.io/f/mvzvydbz', {
+    const res = await fetch('https://formspree.io/f/maqlkavd', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({ name, usn, branch, email, phone, year, event, team: team || '—', time })
