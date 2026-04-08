@@ -200,11 +200,18 @@ async function handleReg() {
       btn.disabled = false;
     }
   } catch (err) {
-    showErr(ferr, 'Cannot connect to server. Please check your internet connection and try again.');
-    btn.textContent = 'Submit Registration';
-    btn.disabled = false;
+    // Server down — silently fall back to Google Forms
+    submitToGoogleForm({ name, usn, phone, email, year, branch, event });
+    btn.textContent = '✓ Registered!';
+    fok.textContent = 'Registration successful. See you at CIESTA 4.0.';
+    fok.style.display = 'block';
+    ['f-fname','f-lname','f-usn','f-branch','f-email','f-phone','f-team'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('f-year').value  = '';
+    document.getElementById('f-event').value = '';
+    setTimeout(() => { window.location.href = 'index.html#events'; }, 3000);
   }
-}
 
 function showErr(el, msg) {
   el.textContent = msg;
