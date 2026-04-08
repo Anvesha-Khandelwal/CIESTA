@@ -18,7 +18,6 @@
 }
 body{font-family:var(--ff-body);background:linear-gradient(135deg,#f7e7d9 0%,#fdf6ee 40%,#fffdf8 100%);color:var(--text);font-size:15px;line-height:1.7;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
 .bg-pattern{position:fixed;inset:0;z-index:0;pointer-events:none;background-color:var(--bg);}
-
 .back-btn:hover{color:var(--text)}
 .reg-container{max-width:800px;margin:3rem auto;padding:0 2rem;width:100%;position:relative;z-index:1;flex:1}
 .reg-header{text-align:center;margin-bottom:2.5rem}
@@ -92,17 +91,16 @@ body{font-family:var(--ff-body);background:linear-gradient(135deg,#f7e7d9 0%,#fd
         <option value="Treasure Hunt">Treasure Hunt</option>
         <option value="Literature Event">Literature Event</option>
         <option value="Nexus">Quiz</option>
-         <option value="Bid Wars">IPL</option>
+        <option value="Bid Wars">IPL</option>
         <option value="Bizarre Bazaar">Shark Tank</option>
         <option value="Mystery Case">Mystery Case</option>
         <option value="Tech Survivor">Tech Survivor</option>
         <option value="Fun Tech">Fun Tech</option>
-        <!-- <option value="Faculty Event">Faculty Event</option> -->
       </select>
     </div>
     <div class="frow"><label>Team Name & No. of members (optional)</label><input type="text" id="f-team" placeholder="Leave blank for individual events"></div>
     <button class="sbtn" id="sbtn" onclick="handleReg()">Submit Registration</button>
-    <div class="fok" id="fok">Registration successful. See you at CIESTA 4.0.</div>
+    <div class="fok" id="fok">✅ Registration successful! See you at CIESTA 4.0 🎉</div>
     <div class="ferr" id="ferr"></div>
   </div>
 </div>
@@ -112,25 +110,7 @@ body{font-family:var(--ff-body);background:linear-gradient(135deg,#f7e7d9 0%,#fd
 </footer>
 
 <script>
-const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSfBH97kmrJIVusgfG5O-Iqn4BWPYdQX_ieJS2MjxhzrLbgwzQ/formResponse';
-
-function submitToGoogleForm(data) {
-  const params = new URLSearchParams({
-    'entry.1500043536': data.name,
-    'entry.539108964':  data.usn,
-    'entry.1253579200': data.phone,
-    'entry.1492704265': data.email,
-    'entry.405025960':  data.year,
-    'entry.777698760':  data.branch,
-    'entry.1983967981': data.event
-  });
-  fetch(FORM_ACTION, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: params.toString()
-  }).catch(() => {});
-}
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwxd0Luz0L-vjY8GWBhvqICVXSlnf0lrHStbILWrUWx5nEWXvqBj6BXL46a3OxyqVrD/exec';
 
 window.onload = function() {
   const ev = new URLSearchParams(window.location.search).get('event');
@@ -159,59 +139,47 @@ async function handleReg() {
   ferr.style.display = 'none';
   fok.style.display  = 'none';
 
-  // Client-side validation with specific messages
-  if (!fname)  { showErr(ferr, 'Please enter your First Name.'); return; }
-  if (!lname)  { showErr(ferr, 'Please enter your Last Name.'); return; }
-  if (!usn)    { showErr(ferr, 'Please enter your USN / Roll Number.'); return; }
-  if (!branch) { showErr(ferr, 'Please enter your Branch.'); return; }
-  if (!email)  { showErr(ferr, 'Please enter your Email Address.'); return; }
-  if (!phone)  { showErr(ferr, 'Please enter your Phone Number.'); return; }
-  if (!year)   { showErr(ferr, 'Please select your Year of Study.'); return; }
-  if (!event)  { showErr(ferr, 'Please select an Event.'); return; }
+  if (!fname)  { showErr(ferr,'Please enter your First Name.'); return; }
+  if (!lname)  { showErr(ferr,'Please enter your Last Name.'); return; }
+  if (!usn)    { showErr(ferr,'Please enter your USN / Roll Number.'); return; }
+  if (!branch) { showErr(ferr,'Please enter your Branch.'); return; }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showErr(ferr,'Please enter a valid Email Address.'); return; }
+  if (!phone || phone.length < 10) { showErr(ferr,'Please enter a valid 10-digit Phone Number.'); return; }
+  if (!year)   { showErr(ferr,'Please select your Year of Study.'); return; }
+  if (!event)  { showErr(ferr,'Please select an Event.'); return; }
 
-  btn.textContent = 'Processing...';
+  btn.textContent = 'Submitting...';
   btn.disabled = true;
 
-  // Use a robust time string — server will also generate one as fallback
-  const time = new Date().toLocaleString('en-GB');
   const name = fname + ' ' + lname;
+  const time = new Date().toLocaleString('en-IN', {timeZone:'Asia/Kolkata'});
 
   try {
-    const response = await fetch('https://ciesta.onrender.com/api/register', {
+    await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, usn, branch, email, phone, year, event, team: team || '—', time })
+      mode: 'no-cors',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ name, usn, branch, email, phone, year, event, team: team||'—', time })
     });
 
-    if (response.ok) {
-      submitToGoogleForm({ name, usn, phone, email, year, branch, event });
-      btn.textContent = '✓ Registered!';
-      fok.style.display = 'block';
-      ['f-fname','f-lname','f-usn','f-branch','f-email','f-phone','f-team'].forEach(id => {
-        document.getElementById(id).value = '';
-      });
-      document.getElementById('f-year').value  = '';
-      document.getElementById('f-event').value = '';
-      setTimeout(() => { window.location.href = 'index.html#events'; }, 3000);
-    } else {
-      const err = await response.json();
-      showErr(ferr, err.error || 'Registration failed. Please try again.');
-      btn.textContent = 'Submit Registration';
-      btn.disabled = false;
-    }
-  } catch (err) {
-    // Server down — silently fall back to Google Forms
-    submitToGoogleForm({ name, usn, phone, email, year, branch, event });
     btn.textContent = '✓ Registered!';
-    fok.textContent = 'Registration successful. See you at CIESTA 4.0.';
     fok.style.display = 'block';
-    ['f-fname','f-lname','f-usn','f-branch','f-email','f-phone','f-team'].forEach(id => {
-      document.getElementById(id).value = '';
-    });
-    document.getElementById('f-year').value  = '';
-    document.getElementById('f-event').value = '';
-    setTimeout(() => { window.location.href = 'index.html#events'; }, 3000);
+    clearForm();
+    setTimeout(() => { window.location.href = 'index.html'; }, 3000);
+
+  } catch(err) {
+    showErr(ferr, 'Network error. Please check your internet and try again.');
+    btn.textContent = 'Submit Registration';
+    btn.disabled = false;
   }
+}
+
+function clearForm() {
+  ['f-fname','f-lname','f-usn','f-branch','f-email','f-phone','f-team']
+    .forEach(id => document.getElementById(id).value = '');
+  document.getElementById('f-year').value  = '';
+  document.getElementById('f-event').value = '';
+}
 
 function showErr(el, msg) {
   el.textContent = msg;
